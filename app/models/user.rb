@@ -1,9 +1,22 @@
 class User < ActiveRecord::Base
   validates :fname, :lname, :email, :password_digest, :session_token, presence: true
   validates :email, :session_token, uniqueness: true
-
   validates :password, length: {minimum: 6, allow_nil:true} #needs to allow nil, because we might edit other aspects of the user without passing in another password - also we don't want it to become part of the model
   after_initialize :ensure_session_token
+
+  has_many( #should have been singular...Should have picked a singular name
+  :courses_instructors,
+  class_name: "CoursesInstructors"
+  )
+  has_many(
+  :courses_students,
+  class_name: "CoursesStudents"
+  )
+
+  #this got messed up because I made the model name plural, rails automatically
+
+  has_many :courses, through: :courses_students, source: :course
+  has_many :taughtcourses, through: :courses_instructors, source: :course
 
   attr_reader :password #this needs to be present in order for this to work, otherwise it can't check the password property
 
