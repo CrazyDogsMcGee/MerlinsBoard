@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
   validates :name, presence: true
 
+
   has_many(:courses_students)
   has_many(:courses_instructors)
 
@@ -9,4 +10,5 @@ class Course < ActiveRecord::Base
 
   #NO SNAKE CASE IN RUBY
   #Associations are found through filenames? not necessarily class names?
+
 end

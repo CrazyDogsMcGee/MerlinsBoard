@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def new
-    @user = User.new #these get automatically passed into the view
+    @user = User.new #This doesn't even need to be here tbh, this is only necessary if using something like a partial
   end
 
   def create
