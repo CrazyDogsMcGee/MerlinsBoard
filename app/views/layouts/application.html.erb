@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MerlinsBoard</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<% if current_user.nil? %>
+  <a href="/session/new">Sign in</a>
+  <a href="/users/new">Sign up</a>
+<% end %>
+
+<% if !current_user.nil? %>
+  <ul>
+    <li>Logged in as: <%= current_user.email %></li>
+    <li><%= button_to "Logout", session_url, method: :delete %></li>
+  </ul>
+<% end %>
+
+<ul class="errors">
+<% if flash.now[:errors] %>
+  <% flash.now[:errors].each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+<% end %>
+</ul>
+
+<%= yield %>
+
+</body>
+</html>

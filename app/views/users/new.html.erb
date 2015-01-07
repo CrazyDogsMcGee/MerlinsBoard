@@ -1,0 +1,21 @@
+<h1>Sign up</h1>
+
+<form id="form_id" action="<%= users_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="user-fname">First Name</label>
+  <input type="text" name="user[fname]" value="" id="user-fname">
+<br>
+  <label for="user-lname">Last Name</label>
+  <input type="text" name="user[lname]" value="" id="user-lname">
+<br>
+  <label for="user-email">Email</label>
+  <input type="text" name="user[email]" value="" id="user-email">
+<br>
+  <label for="user-password">Password</label>
+  <input type="password" name="user[password]" value="">
+<br>
+  <input type="submit" value="Sign up">
+</form>
+
+<!-- Namespacing all params is important, otherwise they cannot be captured by the controller. -->
