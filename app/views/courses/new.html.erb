@@ -1,0 +1,28 @@
+<h1>Create a new course</h1>
+
+<form action="<%= courses_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="course-name">Name</label>
+  <input id="course-name" type="text" name="course[name]" value="<%= @course.name %>">
+
+  <label for="course-description">Course Description</label>
+  <input type="text" name="course[description]" value="<%= @course.description %>" id="course-description">
+
+  <label for="course-start_time">Start Time (Provide in 24-hour format)</label>
+  <input type="number" name="course[start_time]" value="">
+
+  <label for="course-end_time">End Time (Provide in 24-hour format)</label>
+  <input type="number" name="course[end_time]" value="">
+
+  <label for="course-day">Day</label>
+  <select id="course-day" name="course[day]">
+    <option value="Monday">Monday</option>
+    <option value="Tuesday">Tuesday</option>
+    <option value="Wednesday">Wednesday</option>
+    <option value="Thursday">Thursday</option>
+    <option value="Friday">Friday</option>
+  </select>
+
+  <input type="submit" value="Create Course">
+</form>

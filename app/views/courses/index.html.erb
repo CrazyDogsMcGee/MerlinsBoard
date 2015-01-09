@@ -1,0 +1,23 @@
+<h1>All Courses</h1>
+
+<ul>
+<% @courses.each do |course| %>
+<li><%= course.name %></li><p><%= course.description %></p>
+
+  <% if !course.students.include?(current_user) %>
+    <%= button_to name="enroll in class", {action: "create", controller: "coursesstudents", params: {enrollment: {user_id: current_user.id, course_id: course.id}}}, method: :post%>
+  <% end %>
+
+  <% if course.students.include?(current_user) %>
+    <form id="form_id" action="<%=coursesstudent_url(course.courses_students.find_by_user_id(current_user.id))%>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" name="enrollment_id" value="Drop Class">
+    </form>
+  <% end %>
+
+<% end %>
+</ul>
+
+<!-- how to preload the coursesstudents association? -->
+<!-- because of button_to, I think method: :delete can be used, if it was a form or regular button, method post would be used instead. Also button_to wasn't working because I wasn't passing in the right url (which has to be the individual url) -->

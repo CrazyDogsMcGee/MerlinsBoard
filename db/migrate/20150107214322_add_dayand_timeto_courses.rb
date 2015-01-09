@@ -1,7 +1,8 @@
 class AddDayandTimetoCourses < ActiveRecord::Migration
   def change
-    rename_column :courses, :time, :start_time
-    add_column :courses, :end_time,
-    add_column :courses, :day, :string 
+    remove_column :courses, :time
+    add_column :courses, :start_time, :integer
+    add_column :courses, :end_time, :integer
+    add_column :courses, :day, :string
   end
 end

@@ -1,18 +1,30 @@
 class CoursesController < ApplicationController
   def index
     #can create new enrollments from this view
-    @courses = Course.all
-    #<td><%= button_to '+', {:controller => "votes", :action => "create", :car_id => car.id, :user_id=> session[:user_id]} , :method=>:post  %></td>
+    @courses = Course.all.includes(:students, :courses_students)
+    # Ok, a includes association needs to be here on the students and perhaps the enrollments as well
   end
 
   def new
+    @course = Course.new()
   end
 
   def create
+
+    @course = Course.new(course_params)
+
+    if @course.save
+      CoursesInstructors.create(user_id: current_user.id, course_id: @course.id) #dangerous, will have to bundle into a transaction later.
+      redirect_to course_url(@course)
+    else
+      render :new
+    end
+
   end
 
   private
 
   def course_params
+    params.require(:course).permit(:name, :start_time, :end_time, :description, :location)
   end
 end

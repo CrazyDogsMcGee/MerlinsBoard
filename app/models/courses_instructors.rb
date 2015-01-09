@@ -9,8 +9,4 @@ class CoursesInstructors < ActiveRecord::Base
 
   belongs_to :course
 
-  def conflicts_with
-    errors.add("Time conflict with another class")
-  end
-
 end

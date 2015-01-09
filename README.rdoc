@@ -1,28 +1,12 @@
-== README
+Current Progress: Getting validations to work on courses, and creating associated links.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Stream of conciousness:
+*Instructors should be able to expel users from the roster
+*Assignments
+*Right now anyone who creates a new course is automatically assigned as the instructor - Need to have way to add new instructors for TAs and such.
 
-Things you may want to cover:
+Issues:
+*Octal digits in specifying 24-hour time? no leading zeroes...
+  *Will probably need model-level validation and conversion.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+8
