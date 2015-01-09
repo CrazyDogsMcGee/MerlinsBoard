@@ -2,9 +2,12 @@
 
 <form id="form_id" action="index.html" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  
-  <input type="text" name="user[email]">
-  <input type="password" name="user[password]">
+
+  <label for="email">Email</label>
+  <input type="text" name="user[email]" id="email">
+  <br>
+  <label for="password">Password</label>
+  <input type="password" name="user[password]" id="password">
 
   <input type="submit" value="Sign in">
 </form>
