@@ -17,7 +17,7 @@ class CoursesController < ApplicationController
       CoursesInstructors.create(user_id: current_user.id, course_id: @course.id) #dangerous, will have to bundle into a transaction later.
       redirect_to course_url(@course)
     else
-      flash[:errors] = @course.errors.full_messages
+      flash.now[:errors] = @course.errors.full_messages
       render :new
     end
 

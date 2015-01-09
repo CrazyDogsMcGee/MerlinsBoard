@@ -16,7 +16,7 @@ class CoursesStudents < ActiveRecord::Base
     self.student.courses.each do |enrolledcourse|
       if enrolledcourse.day == newCourse.day
         if (
-          ((enrolledcourse.end_time < newCourse.start_time) && (enrolledcourse.start_time < newCourse.start_time)) || ((enrolledcourse.end_time > newCourse.end_time) && (enrolledcourse.end_time > newCourse.end_time))
+          ((enrolledcourse.end_time < newCourse.start_time) && (enrolledcourse.start_time < newCourse.start_time)) || ((enrolledcourse.start_time > newCourse.end_time) && (enrolledcourse.end_time > newCourse.end_time))
           )
           next
         else
