@@ -2,8 +2,6 @@
 <html>
 <head>
   <title>MerlinsBoard</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -27,7 +25,7 @@
 <% end %>
 </ul>
 
-<!-- <ul class="nonflasherrors"> 
+<!-- <ul class="nonflasherrors">
 <% if flash[:errors] %>
   <% flash[:errors].each do |error| %>
   <li><%= error %></li>
