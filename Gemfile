@@ -49,6 +49,16 @@ group :development do
   gem 'better_errors'
 end
 
+# To poke selective holes in this security mechanism, you can add a line like this to your startup (for example, on Rails it would be config/environments/development.rb)
+
+# BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
+# Then run Rails like this:
+
+# TRUSTED_IP=172.17.42.1 rails s
+# Note that the allow_ip! is actually backed by a Set, so you can add more than one IP address or subnet.
+
+# Tip: You can find your apparent IP by hitting the old error page's "Show env dump" and looking at "REMOTE_ADDR".
+
 group :production do
   gem 'rails_12factor'
 end

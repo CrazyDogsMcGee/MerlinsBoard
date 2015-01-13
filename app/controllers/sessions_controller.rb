@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+		@user = User.new #case in point, all controllers have access to all models, despite naming
   end
 
   def create
@@ -9,8 +10,9 @@ class SessionsController < ApplicationController
       params[:user][:password]
     )
 
-    if user.nil? # user DNE or wrong password
+    if @user.nil? # user DNE or wrong password
       flash.now[:errors] = ["Credentials were incorrect"]
+			@user = User.new(email: params[:user][:email])
       render :new
     else
       login!(user) #available everywhere because its in AppController

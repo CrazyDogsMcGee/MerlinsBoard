@@ -1,4 +1,6 @@
 class CoursesController < ApplicationController
+	before_action :require_signed_in!
+	
   def index
     #can create new enrollments from this view
     @courses = Course.all.includes(:students, :courses_students)

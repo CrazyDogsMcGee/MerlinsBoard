@@ -13,3 +13,5 @@
  *= require_tree .
  *= require_self
  */
+
+/* Everything here affects all layers of the application */

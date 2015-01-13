@@ -1,5 +1,6 @@
-class CoursesstudentsController < ApplicationController
+class CoursesStudentsController < ApplicationController
   #model name is case sensitive..
+  before_action :require_signed_in!
 
   def create
     @enrollment = CoursesStudents.new(enrollment_params)

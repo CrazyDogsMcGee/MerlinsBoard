@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
-  root to: "sessions#new"
+	root to: "static_pages#root"
 
-  resources :users, only: [:new, :create, :show]
+	resources :users, only: [:new, :create, :show] # could move this over too into a modal...no I should stay true to my vision
+	  resource :session, only: [:new, :create, :destroy]
   resources :coursesinstructors, only: [:create, :destroy]
   resources :coursesstudents, only: [:create, :destroy]
   resources :courses, only: [:create, :index, :destroy, :new, :show]
-  resource :session, only: [:new, :create, :destroy]
-
+    
+  namespace :api, defaults: { format: :json } do #duplicate views into this
+      resources :coursesinstructors, only: [:create, :destroy]
+  		resources :coursesstudents, only: [:create, :destroy]
+  		resources :courses, only: [:create, :index, :destroy, :new, :show]
+  end
+        
 end

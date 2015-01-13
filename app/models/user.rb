@@ -29,8 +29,8 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
-  def self.find_by_credentials(username,password)
-    user = User.find_by_username(username) #find_by_attr is given by active record
+	def self.find_by_credentials(email,password)
+		user = User.find_by_email(email) #find_by_attr is given by active record
     return nil if user.nil? #nil evals to false - user DNE
     user.is_password?(password) ? user : nil
   end
@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
     self.save! #saves token to model
     self.session_token #yields own session token
   end
+    
+  
 
   private
 
