@@ -17,3 +17,26 @@
   <li><%= student.lname + ", " + student.fname %></li>
   <% end %>
 </ul>
+
+<% if (@course.students.include?(current_user))%>
+    <form action="<%=coursesstudent_url(@course.courses_students.find_by_user_id(current_user.id))%>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Drop Class">
+    </form>
+<% else %>
+    <form action="<%=coursesstudents_url%>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+			<input type="hidden" name="enrollment[user_id]" value="<%= current_user.id %>">
+			<input type="hidden" name="enrollment[course_id]" value="<%= @course.id%>">
+      <input type="submit" value="Enroll in Class">
+    </form> 
+<% end %>
+	
+<% if @course.instructors.include?(current_user) %>
+		<form action="<%= course_url(@course.id) %>" method="post">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Cancel Class">
+		</form>
+<% end %>

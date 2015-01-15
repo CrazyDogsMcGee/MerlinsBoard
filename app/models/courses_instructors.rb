@@ -1,5 +1,5 @@
 class CoursesInstructors < ActiveRecord::Base
-  # validate :conflicts_with
+  validate :conflicts_with
 
   belongs_to(
     :instructor,
@@ -10,7 +10,19 @@ class CoursesInstructors < ActiveRecord::Base
   belongs_to :course
 
   def conflicts_with
-    #This is supposed to see if the teacher has any other scheduled classes for the same day and time
+    newCourse = self.course
+
+    self.instructor.courses.each do |taughtcourse|
+      if taughtcourse.day == newCourse.day
+        if (
+          ((taughtcourse.end_time < newCourse.start_time) && (taughtcourse.start_time < newCourse.start_time)) || ((taughtcourse.start_time > newCourse.end_time) && (taughtcourse.end_time > newCourse.end_time))
+          )
+          next
+        else
+          errors.add(:course_id, "Time conflict with another taught class")
+        end
+      end
+    end
   end
 
 end

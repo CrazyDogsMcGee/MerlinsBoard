@@ -1,10 +1,13 @@
 class CoursesStudentsController < ApplicationController
-  #model name is case sensitive..
+	#Incorrect captilization on instantiation ruins everything
+	#Because I'm only going to use the api version, maybe this is forgivable
   before_action :require_signed_in!
 
   def create
     @enrollment = CoursesStudents.new(enrollment_params)
 
+		
+		
     if @enrollment.save
       flash[:errors] = ["Successfully Enrolled!"]
       redirect_to courses_url

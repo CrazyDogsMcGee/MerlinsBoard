@@ -11,3 +11,9 @@
 <main id="content">Content goes here</main>
 
 <script>$(MerlinsBoard.initialize)</script> <!-- alias for run on DOM ready -->
+<script type="text/javascript"> 
+		//apparently optional for HTML5 - otherwise needs to be specified
+    window.currentUser = {
+        id : "<%=current_user.id%>"
+    }
+</script>

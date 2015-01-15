@@ -7,7 +7,7 @@ class CoursesStudents < ActiveRecord::Base
 
   belongs_to :course
 
-  validate :conflicts_with
+  validate :conflicts_with, :not_instructor
   validates :user_id, uniqueness: {scope: :course_id, message: "Can't enroll in the same class twice"}
 
   def conflicts_with
@@ -26,5 +26,15 @@ class CoursesStudents < ActiveRecord::Base
     end
 
   end
+	
+	def not_instructor
+		course = self.course
+		user = User.find(self.student)
+		
+		if course.instructors.include?(user)
+			errors.add(:base, "Instructor cannot be student of class!")
+		end
+		
+	end
 
 end

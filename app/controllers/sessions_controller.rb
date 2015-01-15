@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 			@user = User.new(email: params[:user][:email])
       render :new
     else
-      login!(user) #available everywhere because its in AppController
+      login!(@user) #available everywhere because its in AppController
       redirect_to user_url(@user)
     end
   end

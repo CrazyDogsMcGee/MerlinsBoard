@@ -1,10 +1,7 @@
-class CoursesController < ApplicationController
-	before_action :require_signed_in!
-	
-  def index
-    #can create new enrollments from this view
+class Api::CoursesController < ApiController #does not need the scope resolution operator - already knows to look in own module scope?
+
+	def index
     @courses = Course.all.includes(:students)
-    # Ok, a includes association needs to be here on the students and perhaps the enrollments as well
   end
 
   def new
@@ -19,7 +16,7 @@ class CoursesController < ApplicationController
 			Course.transaction do
 				@course.save
       	CoursesInstructors.create(user_id: current_user.id, course_id: @course.id)
-			end #need exception handling here in case db is broken - http://api.rubyonrails.org/classes/ActiveRecord/Transactions/ClassMethods.html
+			end
 
       redirect_to course_url(@course)
     else
@@ -30,7 +27,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-		@course = Course.find(params[:id]) #its a bit much to try and prefetch for ONE item.
+		@course = Course.find(params[:id])
   end
 	
 	def destroy
@@ -44,4 +41,5 @@ class CoursesController < ApplicationController
   def course_params
     params.require(:course).permit(:name, :start_time, :end_time, :description, :location, :day)
   end
+	
 end

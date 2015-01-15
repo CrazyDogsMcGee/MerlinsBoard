@@ -1,0 +1,3 @@
+class Api::UsersController < ApplicationController
+	#this is because I will need access to the current user in the backbone views...
+end
