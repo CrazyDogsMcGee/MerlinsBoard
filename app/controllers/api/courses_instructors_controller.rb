@@ -1,2 +1,2 @@
-class Api::CoursesInstructorsController < ApiController
+class Api::CoursesInstructorsController < Api::ApiController
 end

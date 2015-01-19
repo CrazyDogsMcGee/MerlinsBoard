@@ -1,0 +1,24 @@
+From application.html:
+
+<% if !current_user.nil? %> <!-- will need to be ported to top navbar as just a persisting option -->
+  <ul>
+    <li>Logged in as: <%= current_user.email %></li>
+    <li><%= button_to "Logout", session_url, method: :delete %></li>
+  </ul>
+<% end %>
+
+<ul class="errors"> <!-- all errors will need to be redirected to render to the top of the content (prepended or put in a separate error div) -->
+<% if flash.now[:errors] %>
+  <% flash.now[:errors].each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+<% end %>
+</ul>
+
+<!-- <ul class="nonflasherrors" All of these errors and the like will need to be ported to the content space-->
+<!-- <% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+  <li><%= error %></li>
+  <% end %>
+<% end %>
+</ul> -->

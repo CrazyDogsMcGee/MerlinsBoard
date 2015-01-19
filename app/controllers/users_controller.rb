@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+		@user = User.find(params[:id]) #will this be the user's profile page?
   end
 
   private

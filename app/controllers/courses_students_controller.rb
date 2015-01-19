@@ -5,8 +5,6 @@ class CoursesStudentsController < ApplicationController
 
   def create
     @enrollment = CoursesStudents.new(enrollment_params)
-
-		
 		
     if @enrollment.save
       flash[:errors] = ["Successfully Enrolled!"]

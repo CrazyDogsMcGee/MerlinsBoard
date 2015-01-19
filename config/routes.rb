@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :coursesinstructors, only: [:create, :destroy]
   		resources :coursesstudents, only: [:create, :destroy]
   		resources :courses, only: [:create, :index, :destroy, :new, :show]
+			resources :users, only: [:show, :index]
   end
         
 end

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   :courses_instructors,
   class_name: "CoursesInstructors"
   )
+	
   has_many(
   :courses_students,
   class_name: "CoursesStudents"
@@ -44,8 +45,6 @@ class User < ActiveRecord::Base
     self.save! #saves token to model
     self.session_token #yields own session token
   end
-    
-  
 
   private
 
