@@ -14,4 +14,4 @@
  *= require_self
  */
 
-/* Everything here affects all layers of the application */
+/* Everything here affects all layers of the application - it also includes all css sheets in the stylesheets folder. This is just a convenient way of organizing css*/

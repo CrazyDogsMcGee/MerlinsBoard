@@ -1,5 +1,4 @@
-class Api::CoursesController < Api::ApiController #does not need the scope resolution operator - already knows to look in own module scope?
-
+class Api::CoursesController < Api::ApiController 
 	def index
     @courses = Course.all.includes(:students)
 		render json: @courses 
@@ -19,7 +18,7 @@ class Api::CoursesController < Api::ApiController #does not need the scope resol
       	CoursesInstructors.create(user_id: current_user.id, course_id: @course.id)
 			end #need error handling still for this block
 
-			render json: @course #when the backbone router is called to redirect to the show page, this is what it will receive
+			render json: @course 
     else
 			render json: @course.errors.full_messages, status: 422 #what if this wasn't here? it would probably still try to process as usual..
     end
@@ -28,14 +27,18 @@ class Api::CoursesController < Api::ApiController #does not need the scope resol
 
   def show
 		@course = Course.find(params[:id])
-		render json: @course #how to fetch associations?  @board = Board.includes(:members, lists: :cards).find(params[:id])
-		# TODO: might need instructors association... also need jbuilder template
+		render :show 
+# 		if @course == nil
+# 			render :SomeErrorsObject -- should probably be processed on the backbone side anyway...
+# 		else
+# 			render :show, status: 404
+# 		end
   end
 	
 	def destroy
 		@course = Course.find(params[:id])
-		@course.destroy #this could also be #try, why would that be used?
-		render json: {} #sends back no params/JSON
+		@course.destroy #this could also be #try, why would that be used? Probably for seamlessness, allows error to be passed back instead of non-specific internal server error
+		render json: {} #sends back no params/JSON - should send back error if @course.try(:destroy) == false
 	end
 
   private

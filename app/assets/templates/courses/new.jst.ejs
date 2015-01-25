@@ -1,0 +1,39 @@
+<h1>Create a new course</h1>
+
+<form>
+  <label for="course-name">Name</label>
+  <input id="course-name" type="text" name="course[name]" value="<%= course.name %>">
+	
+  <br>
+	
+  <label for="course-description">Course Description</label>
+  <textarea name="course[description]" rows="8" cols="40" id="course-description"><%= course.description %></textarea>
+	
+  <br>
+	
+  <label for="course-location">Location</label>
+  <input type="text" name="course[location]" value="<%= course.location %>">
+	
+  <br>
+	
+  <label for="course-start_time">Start Time (Provide in 24-hour format)</label>
+  <input type="number" name="course[start_time]" value="<%= course.start_time %>">
+	
+  <br>
+	
+  <label for="course-end_time">End Time (Provide in 24-hour format)</label>
+  <input type="number" name="course[end_time]" value="<%= course.end_time %>">
+	
+  <br>
+	
+  <label for="course-day">Day</label>
+  <select id="course-day" name="course[day]">
+    <% _.each({["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], function () { %>
+      <option value="<%= day %>" <%= (day === course.day) ? "selected" : "" %> ><%= day %></option>
+    <% }) %>
+  </select>
+	
+  <br>
+	
+  <input type="submit" value="Create Course">
+</form>

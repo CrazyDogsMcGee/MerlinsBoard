@@ -3,8 +3,8 @@ class CoursesController < ApplicationController
 	
   def index
     #can create new enrollments from this view
-    @courses = Course.all.includes(:students)
-    # Ok, a includes association needs to be here on the students and perhaps the enrollments as well
+    @courses = Course.all #.includes(:students)
+		render json: @courses
   end
 
   def new

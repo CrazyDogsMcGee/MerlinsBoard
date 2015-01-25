@@ -8,12 +8,17 @@
 
 <nav class="sidenav">in-class nav goes here</nav>
 
-<main id="content">Content goes here</main>
+<main id="content">
+	<ul class="errors">
+	</ul>
+	Content goes here
+</main>
 
-<script>$(MerlinsBoard.initialize)</script> <!-- alias for run on DOM ready -->
 <script type="text/javascript"> 
-		//apparently optional for HTML5 - otherwise needs to be specified
-    window.currentUser = {
-        id : "<%=current_user.id%>"
+		//type apparently optional for HTML5 - otherwise needs to be specified
+    window.currentUserID = <%=current_user.id%>
     }
 </script>
+
+<script>$(MerlinsBoard.initialize)</script> <!-- alias for run on DOM ready -->
+<!-- I wonder if the order even matters...sprockets should load all my javascript for me anyway -->
