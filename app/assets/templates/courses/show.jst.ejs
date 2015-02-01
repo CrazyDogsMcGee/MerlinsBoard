@@ -1,40 +1,40 @@
 <h1><%= course.name %></h1>
 
+<section class="errors"></section>
+
 <p>
   <%= course.description %>
 </p>
 
 <h2>Instructors</h2>
 <ul>
-  <% course.instructors.each(function () {%> 
+  <% course.instructors.each( function (instructor) { %> 
   <li><%= instructor.lname + ", " + instructor.fname %></li>
-  <% })%>
+  <% }) %>
 </ul>
 
 <h2>Students</h2>
 <ul>
-  <% course.students.each %>
+  <% course.students.each( function (student) { %>
   <li><%= student.lname + ", " + student.fname %></li>
-  <% end %>
+  <% }) %>
 </ul>
 
-<% if (course.students.contains(MerlinsBoard.CurrentUser))%>
+<% if (course.students.contains(MerlinsBoard.CurrentUser)) {%>
     <form class="dropcourse">
 <!-- Don't need to serialize form, I'll just have a callback in the view, collection.findWher	 -->
       <input type="submit" value="Drop Class">
     </form>
-<% else %>
+<% } else { %>
     <form class="enrollcourse">
 			<input type="hidden" name="enrollment[user_id]" value="<%= MerlinsBoard.CurrentUser.id %>">
-			<input type="hidden" name="enrollment[course_id]" value="<%= course.id%>">
+			<input type="hidden" name="enrollment[course_id]" value="<%= course.id %>">
       <input type="submit" value="Enroll in Class">
     </form> 
-<% end %>
+<% } %>
 	
-<% if course.instructors.contains(MerlinsBoard.CurrentUser) %>
+<% if (course.instructors.contains(MerlinsBoard.CurrentUser)) { %>
 		<form class="cancelcourse">
-			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-      <input type="hidden" name="_method" value="DELETE">
       <input type="submit" value="Cancel Class">
 		</form>
-<% end %>
+<% } %>

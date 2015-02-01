@@ -8,7 +8,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 	},
 	
 	students: function () {
-		if(!this._students) {
+		if (!this._students) {
 			this._students = new MerlinsBoard.Collections.Students([],{course: this});
 		}
 		
@@ -21,7 +21,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 		}
 		
 		return this._enrollments
-	}
+	},
 	
   urlRoot: "api/courses",
 	
@@ -38,7 +38,8 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 		}
 		
 		if (resp.enrollments) {
-			this.enrollments().
+			this.enrollments().set(resp.enrollments);
+			resp.enrollments.delete
 		}
 		
 		

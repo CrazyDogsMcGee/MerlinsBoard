@@ -1,6 +1,12 @@
 MerlinsBoard.Collections.Courses = Backbone.Collection.extend({
+//   initialize: function (options) {
+//     this.user = options["user"] || "none";
+//   },
+  
   model: MerlinsBoard.Models.Course,
+  
 	url: "api/courses",
+  
 	getOrFetch: function (id) {
 		course = this.get(id);
 		if (!course) {
@@ -15,5 +21,7 @@ MerlinsBoard.Collections.Courses = Backbone.Collection.extend({
 		
 		return course
 	}
-	
+  
+	//this fetch takes ALL attributes in the model, but will not offer any extensibles like could be offered with jbuilder
+	//provided for by @courses/Course.all toJson
 });

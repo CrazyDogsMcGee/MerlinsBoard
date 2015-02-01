@@ -1,6 +1,6 @@
 json.(@user, :id, :fname, :lname, :email)
 
- json.courses @user.courses do |course|
+json.courses @user.courses do |course|
  	json.id course.id
  	json.name course.name
 end

@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
       render :new
     else
       login!(@user) #available everywhere because its in AppController
-      redirect_to user_url(@user)
+      redirect_to root_url
     end
   end
 

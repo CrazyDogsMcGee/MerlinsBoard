@@ -1,0 +1,6 @@
+<% links.each( function (url, label) { %>
+  <!--  Might as well make it more semantic  -->
+  <a href="<%= url %>" class="nav-link"><%= label %></a>
+<% }) %>
+
+<!-- The view should take a model, and see if the type is a course or user, and render appropriately. Or maybe I'll just take care of that...it will depend. -->
