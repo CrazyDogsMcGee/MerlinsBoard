@@ -20,7 +20,7 @@ class Api::CoursesController < Api::ApiController
 
 			render json: @course 
     else
-			render json: @course.errors.full_messages, status: 422 #what if this wasn't here? it would probably still try to process as usual..
+      render json: @course.errors.full_messages, status: 422
     end
 
   end

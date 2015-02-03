@@ -24,7 +24,6 @@ MerlinsBoard.Views.CoursesEnroll = Backbone.View.extend({
 																												
 	show: function (event) {
 		event.preventDefault();
-    debugger
 		var id = $(event.currentTarget).data("id");
 		Backbone.history.navigate("course/" + id + "/enroll", {trigger:true})
 	},

@@ -25,7 +25,7 @@ MerlinsBoard.Views.CoursesSearch = Backbone.View.extend({
     filteredCollection.set(filtered);
     
     var searchList = new MerlinsBoard.Views.CoursesList({collection: filteredCollection});
-		this.$('ul.course-results').html(searchList.render().$el);
+		this.$('section.course-results').html(searchList.render().$el);
 	}
 
 })

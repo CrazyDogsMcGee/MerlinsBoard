@@ -18,7 +18,7 @@ MerlinsBoard.Collections.Courses = Backbone.Collection.extend({
 		} else {
 			course.fetch();						 
 		}
-		
+	  
 		return course
 	}
   

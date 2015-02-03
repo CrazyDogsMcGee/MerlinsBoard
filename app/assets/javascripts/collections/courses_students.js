@@ -3,7 +3,7 @@ MerlinsBoard.Collections.CoursesStudents = Backbone.Collection.extend({
   
 	url: "api/coursesstudents",
   
-	initialize: function () {
+	initialize: function (options) {
 		this.course = options["course"];
 	}
 });

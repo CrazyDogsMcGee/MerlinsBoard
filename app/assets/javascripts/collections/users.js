@@ -1,5 +1,5 @@
 MerlinsBoard.Collections.Users = Backbone.Collection.extend({
-	initialize: function () {
+	initialize: function (options) {
 		this.course = options["course"]; 
 		//I might want other ownerships eventually, depending on how I instantiate the collection.
 	},

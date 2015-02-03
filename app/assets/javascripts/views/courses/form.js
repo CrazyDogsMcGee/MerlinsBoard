@@ -1,29 +1,30 @@
 MerlinsBoard.Views.CourseForm = Backbone.View.extend({
+  initialize: function () {
+    this.listenTo(this.model,"sync",this.render)
+  },
+  
 	template: JST["courses/form"],
-	
-	tagName: "form",
-	
-	className: "course-form",
 	
 	render: function () {
 		var renderedContent = this.template({course: this.model})
+    this.$el.html(renderedContent);
+    return this
 	},
 	
 	events: {
-		"submit form.course-form":"submit"
+		"submit form.course-form": "submitform"
 	},
 	
-	submit: function (event) {
+	submitform: function (event) {
 		event.preventDefault();
-		var attrs = event.target.serializeJSON();
-		this.model.set(attrs);
-		this.model.save({
+		var attrs = $(event.target).serializeJSON();
+		this.model.save(attrs, {
 			success: function () {
 				MerlinsBoard.Courses.add(this.model)
 				Backbone.history.navigate("",{trigger: true})
-			},
-			error: function (resp) {
-				console.log(resp);
+			}.bind(this),
+			error: function (model,resp) {
+				debugger;
 			}
 		})
 	}

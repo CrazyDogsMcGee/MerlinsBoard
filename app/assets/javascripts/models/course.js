@@ -9,7 +9,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 	
 	students: function () {
 		if (!this._students) {
-			this._students = new MerlinsBoard.Collections.Students([],{course: this});
+			this._students = new MerlinsBoard.Collections.Users([],{course: this});
 		}
 		
 		return this._students
@@ -51,6 +51,4 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 			return "Class cannot end before it starts"
 		} 
 	}
-	
-	//https://github.com/thedersen/backbone.validation
 });
