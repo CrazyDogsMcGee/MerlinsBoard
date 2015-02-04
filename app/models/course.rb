@@ -15,7 +15,8 @@ class Course < ActiveRecord::Base
   :courses_instructors, #and this to professorships or something
   class_name: "CoursesInstructors",
   dependent: :destroy)
-
+  
+  has_many :announcements
   has_many :students, through: :courses_students, source: :student
   has_many :instructors, through: :courses_instructors, source: :instructor
 
