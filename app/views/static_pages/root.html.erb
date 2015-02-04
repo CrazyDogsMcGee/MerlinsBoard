@@ -4,14 +4,17 @@
 
 <p>Things seem to be working</p>
 
-<nav class="headernav">Class tabs go here</nav>
+<nav class="headernav">Class tabs go here
+<form class="form-signout" action="/session" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Sign out!">
+</form>
+</nav>
 
 <nav class="sidenav">in-class nav goes here</nav>
 
 <main id="content">
-	<ul class="errors">
-	</ul>
-	Content goes here
 </main>
 
 <script type="text/javascript"> 

@@ -1,5 +1,7 @@
 <h1>Sign up</h1>
 
+<%= render 'layouts/errors' %>
+
 <form id="form_id" action="<%= users_url %>" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 

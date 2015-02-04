@@ -13,13 +13,13 @@ class Api::CoursesStudentsController < Api::ApiController
     @enrollment = CoursesStudents.find(params[:id])
 
     if @enrollment.destroy
-			render json: {message: "Dropped Class"} #will need to have this actually appear..
+			render json: {message: "Dropped Class"}
     end
   end
 
   private
 
   def enrollment_params
-		params.require(:enrollment).permit(:user_id, :course_id) #params can still be caught as normal for a JSON response
+    params.require(:courses_student).permit(:user_id, :course_id)
   end
 end

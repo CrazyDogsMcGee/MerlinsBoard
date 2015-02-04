@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     if @user.save
       login!(@user) #sets session token and current user
-      redirect_to user_url(@user) #url helpers are here
+      redirect_to root_url
     else
       flash.now[:errors] = @user.errors.full_messages #this is already an array
       render :new #local can get passed in automatically through partial?

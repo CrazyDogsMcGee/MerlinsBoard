@@ -1,21 +1,7 @@
-Current Progress: Getting validations to work on courses, and creating associated links.
+Test User:
 
-Stream of conciousness:
-*Instructors should be able to expel users from the roster
-*Assignments
-*Right now anyone who creates a new course is automatically assigned as the instructor - Need to have way to add new instructors for TAs and such.
-* On the courses index page, instructors will only have the option to delete a class.
-  *need dependent destroy relationship
+test@gmail.com
+testing
 
-*Announcements?
-
-*Also need to read up on file upload
-
-* https://github.com/appacademy/js-curriculum/blob/master/projects/w6d5-twitter.md
-  *Search for classes/users/whatever
-
-Issues:
-*Octal digits in specifying 24-hour time? no leading zeroes...
-  *Will probably need model-level validation and conversion.
-
-8
+jwl326@nyu.edu
+sandshrew

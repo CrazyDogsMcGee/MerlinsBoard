@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     
   namespace :api, defaults: { format: :json } do #duplicate views into this
       resources :coursesinstructors, only: [:create, :destroy]
-  		resources :coursesstudents, only: [:create, :destroy]
+    resources :coursesstudents, only: [:create, :destroy], controller: "courses_students"
   		resources :courses, only: [:create, :index, :destroy, :new, :show]
 			resources :users, only: [:show, :index]
   end
