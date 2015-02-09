@@ -8,7 +8,6 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
 	template: JST['courses/show'],
 	
 	render: function () {
-    debugger
 		this.$el.html(this.template({course: this.model, userID: this.user_id}));
 		return this
 	},

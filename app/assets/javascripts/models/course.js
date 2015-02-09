@@ -1,4 +1,13 @@
 MerlinsBoard.Models.Course = Backbone.Model.extend({
+  urlRoot: "api/courses",
+  
+  //nested resources
+  initialize: function () {
+    this.announcements = new MerlinsBoard.Collections.Announcements({course: this})
+    //assignments, announcements, resources
+  },
+  
+  //internal data - the distinction is somewhat arbitrary
 	instructors: function () {
 		if (!this._instructors) {
 			this._instructors = new MerlinsBoard.Collections.Users([],{course: this});
@@ -22,8 +31,6 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 		
 		return this._enrollments
 	},
-	
-  urlRoot: "api/courses",
 	
 	parse: function (resp) {
 		if (resp.instructors) {

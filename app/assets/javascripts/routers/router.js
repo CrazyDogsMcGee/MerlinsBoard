@@ -5,32 +5,33 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.$sideNav = options["sideNav"];
     this.$tabNav = options["tabNav"];
     
-    var CurrentUser = MerlinsBoard.CurrentUser
+    this.CurrentUser = MerlinsBoard.CurrentUser
     
     //this fetch may be a bit much
     //tabNav should also be instantiated here
   },
   
 	routes: {
-		//"" : "home", show announcements
     "" : "enrollcourses",
     "course/:id/enroll" : "showcourse",
     "course/new": "newcourse",
     "course/edit/:id": "editcourse",
-    "course/:id" : "homecourse",
+    //announcement resources
+    //"" : "home", should show announcement for all course + navView
+    "course/:id/announcements" : "homecourse", //shows announcements for course + navView
+    "course/:id/announcements/new": "newannouncement",
+    //assignment resources
     "user/:id": "showuser"
 	},
 	
 	enrollcourses: function () {
    var allcourses = MerlinsBoard.Courses;
-   var CurrentUser = MerlinsBoard.CurrentUser
    
-   CurrentUser.fetch();
+   this.CurrentUser.fetch();
    allcourses.fetch(); 
   
-   var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses, model: CurrentUser});
+   var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses, model: this.CurrentUser});
    this.swapView(enrollView);
-  //will need to jiggle the render function a bit...
   },
     
 	showuser: function () {
@@ -56,13 +57,26 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(showCourse);
   },
     
+  //announcements
   homecourse: function (id) {
     //course detail nav should be instantiated here + announcements!
     var course = MerlinsBoard.Courses.getOrFetch(id);
-    //no announcements view yet
-  },
+    var announcements = course.announcements
     
-  //everything below this point is accessed in the detail view/direct navigation- nested routes
+    course.fetch()
+    announcements.fetch()
+
+    var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
+    this.swapView(courseAnnouncements);
+  },
+  
+  newAnnouncement: function (id) {
+    var newAnnouncement = new Backbone.Models.Announcement();
+    var announcementForm = new Backbone.Views.announcementForm({model: newAnnouncement, course_id: id});
+    this.swapView(announcementForm);
+  },
+  
+  editAnnouncement: function (id) {},
   
   
   // utils

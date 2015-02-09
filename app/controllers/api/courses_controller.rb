@@ -1,6 +1,6 @@
 class Api::CoursesController < Api::ApiController 
 	def index
-    @courses = Course.all.includes(:students)
+    @courses = Course.all
 		render json: @courses 
   end
 
@@ -28,11 +28,15 @@ class Api::CoursesController < Api::ApiController
   def show
 		@course = Course.find(params[:id])
 		render :show 
-# 		if @course == nil
-# 			render :SomeErrorsObject -- should probably be processed on the backbone side anyway...
-# 		else
-# 			render :show, status: 404
-# 		end
+  end
+  
+  def update
+    @course = Course.find(params[:id])
+    if @course.update(course_params)
+      render json: @course
+    else
+      render json: @course.errors.full_messages
+    end
   end
 	
 	def destroy

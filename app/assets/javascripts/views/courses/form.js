@@ -1,5 +1,6 @@
 MerlinsBoard.Views.CourseForm = Backbone.View.extend({
   initialize: function () {
+    
     this.listenTo(this.model,"sync",this.render)
   },
   
@@ -30,7 +31,7 @@ MerlinsBoard.Views.CourseForm = Backbone.View.extend({
           var $error = $("<li>").text(error)
           $errorList.append($error)
         })
-        $("section.errors").html($errorList)
+        $("section.form-errors").html($errorList)
 			}
 		})
 	}

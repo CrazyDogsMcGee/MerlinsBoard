@@ -5,3 +5,10 @@ testing
 
 jwl326@nyu.edu
 sandshrew
+
+https://www.pivotaltracker.com/n/projects/1265674
+1 - A small tweak
+2 - A single addition that may take some research/fiddling
+3 - a full feature that has multiple parts that I know how to do
+4 - a new feature that I don't have expertise in
+5 - A forseeably complicated procedure, may use gems and others to get complete

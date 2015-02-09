@@ -7,11 +7,12 @@ Rails.application.routes.draw do
 	resources :coursesstudents, only: [:create, :destroy], controller: "courses_students"
   resources :courses, only: [:create, :index, :destroy, :new, :show]
     
-  namespace :api, defaults: { format: :json } do #duplicate views into this
-      resources :coursesinstructors, only: [:create, :destroy]
-    resources :coursesstudents, only: [:create, :destroy], controller: "courses_students"
-  		resources :courses, only: [:create, :index, :destroy, :new, :show]
-			resources :users, only: [:show, :index]
+  namespace :api, defaults: { format: :json } do
+    resources :coursesinstructors, only: [:create, :destroy]
+    resources :coursesstudents, only: [:create, :destroy], controller: "courses_students" #this will automatically be namespaced as well
+    resources :courses, only: [:create, :index, :destroy, :new, :show, :update]
+    resources :announcements
+		resources :users, only: [:show, :index]
   end
         
 end

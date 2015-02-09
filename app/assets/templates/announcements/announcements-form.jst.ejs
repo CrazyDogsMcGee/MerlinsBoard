@@ -1,0 +1,9 @@
+<h1>New Announcement</h1>
+<section class='form-errors'>
+</section>
+<form class="announcement-form">
+  <input type="text" name="announcement[title]" value="<%=announcement.title%>">
+  <textarea name="announcement[body]"><%= announcement.body %></textarea>
+  <input type="hidden" name="announcement[user_id]" value="<%= MerlinsBoard.CurrentUser.id %>">
+  <input type="hidden" name="announcement[course_id]" value="<%= announcement.course_id || course_id %>">
+</form>
