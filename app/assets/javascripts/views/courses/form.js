@@ -25,13 +25,16 @@ MerlinsBoard.Views.CourseForm = Backbone.View.extend({
 				Backbone.history.navigate("",{trigger: true})
 			}.bind(this),
 			error: function (model,resp) {
-				var errorArray = resp.responseJSON
-        var $errorList = $("<ul>")
+        debugger
+				var errorArray = resp.responseJSON;
+        var $errorList = $("<ul>");
+        
         _.each(errorArray, function (error) {
-          var $error = $("<li>").text(error)
-          $errorList.append($error)
+          var $error = $("<li>").text(error);
+          $errorList.append($error);
         })
-        $("section.form-errors").html($errorList)
+        
+        $("section.form-errors").html($errorList);
 			}
 		})
 	}

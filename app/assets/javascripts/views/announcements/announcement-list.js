@@ -17,7 +17,6 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
   
   render: function () {
     var isInstructor = !!(this.course.instructors().get(MerlinsBoard.CurrentUser.id));
-    debugger
     var renderedContent = this.template({announcements: this.collection, isInstructor: isInstructor});
     this.$el.html(renderedContent);
     return this

@@ -18,8 +18,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/edit/:id": "editcourse",
     //announcement resources
     //"" : "home", should show announcement for all course + navView
+    "course/:id/announcements/new": "newAnnouncement",
     "course/:id/announcements" : "homecourse", //shows announcements for course + navView
-    "course/:id/announcements/new": "newannouncement",
+    
     //assignment resources
     "user/:id": "showuser"
 	},
@@ -71,13 +72,12 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   },
   
   newAnnouncement: function (id) {
-    var newAnnouncement = new Backbone.Models.Announcement();
-    var announcementForm = new Backbone.Views.announcementForm({model: newAnnouncement, course_id: id});
+    var newAnnouncement = new MerlinsBoard.Models.Announcement();
+    var announcementForm = new MerlinsBoard.Views.announcementForm({model: newAnnouncement, course_id: id});
     this.swapView(announcementForm);
   },
   
   editAnnouncement: function (id) {},
-  
   
   // utils
 
