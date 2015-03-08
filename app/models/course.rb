@@ -19,14 +19,17 @@ class Course < ActiveRecord::Base
   has_many :announcements
   has_many :students, through: :courses_students, source: :student
   has_many :instructors, through: :courses_instructors, source: :instructor
+  has_many :assignments
+  has_many :grades, through: :assignments, source: :grade
 
   #NO SNAKE CASE IN RUBY
   #Associations are found through filenames? not necessarily class names?
 
   def conflicts_with
     newCourse = self
-
+    #this could be refactored to just do a search instead...
     Course.all.each do |existingcourse|
+      next if newCourse.id == existingcourse.id
       if newCourse.location == existingcourse.location
         if existingcourse.day == newCourse.day
           if (
@@ -34,7 +37,7 @@ class Course < ActiveRecord::Base
             )
             next
           else
-            errors.add(:base, "Time/location conflict with existing class")
+            errors.add(:base, "Time/location conflict with existing class #{existingcourse.name}")
             return
           end
         end

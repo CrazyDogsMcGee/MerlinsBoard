@@ -3,6 +3,7 @@ window.MerlinsBoard = {
   Collections: {},
   Views: {},
   Routers: {},
+  Vent: _.extend({}, Backbone.events),
   initialize: function() {
     alert('Api initialization good');
 		MerlinsBoard.Courses = new MerlinsBoard.Collections.Courses();

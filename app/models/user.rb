@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
 
   has_many :courses, through: :courses_students, source: :course
   has_many :taughtcourses, through: :courses_instructors, source: :course
+  has_many :assignments, through: :courses_students, source: :assignments
+  has_many :grades
 
   attr_reader :password #this needs to be present in order for this to work, otherwise it can't check the password property
 

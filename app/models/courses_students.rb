@@ -5,7 +5,9 @@ class CoursesStudents < ActiveRecord::Base
     foreign_key: :user_id
   )
 
-  belongs_to :course
+  belongs_to :course, dependent: :destroy
+  
+  has_many :assignments, foreign_key: :course_id, primary_key: :course_id
 
   validate :conflicts_with, :not_instructor
   validates :user_id, uniqueness: {scope: :course_id, message: "Can't enroll in the same class twice"}

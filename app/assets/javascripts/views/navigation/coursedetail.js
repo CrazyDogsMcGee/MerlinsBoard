@@ -1,16 +1,20 @@
 MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
+  initialize: function () {
+    this.listenTo(MerlinsBoard.Vent, "courseRender", this.render);
+  },
+  
+  template: JST["navigation/coursedetail"],
+  
   tagName: "nav",
   //should this views render follow a trigger on the content view? Yes
   className: "nav-course",
   
-  links: function () {
-    var dashlinks = ["assignments","grades","resources","roster","forum","home"] 
-    var courselinks = ["calender","all announcements","profile","course search"]
-    
-    var links = {}
-    //will probably need two functions with vent listener that each will trigger
-    //http://lostechies.com/derickbailey/2011/07/19/references-routing-and-the-event-aggregator-coordinating-views-in-backbone-js/
-    return links
+  render: function (options) {
+    var boolean = options["renderCourse"];
+    var id = options["courseID"];
+    var renderedContent = this.template({renderCourse: boolean, courseID: id});
+    this.$el.html(renderedContent);
+    return this
   },
   
   events: {
@@ -18,8 +22,13 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
   },
   
   followlink: function (event) {
+  //might not even need this
     event.preventDefault();
     var url = event.currentTarget.attr('href');
     Backbone.history.navigate(url,{trigger: true});
   }
 })
+
+//both views are similar, but the links are dissimilar enough...is it better just to have..
+//To show off my knowledge of trigger and passing a parameter, I'll just do a conditional page.
+//Something off - Even within the course detail, I'm going to maybe have a different set of links for admins.

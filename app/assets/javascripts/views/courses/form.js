@@ -21,8 +21,9 @@ MerlinsBoard.Views.CourseForm = Backbone.View.extend({
 		var attrs = $(event.target).serializeJSON();
 		this.model.save(attrs, {
 			success: function () {
+        debugger
 				MerlinsBoard.Courses.add(this.model)
-				Backbone.history.navigate("",{trigger: true})
+				Backbone.history.navigate("",{trigger: true}) //instead do a "course created/saved"
 			}.bind(this),
 			error: function (model,resp) {
         debugger

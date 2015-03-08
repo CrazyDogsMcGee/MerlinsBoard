@@ -1,0 +1,19 @@
+<h1>Assignments</h1>
+
+<% assignments.each(function (assignment) { %>
+<h3 class="assignment-title"><%= assignment.escape("title") %></h3>
+<p class="assignment-description"><%= assignment.escape("description") %></p>
+<table>
+  <tr>
+    <td>Due Date</td>
+    <td><%= assignment.get("due_date") %></td>
+  </tr>
+</table>
+<% }) %>
+
+<% if (isInstructor) {%>
+<button type="button" class="form">
+  New Assignment
+</button>
+<% } %>
+

@@ -1,6 +1,16 @@
-<% links.each( function (url, label) { %>
-  <!--  Might as well make it more semantic  -->
-  <a href="<%= url %>" class="nav-link"><%= label %></a>
-<% }) %>
+<% if (renderCourse) { %>
+  <a href="#"> grades (NOT IMPLEMENTED)</a>
+  <a href="#"> resources (NOT IMPLEMENTED)</a>
+  <a href="<%='#course/' + courseID + '/assignments'%>"> assignments </a>
+  <a href="#"> roster (NOT IMPLEMENTED)</a>
+  <a href="<%='#course/'+ courseID +'/announcements' %>"> Announcements </a>
+  <br>
+  <a href="#">Home (NOT IMPLEMENTED)</a>
+<% } else { %>
+  <a href="#"> Home (NOT IMPLEMENTED)</a>
+  <a href="#"> profile (NOT IMPLEMENTED)</a>
+  <a href="#course/search"> Course Search/Enroll </a>
+  <a href="#"> Taught Courses(NOT IMPLEMENTED)</a>
+<% } %>
 
-<!-- The view should take a model, and see if the type is a course or user, and render appropriately. Or maybe I'll just take care of that...it will depend. -->
+//

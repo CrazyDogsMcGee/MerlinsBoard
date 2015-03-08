@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209193330) do
+ActiveRecord::Schema.define(version: 20150223191718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,11 +29,10 @@ ActiveRecord::Schema.define(version: 20150209193330) do
   add_index "announcements", ["user_id"], name: "index_announcements_on_user_id", using: :btree
 
   create_table "assignments", force: true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.date     "due_date"
-    t.integer  "course_id"
-    t.integer  "grade"
+    t.string   "title",       null: false
+    t.text     "description", null: false
+    t.date     "due_date",    null: false
+    t.integer  "course_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,6 +69,17 @@ ActiveRecord::Schema.define(version: 20150209193330) do
   end
 
   add_index "courses_students", ["user_id", "course_id"], name: "index_courses_students_on_user_id_and_course_id", unique: true, using: :btree
+
+  create_table "grades", force: true do |t|
+    t.integer  "grade"
+    t.integer  "assignment_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "grades", ["assignment_id"], name: "index_grades_on_assignment_id", using: :btree
+  add_index "grades", ["user_id"], name: "index_grades_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "fname",           null: false

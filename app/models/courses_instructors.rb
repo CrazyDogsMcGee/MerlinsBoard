@@ -7,7 +7,7 @@ class CoursesInstructors < ActiveRecord::Base
     foreign_key: :user_id
   )
 
-  belongs_to :course
+  belongs_to :course, dependent: :destroy
 
   def conflicts_with
     newCourse = self.course

@@ -17,5 +17,4 @@ MerlinsBoard.Collections.Announcements = Backbone.Collection.extend({
   url: "api/announcements",
   
   model: MerlinsBoard.Models.Announcement
-  //may need to add to course jbuilder response
 })

@@ -3,7 +3,6 @@ class Api::AnnouncementsController < Api::ApiController
 #     @announcements = Announcement.where({course_id: params["course_id"]})
 #     render json: @announcements
 #   end
-#   before_action :admins_only, :except [:index]
   
   def index
     @announcements = Announcement.all
@@ -11,12 +10,11 @@ class Api::AnnouncementsController < Api::ApiController
   end
 
   def create
-    #i'll assume I set ownership
     @announcement = Announcement.new(announcement_params)
     if @announcement.save
       render json: @announcement
     else
-      render json: @announcement.errors.full_messages
+      render status: 422, json: @announcement.errors.full_messages
     end
   end
   

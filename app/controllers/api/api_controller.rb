@@ -2,8 +2,8 @@ class Api::ApiController < ApplicationController
 	before_action :require_signed_in! #found in application controller - will be inherited 
 	#any other backbone specific universal methods  should go here
 	
-  def admins_only
-    course = Course.find(params["course_id"])
+  def admins_only(course_id)
+    course = Course.find(course_id)
     begin
       status = course.instructors.find(current_user.id)
     rescue

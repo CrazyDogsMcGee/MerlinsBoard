@@ -41,9 +41,21 @@ class Api::CoursesController < Api::ApiController
 	
 	def destroy
 		@course = Course.find(params[:id])
-		@course.destroy #this could also be #try, why would that be used? Probably for seamlessness, allows error to be passed back instead of non-specific internal server error
-		render json: {} #sends back no params/JSON - should send back error if @course.try(:destroy) == false
+		@course.destroy
+		render json: {}
 	end
+  
+  #not implemented
+  
+  def assignments
+    @courseAssignments = Course.find(params[:id]).assignments
+    render json: @courseAssignments
+  end
+  
+  def grades
+    @courseGrades = Course.find(params[:id]).grades
+    render json: @courseGrades
+  end
 
   private
 
