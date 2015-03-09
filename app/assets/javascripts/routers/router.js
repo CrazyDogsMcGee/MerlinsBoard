@@ -5,14 +5,14 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.$sideNav = options["sideNav"];
     this.$tabNav = options["tabNav"];
     
-    this.CurrentUser = MerlinsBoard.CurrentUser
+    this.currentUser = MerlinsBoard.CurrentUser
     
     //this fetch may be a bit much
-    var courseTabs = new MerlinsBoard.Views.CourseTabs({collection: this.CurrentUser.courses()})
+    var courseTabs = new MerlinsBoard.Views.CourseTabs({collection: this.currentUser.courses()})
     var courseDetails = new MerlinsBoard.Views.CourseDetails();
     //response prompt should be courseDetails.trigger("render", true/false, courseID/0)
     
-    this.CurrentUser.fetch();
+    this.currentUser.fetch();
     this.$tabNav.html(courseTabs.$el)
     this.$sideNav.html(courseDetails.$el)
   },
@@ -23,9 +23,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/new": "newcourse",
     "course/edit/:id": "editcourse",
     //announcement resources
-    //"" : "home", should show announcement for all course + navView
+    "" : "homeAnnouncements",
     "course/:id/announcements/new": "newAnnouncement",
-    "course/:id/announcements/edit":"editAnnouncement",
+    "course/:course_id/announcements/:id/edit":"editAnnouncement",
     "course/:id/announcements" : "homecourse", //shows announcements for course + navView
     //assignment resources
     "course/:id/assignments/new" : "newAssignment",
@@ -35,7 +35,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     
     //misc
     "user/:id": "showuser"
-    //":wildcard": "does not exist" self explanatory
+    //":wildcard": "does not exist" --self explanatory
 	},
 	
 	enrollcourses: function () {
@@ -43,12 +43,12 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
    
    allcourses.fetch(); 
   
-   var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses, model: this.CurrentUser});
+   var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses, model: this.currentUser});
    this.swapView(enrollView);
   },
     
 	showuser: function () {
-    var userView = new MerlinsBoard.Views.UserShow({model: CurrentUser});
+    var userView = new MerlinsBoard.Views.UserShow({model: currentUser});
     this.swapView(userView);
   },
                                                    
@@ -71,6 +71,15 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   },
     
   //announcements
+  homeAnnouncements: function () {
+    var allAnnouncements = new MerlinsBoard.Collections.Announcements({courseIDs: this.currentUser.courseIDs()});
+    
+    allAnnouncements.fetch();
+    
+    var allAnnouncementsView = new MerlinsBoard.Views.announcementList({collection: allAnnouncements, allCourses: true});
+    this.swapView(allAnnouncementsView);
+  },
+  
   homecourse: function (id) {
     //course detail nav should be instantiated here + announcements!
     var course = MerlinsBoard.Courses.getOrFetch(id);
@@ -78,10 +87,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     
     course.fetch() //I'm unsure this fetch is necessary
     announcements.fetch() //It looks like a fetch will have to occur every time anyway, but I guess its slightly less resource intensive to do so
-
-    debugger
     
-    var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
+    var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements, allCourses: false});
     this.swapView(courseAnnouncements);
   },
   
@@ -89,11 +96,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var newAnnouncement = new MerlinsBoard.Models.Announcement();
     var announcementForm = new MerlinsBoard.Views.announcementForm({model: newAnnouncement, course_id: id});
     this.swapView(announcementForm);
-    
   },
   
-  editAnnouncement: function (id) { //not implemented yet
-    var course = MerlinsBoard.Courses.getOrFetch(id);
+  editAnnouncement: function (course_id,id) {
+    var course = MerlinsBoard.Courses.getOrFetch(course_id);
     var announcement = course.announcements.get(id)
     var announcementForm = new MerlinsBoard.Views.announcementForm({model: announcement});
     this.swapView(announcementForm);
@@ -105,7 +111,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var assignments = course.assignments;
     
-    course.fetch();
+    course.fetch(); //test later
     assignments.fetch();
     
     var courseAssignments = new MerlinsBoard.Views.assignmentList({collection: assignments}); //collection not being assigned for some reason
@@ -117,6 +123,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var assignmentForm = new MerlinsBoard.Views.assignentForm({model: newAssignment, course_id: id});
     this.swapView(assignmentForm);
   },
+  
+  editAssignment: function () {},
   
   // utils
 

@@ -1,16 +1,16 @@
 <% if (renderCourse) { %>
   <a href="#"> grades (NOT IMPLEMENTED)</a>
   <a href="#"> resources (NOT IMPLEMENTED)</a>
-  <a href="<%='#course/' + courseID + '/assignments'%>"> assignments </a>
+  <a href="<%='course/' + courseID + '/assignments'%>"> assignments </a>
   <a href="#"> roster (NOT IMPLEMENTED)</a>
-  <a href="<%='#course/'+ courseID +'/announcements' %>"> Announcements </a>
+  <a href="<%='course/'+ courseID +'/announcements' %>"> Announcements </a>
   <br>
   <a href="#">Home (NOT IMPLEMENTED)</a>
 <% } else { %>
-  <a href="#"> Home (NOT IMPLEMENTED)</a>
+  <a href="#"> Home (NOT IMPLEMENTED)</a> 
   <a href="#"> profile (NOT IMPLEMENTED)</a>
-  <a href="#course/search"> Course Search/Enroll </a>
+  <a href="course/search"> Course Search/Enroll </a>
   <a href="#"> Taught Courses(NOT IMPLEMENTED)</a>
 <% } %>
 
-//
+<!-- Going to any of the non-course pages should emit a neutral render event -->

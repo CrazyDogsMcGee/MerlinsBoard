@@ -3,9 +3,9 @@ window.MerlinsBoard = {
   Collections: {},
   Views: {},
   Routers: {},
-  Vent: _.extend({}, Backbone.events),
+  Vent: _.extend({}, Backbone.Events),
   initialize: function() {
-    alert('Api initialization good');
+    alert('Page Loaded');
 		MerlinsBoard.Courses = new MerlinsBoard.Collections.Courses();
 		MerlinsBoard.CurrentUser = new MerlinsBoard.Models.User({id: window.currentUserID});
 		new MerlinsBoard.Routers.Router({

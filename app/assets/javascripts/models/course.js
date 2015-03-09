@@ -4,7 +4,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   //nested resources
   initialize: function () {
     this.announcements = new MerlinsBoard.Collections.Announcements({course: this}),
-    this.assignments = new MerlinsBoard.Collections.Assignments({course:this})
+    this.assignments = new MerlinsBoard.Collections.Assignments({course: this})
     //assignments, announcements, resources
     //One question, is this bad practice? The difference I can guess is that the above attrs need to be fetched every single time. I'll refactor later
   },
@@ -65,3 +65,5 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
     return !!this.instructors().get(userID)
   }
 });
+
+//for some reason, the id on the course object returns as a string...This may be because I construct these course objects with the attributes fished from the jbuilder response

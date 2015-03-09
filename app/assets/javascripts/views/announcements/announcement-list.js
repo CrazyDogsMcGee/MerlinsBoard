@@ -1,8 +1,13 @@
 MerlinsBoard.Views.announcementList = Backbone.View.extend({
   initialize: function (options) {
-    this.course = this.collection.course;
+    this.renderHome = this.collection.allCourses
+    
+    if (!this.renderHome) {
+      this.course = this.collection.course;
+      this.listenTo(this.course, "sync", this.render);
+    }
+    
     this.listenTo(this.collection, "filter", this.render);
-    this.listenTo(this.course, "sync", this.render);
   },
   
   events: {
@@ -16,8 +21,15 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
   template: JST["announcements/announcement-list"],
   
   render: function () {
-    var isInstructor = !!(this.course.instructors().get(MerlinsBoard.CurrentUser.id)); //refactor into instance method...
-    var renderedContent = this.template({announcements: this.collection, isInstructor: isInstructor});
+    var showNew
+    
+    if (!this.renderHome) {
+      showNew = this.course.isInstructor(MerlinsBoard.CurrentUser.id);
+    } else {
+      showNew = false;
+    }
+                                                           
+    var renderedContent = this.template({announcements: this.collection, showNew: showNew});
     this.$el.html(renderedContent);
     return this
   },

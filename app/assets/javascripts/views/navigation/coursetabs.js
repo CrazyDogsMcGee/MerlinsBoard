@@ -17,7 +17,6 @@
   
 	events: {
 		"click .course-tab":"showcourse"
-    //How to get back to home?
 	},
   
   showcourse: function (event) {
@@ -26,6 +25,7 @@
     event.preventDefault()
     var course_id = event.currentTarget.data("id");
     Backbone.history.navigate("course/" + course_id +"/announcements", {trigger: true});
-    MerlinsBoard.Vent.trigger("courseRender",{renderCourse:true ,courseID:course_id})
+    MerlinsBoard.Vent.trigger("courseRender",{renderCourse: true, courseID: course_id})
   }
+   
 })

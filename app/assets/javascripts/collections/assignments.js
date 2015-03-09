@@ -8,8 +8,9 @@ MerlinsBoard.Collections.Assignments = Backbone.Collection.extend({
   
   filter: function () {
     this.models = this.models.filter(function (assignment) {
-         return (assignment.get("course_id") == this.course.id);                            
-    })
+      return (assignment.get("course_id") == this.course.id); //what is "this" in this context? Whatever it is, it's not the view object. It is the window, which makes it strange that this worked at all before
+    },this)
+    
     this.trigger("filter");
   },
   

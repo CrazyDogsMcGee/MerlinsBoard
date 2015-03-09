@@ -12,7 +12,7 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
   render: function (options) {
     var boolean = options["renderCourse"];
     var id = options["courseID"];
-    var renderedContent = this.template({renderCourse: boolean, courseID: id});
+    var renderedContent = this.template({renderCourse: boolean, courseID: id}); //danger here: I will not want to use courseID, this may warrant having a different view
     this.$el.html(renderedContent);
     return this
   },
@@ -22,13 +22,11 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
   },
   
   followlink: function (event) {
-  //might not even need this
     event.preventDefault();
     var url = event.currentTarget.attr('href');
     Backbone.history.navigate(url,{trigger: true});
   }
 })
 
-//both views are similar, but the links are dissimilar enough...is it better just to have..
-//To show off my knowledge of trigger and passing a parameter, I'll just do a conditional page.
-//Something off - Even within the course detail, I'm going to maybe have a different set of links for admins.
+//should have logic to redirect admins to different pages in router - Grades for example should redirect to a search page for admins and a normal page for students, but is this good practice?
+//I've never heard of it, but it may benefit me to have two templates and render methods on this that will listen for different events on the global vent

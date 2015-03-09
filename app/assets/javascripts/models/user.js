@@ -16,7 +16,7 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
     
     return this._taughtcourses
   },
-  
+  //the above two are populated by the jbuilder response
   parse: function (resp) {
     if (resp.courses) {
       this.courses().set(resp.courses);
@@ -29,5 +29,17 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
     }
     
     return resp
+  },
+  
+  courseIDs: function () {
+    var courseIDArray = []
+    _.each(this.courses, function (course) {
+      courseIDArray.push(course.id);
+    });
+    return courseIDArray
+  },
+  
+  taughtCourseIDs: function () {
+    var taughtCourseIDArray = []
   }
 });
