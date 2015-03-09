@@ -56,7 +56,7 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
 		event.preventDefault();
 		this.model.destroy({
       success: function () {
-        Backbone.history.navigate("", {trigger: true});
+        Backbone.history.navigate("course/search", {trigger: true});
       },
       error: function (errors) {
         console.log(errors);

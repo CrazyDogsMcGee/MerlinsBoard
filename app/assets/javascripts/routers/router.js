@@ -22,6 +22,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:id/enroll" : "showcourse",
     "course/new": "newcourse",
     "course/edit/:id": "editcourse",
+    "course/taught": "taughtcourses",
     //announcement resources
     "" : "homeAnnouncements",
     "course/:id/announcements/new": "newAnnouncement",
@@ -30,7 +31,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //assignment resources
     "course/:id/assignments/new" : "newAssignment",
     "course/:id/assignments" : "showAssignments",
-//     "course/:id/assignments/edit" : "",
+    "course/:id/assignments/edit" : "editAssignment",
     //grades
     
     //misc
@@ -39,16 +40,16 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 	},
 	
 	enrollcourses: function () {
-   var allcourses = MerlinsBoard.Courses;
+    var allcourses = MerlinsBoard.Courses;
    
-   allcourses.fetch(); 
+    allcourses.fetch(); 
   
-   var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses, model: this.currentUser});
-   this.swapView(enrollView);
+    var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses, model: this.currentUser});
+    this.swapView(enrollView);
   },
     
 	showuser: function () {
-    var userView = new MerlinsBoard.Views.UserShow({model: currentUser});
+    var userView = new MerlinsBoard.Views.UserShow({model: this.currentUser});
     this.swapView(userView);
   },
                                                    
@@ -69,15 +70,22 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var showCourse = new MerlinsBoard.Views.CoursesShow({model: course});
     this.swapView(showCourse);
   },
+  
+  taughtcourses: function () {
+    var taughtCourses = this.currentUser.taughtcourses
+    var taughtCourseView = new MerlinsBoard.Views.CoursesTaught({collection: taughtCourses});
+    this.swapView(taughtCourseView);
+  },
     
   //announcements
   homeAnnouncements: function () {
     var allAnnouncements = new MerlinsBoard.Collections.Announcements({courseIDs: this.currentUser.courseIDs()});
-    
     allAnnouncements.fetch();
     
     var allAnnouncementsView = new MerlinsBoard.Views.announcementList({collection: allAnnouncements, allCourses: true});
     this.swapView(allAnnouncementsView);
+    
+    MerlinsBoard.Vent.trigger("homeRender");
   },
   
   homecourse: function (id) {
@@ -124,14 +132,15 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(assignmentForm);
   },
   
-  editAssignment: function () {},
+  editAssignment: function (course_id,id) {
+    var assignment = course.assignments.get(id);
+  },
   
   // utils
 
   swapView: function (newView, navView) {
     if (!this._currentView) {
       this._currentView = newView;
-      //this._currentNav = navView
     } else {
       this._currentView.remove();
       this._currentView = newView;

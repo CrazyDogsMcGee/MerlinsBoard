@@ -6,6 +6,10 @@ MerlinsBoard.Views.CoursesSearch = Backbone.View.extend({
 		this.$el.html(renderedContent);
 		return this
 	},
+  
+  tagName: "section",
+  
+  className: "course-search",
 	
 	events: {
 		"submit form.course-find":"search"

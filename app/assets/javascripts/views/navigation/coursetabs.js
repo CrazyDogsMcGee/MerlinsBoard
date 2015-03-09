@@ -15,17 +15,17 @@
   
 	className: "nav-coursetabs",
   
+  // To make things consistent, I should consider removing the below properties and hardcoding the links directly into the tabs, and moving the Vent triggers to the router
+   
 	events: {
 		"click .course-tab":"showcourse"
 	},
   
   showcourse: function (event) {
-    //change view in primary - show I have a permanent listener?
-    //Or perhaps just a router change
     event.preventDefault()
-    var course_id = event.currentTarget.data("id");
+    var course_id = $(event.currentTarget).data("id");
+    
     Backbone.history.navigate("course/" + course_id +"/announcements", {trigger: true});
-    MerlinsBoard.Vent.trigger("courseRender",{renderCourse: true, courseID: course_id})
+    MerlinsBoard.Vent.trigger("courseRender",{courseID: course_id});
   }
-   
 })

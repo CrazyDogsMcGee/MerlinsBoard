@@ -1,32 +1,39 @@
 MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
   initialize: function () {
-    this.listenTo(MerlinsBoard.Vent, "courseRender", this.render);
+    this.listenTo(MerlinsBoard.Vent, "courseRender", this.renderDetail);
+    this.listenTo(MerlinsBoard.Vent, "homeRender", this.renderHome);
   },
   
-  template: JST["navigation/coursedetail"],
+  templateDetail: JST["navigation/coursedetail"],
+  
+  templateHome: JST["navigation/homedetail"],
   
   tagName: "nav",
   //should this views render follow a trigger on the content view? Yes
   className: "nav-course",
   
-  render: function (options) {
-    var boolean = options["renderCourse"];
+  renderDetail: function (options) {
     var id = options["courseID"];
-    var renderedContent = this.template({renderCourse: boolean, courseID: id}); //danger here: I will not want to use courseID, this may warrant having a different view
+    var renderedContent = this.templateDetail({courseID: id});
     this.$el.html(renderedContent);
     return this
   },
   
-  events: {
-    "click .nav-link": "followlink"
-  },
-  
-  followlink: function (event) {
-    event.preventDefault();
-    var url = event.currentTarget.attr('href');
-    Backbone.history.navigate(url,{trigger: true});
+  renderHome: function () {
+    var renderedContent = this.templateHome();
+    this.$el.html(renderedContent);
+    return this 
   }
+  
+  //both these "return this" statements are superfluous consider i dont pass them into swapView
+  
+//   events: {
+//     "click .nav-link": "followlink"
+//   },
+  
+//   followlink: function (event) {
+//     event.preventDefault();
+//     var url = event.currentTarget.attr('href');
+//     Backbone.history.navigate(url,{trigger: true});
+//   }
 })
-
-//should have logic to redirect admins to different pages in router - Grades for example should redirect to a search page for admins and a normal page for students, but is this good practice?
-//I've never heard of it, but it may benefit me to have two templates and render methods on this that will listen for different events on the global vent

@@ -1,12 +1,9 @@
 <!-- This will be yieded to the application.html -->
 
 <h1>Root.html</h1>
-
-<p>Things seem to be working</p>
-
 <nav class="headernav">Class tabs go here
 </nav>
-<!-- Will want to tie signout to some bar somewhere.. -->
+
 <form class="form-signout" action="/session" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <input type="hidden" name="_method" value="DELETE">
@@ -19,9 +16,7 @@
 </main>
 
 <script type="text/javascript"> 
-		//type apparently optional for HTML5 - otherwise needs to be specified
     window.currentUserID = <%=current_user.id%>
 </script>
 
-<script>$(MerlinsBoard.initialize)</script> <!-- alias for run on DOM ready -->
-<!-- I wonder if the order even matters...sprockets should load all my javascript for me anyway -->
+<script>$(MerlinsBoard.initialize)</script>

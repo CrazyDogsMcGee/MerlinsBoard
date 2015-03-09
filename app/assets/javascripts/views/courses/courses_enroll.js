@@ -16,6 +16,8 @@ MerlinsBoard.Views.CoursesEnroll = Backbone.View.extend({
 		
     return this
 	},
+  
+  //below two, again - hardcode URLs instead
 																												
 	show: function (event) {
 		event.preventDefault();
@@ -24,7 +26,7 @@ MerlinsBoard.Views.CoursesEnroll = Backbone.View.extend({
 	},
 
 	events: {
-		"click a": "show" //should be propogated from internal lists...
+		"click a": "show"
 	}
 
 });

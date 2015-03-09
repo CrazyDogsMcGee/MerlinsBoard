@@ -4,7 +4,7 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
     
     if (!this.renderHome) {
       this.course = this.collection.course;
-      this.listenTo(this.course, "sync", this.render);
+      this.listenTo(this.course, "sync", this.render); //Unless there were some way to listen to all of those course lists in a resource-efficient way
     }
     
     this.listenTo(this.collection, "filter", this.render);
@@ -22,14 +22,17 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
   
   render: function () {
     var showNew
+    var courseName
     
     if (!this.renderHome) {
       showNew = this.course.isInstructor(MerlinsBoard.CurrentUser.id);
+      courseName = this.course.get("name");
     } else {
       showNew = false;
+      courseName = "all courses"
     }
                                                            
-    var renderedContent = this.template({announcements: this.collection, showNew: showNew});
+    var renderedContent = this.template({announcements: this.collection, showNew: showNew, courseName: courseName});
     this.$el.html(renderedContent);
     return this
   },
@@ -37,7 +40,4 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
   newAnnouncement: function (event) {
     Backbone.history.navigate("course/"+this.course.id+"/announcements/new", {trigger: true});
   }
-    
-  //may need some tweaking before I can use this as a homepage view, only thing I can do is to test and see
-  // - Tweaking having to do with administrator privileges..?
 })
