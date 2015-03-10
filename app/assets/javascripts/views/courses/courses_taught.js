@@ -9,7 +9,7 @@ MerlinsBoard.Views.CoursesTaught = Backbone.View.extend({
     return this
   },
   
-	template: JST["navigation/course-taught"],
+	template: JST["courses/course-taught"],
   
 	tagName: "section",
   

@@ -49,6 +49,11 @@ group :development do
   gem 'better_errors'
 end
 
+group :test, :development do
+  gem "rspec-rails", ">= 3.2.1"
+  gem "factory_girl_rails", "~> 4.0"
+end
+
 # To poke selective holes in this security mechanism, you can add a line like this to your startup (for example, on Rails it would be config/environments/development.rb)
 
 # BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']

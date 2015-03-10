@@ -29,7 +29,7 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
       courseName = this.course.get("name");
     } else {
       showNew = false;
-      courseName = "all courses"
+      courseName = "all (attended not taught) courses"
     }
                                                            
     var renderedContent = this.template({announcements: this.collection, showNew: showNew, courseName: courseName});
