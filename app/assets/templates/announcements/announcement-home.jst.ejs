@@ -1,0 +1,6 @@
+<h1>Your Course Announcements</h1>
+
+<% announcements.each(function (announcement) { %>
+<h3 class="announcement-title"><%= announcement.escape("title") %></h3>
+<p class="announcement-body"><%= announcement.escape("body") %></p>
+<% }) %>
