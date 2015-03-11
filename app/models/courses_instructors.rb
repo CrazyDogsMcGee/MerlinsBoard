@@ -8,6 +8,7 @@ class CoursesInstructors < ActiveRecord::Base
   )
 
   belongs_to :course, dependent: :destroy
+  belongs_to :user, dependent: :destroy
 
   def conflicts_with
     newCourse = self.course

@@ -6,6 +6,7 @@ class CoursesStudents < ActiveRecord::Base
   )
 
   belongs_to :course, dependent: :destroy
+  belongs_to :user, dependent: :destroy
   
   has_many :assignments, foreign_key: :course_id, primary_key: :course_id #rails probably guesses the class/object-type smartly
   has_many :announcements, foreign_key: :course_id, primary_key: :course_id

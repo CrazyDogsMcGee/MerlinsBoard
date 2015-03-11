@@ -4,7 +4,6 @@ MerlinsBoard.Collections.Announcements = Backbone.Collection.extend({
     
     if (options["course"]) { //error is happening because there is nothing at ALL to evaluate
       this.course = options["course"];
-      this.allCourses = false;
     }
     
   },

@@ -1,7 +1,6 @@
 MerlinsBoard.Views.announcementHome = Backbone.View.extend({
-  initialize: function (options) {
-    this.course = this.collection.course;
-    this.listenTo(this.course, "sync", this.render); 
+  initialize: function () {
+    this.listenTo(MerlinsBoard.CurrentUser, "sync", this.render); //this violates some congruency, but I'd rather not deal with the logic required to associate the object
   },
   
   tagName: "section",
@@ -9,7 +8,7 @@ MerlinsBoard.Views.announcementHome = Backbone.View.extend({
   template: JST["announcements/announcement-home"],
   
   render: function () {                                                  
-    var renderedContent = this.template({announcements: this.collection, showNew: showNew, courseName: courseName});
+    var renderedContent = this.template({announcements: this.collection});
     this.$el.html(renderedContent);
     return this
   },

@@ -7,4 +7,31 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-#Will need to use this for testing!
+harry = User.create(fname: "Harry", lname: "Potter", email: "chosen1@gmail.com", password: "iamsogreat") #1
+ron = User.create(fname: "Ron", lname: "Weasley", email: "gingerlad@gmail.com", password: "butter_mellow") #2
+hermione = User.create(fname: "Hermione", lname: "Granger", email: "levi0sa@gmail.com", password: "alohomora") #3
+
+Course.create()
+Course.create()
+
+Announcement.create()
+Announcement.create()
+Announcement.create()
+Announcement.create()
+
+Assignment.create()
+Assignment.create()
+Assignment.create()
+Assignment.create()
+Assignment.create()
+
+CoursesStudents.create()
+CoursesStudents.create()
+CoursesStudents.create()
+
+CoursesInstructors.create()
+CoursesInstructors.create()
+
+# Grade.create()
+# Grade.create()
+# Grade.create()

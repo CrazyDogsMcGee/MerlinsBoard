@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   
   def emailFormat
     emailRegex = Regexp.new("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
-    errors.add(:email, "is not a valid email address") if !emailRegex.match(@email)
+    errors.add(:email, "is not a valid email address") if !!emailRegex.match(@email)
   end
   
   private
