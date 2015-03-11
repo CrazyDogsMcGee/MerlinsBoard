@@ -22,9 +22,6 @@ class Course < ActiveRecord::Base
   has_many :assignments
   has_many :grades, through: :assignments, source: :grade
 
-  #NO SNAKE CASE IN RUBY
-  #Associations are found through filenames? not necessarily class names?
-
   def conflicts_with
     newCourse = self
     #this could be refactored to just do a search instead...

@@ -17,3 +17,18 @@ json.students @course.students do |student|
 	json.fname student.fname
 	json.lname student.lname
 end
+
+json.announcements @course.announcements do |announcement|
+  json.id announcement.id
+  json.title announcement.title
+  json.body announcement.body
+  json.user_id announcement.user_id
+end
+
+json.assignments @course.assignments do |assignment|
+  json.id assignment.id
+  json.title assignment.title
+  json.description assignment.description
+  json.due_date assignment.due_date
+end
+

@@ -3,13 +3,25 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   
   //nested resources
   initialize: function () {
-    this.announcements = new MerlinsBoard.Collections.Announcements({course: this}),
-    this.assignments = new MerlinsBoard.Collections.Assignments({course: this})
-    //assignments, announcements, resources
-    //One question, is this bad practice? The difference I can guess is that the above attrs need to be fetched every single time. I'll refactor later
   },
   
   //internal data - the distinction is somewhat arbitrary
+  announcements: function () {
+    if (!this._announcements) {
+      this._announcements = new MerlinsBoard.Collections.Announcements([],{course:this});
+    }
+    
+    return this._announcements
+  },
+  
+  assignments: function () {
+    if (!this._assignments) {
+      this._assignments = new MerlinsBoard.Collections.Assignments([],{course: this});
+    }
+    
+    return this._assignments
+  },
+  
 	instructors: function () {
 		if (!this._instructors) {
 			this._instructors = new MerlinsBoard.Collections.Users([],{course: this});
@@ -50,7 +62,17 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 			this.enrollments().set(resp.enrollments);
 			resp.enrollments.delete;
     }
-		
+    
+    if (resp.announcements) {
+      this.announcements().set(resp.assignments);
+      resp.enrollments.delete;
+    }
+    
+    if (resp.assignments) {
+      this.assignments().set(resp.assignments);
+      resp.assignments.delete;
+    }
+		//probably should iterate through this to reduce the space
 		return resp
 	},
 	

@@ -6,6 +6,23 @@ MerlinsBoard.Collections.Users = Backbone.Collection.extend({
   
   model: MerlinsBoard.Models.User,
   
-	url: "api/users"
-	//may eventually need getOrFetch here for profiles
+	url: "api/users",
+  
+  getOrFetch: function (id) {
+    var user = this.get(id)
+    var userCollection = this
+  
+    if (!user) {
+      user = new MerlinsBoard.Models.User({id: id})
+      user.fetch({success: function () {
+        userCollection.add(user)
+        } 
+      })
+    } else {
+      user.fetch()
+    }
+    
+    return user
+  }
+//for profile display
 });

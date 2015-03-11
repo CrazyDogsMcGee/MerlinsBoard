@@ -7,8 +7,10 @@ class CoursesStudents < ActiveRecord::Base
 
   belongs_to :course, dependent: :destroy
   
-  has_many :assignments, foreign_key: :course_id, primary_key: :course_id
-
+  has_many :assignments, foreign_key: :course_id, primary_key: :course_id #rails probably guesses the class/object-type smartly
+  has_many :announcements, foreign_key: :course_id, primary_key: :course_id
+  #A "belongs_to" association is only valid when then the resource in question has the resource ID of its "owner" object
+  
   validate :conflicts_with, :not_instructor
   validates :user_id, uniqueness: {scope: :course_id, message: "Can't enroll in the same class twice"}
 

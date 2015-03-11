@@ -1,4 +1,6 @@
 class Api::CoursesController < Api::ApiController 
+  before_action :has_course_access
+  
 	def index
     @courses = Course.all
 		render json: @courses 
@@ -27,7 +29,7 @@ class Api::CoursesController < Api::ApiController
 
   def show
 		@course = Course.find(params[:id])
-		render :show 
+    render :show #jbuilder render
   end
   
   def update
@@ -47,21 +49,26 @@ class Api::CoursesController < Api::ApiController
   
   #not implemented
   
-  def assignments
-    @courseAssignments = Course.find(params[:id]).assignments
-    render json: @courseAssignments
+  def grades #easier to just include with course Jbuilder response?
+    @courseGrades = Course.find(params[:id]).grades
+    render json: @courseGrades 
   end
   
-  def grades
-    @courseGrades = Course.find(params[:id]).grades
-    render json: @courseGrades
+  def has_course_access
+    @course = Course.includes(:instructors,:students).find(params[:id])
+    user_id = current_user.id
+    
+    if (@course.instructors.exists?(user_id) || @course.students.exists(user_id))
+      return
+    else
+      render :status => :forbidden, :text => "You do not have sufficient rights to perform that action"
+    end
   end
 
   private
 
   def course_params
     params.require(:course).permit(:name, :start_time, :end_time, :description, :location, :day)
-		#serializeJSON way
   end
 	
 end
