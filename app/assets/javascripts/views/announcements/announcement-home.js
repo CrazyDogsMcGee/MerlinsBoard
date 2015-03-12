@@ -11,9 +11,5 @@ MerlinsBoard.Views.announcementHome = Backbone.View.extend({
     var renderedContent = this.template({announcements: this.collection});
     this.$el.html(renderedContent);
     return this
-  },
-    
-  newAnnouncement: function (event) {
-    Backbone.history.navigate("course/"+this.course.id+"/announcements/new", {trigger: true});
   }
 })

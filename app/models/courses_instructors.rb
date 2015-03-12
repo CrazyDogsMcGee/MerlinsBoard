@@ -4,11 +4,11 @@ class CoursesInstructors < ActiveRecord::Base
   belongs_to(
     :instructor,
     class_name: "User",
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    dependent: :destroy,
+    inverse_of: :courses_instructors
   )
-
-  belongs_to :course, dependent: :destroy
-  belongs_to :user, dependent: :destroy
+  belongs_to :course, dependent: :destroy, inverse_of: :courses_instructors
 
   def conflicts_with
     newCourse = self.course

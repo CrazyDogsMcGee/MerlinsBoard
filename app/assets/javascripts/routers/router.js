@@ -24,7 +24,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "" : "homeAnnouncements",
     "course/:id/announcements/new": "newAnnouncement",
     "course/:course_id/announcements/:id/edit":"editAnnouncement",
-    "course/:id/announcements" : "homecourse", //shows announcements for course + navView
+    "course/:id/announcements" : "courseAnnouncements", //shows announcements for course + navView
     //assignment resources
     "course/:id/assignments/new" : "newAssignment",
     "course/:id/assignments" : "showAssignments",
@@ -85,7 +85,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     MerlinsBoard.Vent.trigger("homeRender");
   },
   
-  homecourse: function (id) {
+  courseAnnouncements: function (id) {
     //course detail nav should be instantiated here + announcements!
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var announcements = course.announcements();
@@ -116,8 +116,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var assignments = course.assignments();
     
     course.fetch();
-    
-    var courseAssignments = new MerlinsBoard.Views.assignmentList({collection: assignments}); //collection not being assigned for some reason
+
+    var courseAssignments = new MerlinsBoard.Views.assignmentList({collection: assignments});
     this.swapView(courseAssignments);
   },
   

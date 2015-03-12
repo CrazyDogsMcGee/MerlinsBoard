@@ -3,4 +3,9 @@
 <% announcements.each(function (announcement) { %>
 <h3 class="announcement-title"><%= announcement.escape("title") %></h3>
 <p class="announcement-body"><%= announcement.escape("body") %></p>
+<ul>
+  <li>Posted by <%=announcement.escape("author_name") %></li>
+  <li>Posted in <%=announcement.escape("course_name") %></li>
+  <li>Posted at <%=announcement.escape("posted_at") %></li>
+</ul>
 <% }) %>

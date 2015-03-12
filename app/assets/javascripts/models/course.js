@@ -64,7 +64,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
     }
     
     if (resp.announcements) {
-      this.announcements().set(resp.assignments);
+      this.announcements().set(resp.announcements);
       resp.enrollments.delete;
     }
     

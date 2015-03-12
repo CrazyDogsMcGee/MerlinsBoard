@@ -15,7 +15,7 @@ Course.create()
 Course.create()
 
 Announcement.create()
-Announcement.create()
+Announcement.create() 
 Announcement.create()
 Announcement.create()
 

@@ -1,7 +1,7 @@
 MerlinsBoard.Collections.Assignments = Backbone.Collection.extend({
-  initialize: function (options) {
-    if (options) {
-      this.course = options["course"]; //optional ownership...
+  initialize: function (models, options) {
+    if (options["course"]) {
+      this.course = options["course"];
     }
   },
   

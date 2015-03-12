@@ -1,9 +1,12 @@
 MerlinsBoard.Collections.Announcements = Backbone.Collection.extend({
-  initialize: function (options) {
-    this.allCourses = true //by default - get rid of "New" button
-    
-    if (options["course"]) { //error is happening because there is nothing at ALL to evaluate
+  initialize: function (models, options) {
+
+    if (options["course"]) {
       this.course = options["course"];
+    }
+    
+    if (options["user"]) {
+      this.user = options["user"]
     }
     
   },

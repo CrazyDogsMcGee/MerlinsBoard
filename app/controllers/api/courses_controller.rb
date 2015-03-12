@@ -1,5 +1,5 @@
 class Api::CoursesController < Api::ApiController 
-  before_action :has_course_access
+  before_action :has_course_access, only: [:create, :show, :update]
   
 	def index
     @courses = Course.all
@@ -58,7 +58,7 @@ class Api::CoursesController < Api::ApiController
     @course = Course.includes(:instructors,:students).find(params[:id])
     user_id = current_user.id
     
-    if (@course.instructors.exists?(user_id) || @course.students.exists(user_id))
+    if (@course.instructors.exists?(user_id) || @course.students.exists?(user_id))
       return
     else
       render :status => :forbidden, :text => "You do not have sufficient rights to perform that action"

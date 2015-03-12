@@ -4,18 +4,21 @@ class Course < ActiveRecord::Base
   validates :name, :location, :start_time, :end_time, :day, :description, presence: true
   validates :name, uniqueness: true
   validates :day, inclusion: {in: WEEKDAYS}
+  #validates :start_time, :end_time, :inclusion => { :in => 0..1439 }
   validate :conflicts_with
 
   has_many(
   :courses_students, #maybe should change this to enrollments
   class_name:  "CoursesStudents",
-  dependent: :destroy
+  dependent: :destroy,
+  inverse_of: :course
   )
 
   has_many(
   :courses_instructors, #and this to professorships or something
   class_name: "CoursesInstructors",
-  dependent: :destroy
+  dependent: :destroy,
+  inverse_of: :course
   )
   
   has_many :announcements
@@ -24,9 +27,8 @@ class Course < ActiveRecord::Base
   has_many :assignments
   has_many :grades, through: :assignments, source: :grade
 
-  def conflicts_with
+  def conflicts_with #refactor with a where search - may have to index on some of these properties
     newCourse = self
-    #this could be refactored to just do a search instead...
     Course.all.each do |existingcourse|
       next if newCourse.id == existingcourse.id
       if newCourse.location == existingcourse.location

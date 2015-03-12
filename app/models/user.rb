@@ -7,12 +7,14 @@ class User < ActiveRecord::Base
 
   has_many( #should have been singular...Should have picked a singular name
   :courses_instructors,
-  class_name: "CoursesInstructors"
+  class_name: "CoursesInstructors",
+  inverse_of: :instructor
   )
 	
   has_many(
   :courses_students,
-  class_name: "CoursesStudents"
+  class_name: "CoursesStudents",
+  inverse_of: :student
   )
 
   #Linear associations

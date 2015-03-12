@@ -2,11 +2,12 @@ class CoursesStudents < ActiveRecord::Base
   belongs_to(
     :student,
     class_name: "User",
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    dependent: :destroy, 
+    inverse_of: :courses_students
   )
-
-  belongs_to :course, dependent: :destroy
-  belongs_to :user, dependent: :destroy
+  
+  belongs_to :course, dependent: :destroy, inverse_of: :courses_students
   
   has_many :assignments, foreign_key: :course_id, primary_key: :course_id #rails probably guesses the class/object-type smartly
   has_many :announcements, foreign_key: :course_id, primary_key: :course_id
