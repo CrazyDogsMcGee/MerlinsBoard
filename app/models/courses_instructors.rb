@@ -5,10 +5,9 @@ class CoursesInstructors < ActiveRecord::Base
     :instructor,
     class_name: "User",
     foreign_key: :user_id,
-    dependent: :destroy,
     inverse_of: :courses_instructors
   )
-  belongs_to :course, dependent: :destroy, inverse_of: :courses_instructors
+  belongs_to :course, inverse_of: :courses_instructors
 
   def conflicts_with
     newCourse = self.course

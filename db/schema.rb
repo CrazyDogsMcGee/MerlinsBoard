@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223191718) do
+ActiveRecord::Schema.define(version: 20150312193038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(version: 20150223191718) do
     t.string   "location",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "start_time",  null: false
-    t.integer  "end_time",    null: false
     t.string   "day",         null: false
     t.text     "description", null: false
+    t.time     "start_time"
+    t.time     "end_time"
   end
 
   add_index "courses", ["name"], name: "index_courses_on_name", unique: true, using: :btree

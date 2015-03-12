@@ -39,7 +39,6 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "survey", "~> 0.1"
 gem "backbone-on-rails"
 
 group :development do

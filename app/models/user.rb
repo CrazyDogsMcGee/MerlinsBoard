@@ -8,12 +8,14 @@ class User < ActiveRecord::Base
   has_many( #should have been singular...Should have picked a singular name
   :courses_instructors,
   class_name: "CoursesInstructors",
+  dependent: :destroy,
   inverse_of: :instructor
   )
 	
   has_many(
   :courses_students,
   class_name: "CoursesStudents",
+  dependent: :destroy,
   inverse_of: :student
   )
 

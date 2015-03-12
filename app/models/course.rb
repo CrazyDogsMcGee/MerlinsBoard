@@ -46,5 +46,20 @@ class Course < ActiveRecord::Base
     end
 
   end
+  
+#   def start_time=(start_time_string)
+    
+#   end
+  
+#   def end_time=(end_time_string)
+    
+#   end
+  
+#   def parse_time(time_string)
+    
+#   end
+  
+  #conflicting_courses = Course.where("location = ? AND day = ?",self.location,self.day)
+  #
 
 end

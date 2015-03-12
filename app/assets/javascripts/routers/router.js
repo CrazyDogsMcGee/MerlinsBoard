@@ -18,7 +18,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/search" : "enrollcourses",
     "course/:id/enroll" : "showcourse",
     "course/new": "newcourse",
-    "course/edit/:id": "editcourse",
+    "course/:id/edit": "editcourse",
     "course/taught": "taughtcourses",
     //announcement resources
     "" : "homeAnnouncements",
