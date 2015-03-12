@@ -1,8 +1,6 @@
 MerlinsBoard.Collections.Assignments = Backbone.Collection.extend({
   initialize: function (models, options) {
-    if (options["course"]) {
-      this.course = options["course"];
-    }
+    this.owner = options["owner"];
   },
   
   model: MerlinsBoard.Models.Assignment,

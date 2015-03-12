@@ -6,7 +6,7 @@ window.MerlinsBoard = {
   Vent: _.extend({}, Backbone.Events),
   initialize: function() {
     alert('Page Loaded');
-		MerlinsBoard.Courses = new MerlinsBoard.Collections.Courses();
+		MerlinsBoard.Courses = new MerlinsBoard.Collections.Courses([],{owner: this}).bind(window.MerlinsBoard);
 		MerlinsBoard.CurrentUser = new MerlinsBoard.Models.User({id: window.currentUserID});
 		new MerlinsBoard.Routers.Router({
      rootEl: $("main#content"),

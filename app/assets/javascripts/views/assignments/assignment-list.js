@@ -1,9 +1,7 @@
 MerlinsBoard.Views.assignmentList = Backbone.View.extend({
   initialize: function () {
-    this.course = this.collection.course 
-    //this.listenTo(this.collection, "add remove reset", this.render);
-    this.listenTo(this.course, "sync", this.render)
-    //insert conditional for teacher access to new-assignments button
+    this.course = this.collection.owner;
+    this.listenTo(this.course, "sync", this.render);
   },
   
   events: {

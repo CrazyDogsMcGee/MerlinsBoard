@@ -1,14 +1,6 @@
 MerlinsBoard.Collections.Announcements = Backbone.Collection.extend({
   initialize: function (models, options) {
-
-    if (options["course"]) {
-      this.course = options["course"];
-    }
-    
-    if (options["user"]) {
-      this.user = options["user"]
-    }
-    
+    this.owner = options["owner"];
   },
   
   url: "api/announcements",

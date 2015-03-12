@@ -3,7 +3,7 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
   
   courses: function () {
     if (!this._courses) {
-      this._courses = new MerlinsBoard.Collections.Courses({user: this});  
+      this._courses = new MerlinsBoard.Collections.Courses([],{owner: this});  
     }
     
     return this._courses
@@ -11,7 +11,7 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
   
   taughtcourses: function () {
     if (!this._taughtcourses) {
-      this._taughtcourses = new MerlinsBoard.Collections.Courses({user: this});
+      this._taughtcourses = new MerlinsBoard.Collections.Courses([],{owner: this});
     }
     
     return this._taughtcourses
@@ -19,7 +19,7 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
   
   announcements: function () {
     if (!this._announcements) {
-      this._announcements = new MerlinsBoard.Collections.Announcements({user: this});
+      this._announcements = new MerlinsBoard.Collections.Announcements([],{owner: this});
     }
     
     return this._announcements

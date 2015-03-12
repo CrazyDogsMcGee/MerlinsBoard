@@ -8,7 +8,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   //internal data - the distinction is somewhat arbitrary
   announcements: function () {
     if (!this._announcements) {
-      this._announcements = new MerlinsBoard.Collections.Announcements([],{course:this});
+      this._announcements = new MerlinsBoard.Collections.Announcements([],{owner:this});
     }
     
     return this._announcements
@@ -16,7 +16,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   
   assignments: function () {
     if (!this._assignments) {
-      this._assignments = new MerlinsBoard.Collections.Assignments([],{course: this});
+      this._assignments = new MerlinsBoard.Collections.Assignments([],{owner: this});
     }
     
     return this._assignments
@@ -24,7 +24,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   
 	instructors: function () {
 		if (!this._instructors) {
-			this._instructors = new MerlinsBoard.Collections.Users([],{course: this});
+			this._instructors = new MerlinsBoard.Collections.Users([],{owner: this});
 		}
 		
 		return this._instructors
@@ -32,7 +32,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 	
 	students: function () {
 		if (!this._students) {
-			this._students = new MerlinsBoard.Collections.Users([],{course: this});
+			this._students = new MerlinsBoard.Collections.Users([],{owner: this});
 		}
 		
 		return this._students
@@ -40,7 +40,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 	
 	enrollments: function () {
 		if (!this._enrollments) {
-			this._enrollments = new MerlinsBoard.Collections.CoursesStudents([],{course: this});
+			this._enrollments = new MerlinsBoard.Collections.CoursesStudents([],{owner: this});
 		}
 		
 		return this._enrollments

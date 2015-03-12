@@ -1,6 +1,6 @@
 MerlinsBoard.Views.CoursesList = Backbone.View.extend({
 	initialize: function () {
- 		this.listenTo(this.collection, "sync add remove", this.render);
+ 		this.listenTo(this.collection, "add remove", this.render);
 	},
 	
 

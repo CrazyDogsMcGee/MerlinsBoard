@@ -1,7 +1,7 @@
 MerlinsBoard.Collections.Courses = Backbone.Collection.extend({
-//   initialize: function (options) {
-//     this.user = options["user"] || "none";
-//   },
+  initialize: function (options) {
+    this.owner = options["owner"];
+  },
   
   model: MerlinsBoard.Models.Course,
   

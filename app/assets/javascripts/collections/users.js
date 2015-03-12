@@ -1,6 +1,6 @@
 MerlinsBoard.Collections.Users = Backbone.Collection.extend({
 	initialize: function (models, options) {
-		this.course = options["course"]; 
+		this.owner = options["owner"]; 
 		//Note: There is no reciprocal relationship of a course collection having a reference to a user ID- is that even needed?
 	},
   

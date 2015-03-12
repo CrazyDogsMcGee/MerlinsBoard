@@ -1,6 +1,6 @@
 MerlinsBoard.Views.announcementList = Backbone.View.extend({
   initialize: function (options) {
-    this.course = this.collection.course;
+    this.course = this.collection.owner;
     this.listenTo(this.course, "sync", this.render); 
   },
   
