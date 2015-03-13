@@ -11,16 +11,7 @@ class Api::CoursesController < Api::ApiController
     @course = Course.new(course_params)
 		
 		if @course.valid?
-			
-#       begin
-#         Course.transaction do
-#           @course.save!
-#           CoursesInstructors.create!(user_id: current_user.id, course_id: @course.id)
-#         end #need exception handling here in case db is broken - http://api.rubyonrails.org/classes/ActiveRecord/Transactions/ClassMethods.html
-#       rescue ActiveRecord::RecordNotSaved => e
-#         render status: 500, text: "Internal Server Error - Contact system admin and try again"
-#       end
-      current_user.taughtcourses.create()
+      current_user.taughtcourses.create(course_params)
       render json: @course
     else
       render json: @course.errors.full_messages, status: 422

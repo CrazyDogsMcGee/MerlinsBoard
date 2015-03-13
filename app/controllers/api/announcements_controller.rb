@@ -1,9 +1,4 @@
 class Api::AnnouncementsController < Api::ApiController
-#   def courseindex
-#     @announcements = Announcement.where({course_id: params["course_id"]})
-#     render json: @announcements
-#   end
-  
   def index
     @announcements = Announcement.all
     render json: @announcements
@@ -24,7 +19,7 @@ class Api::AnnouncementsController < Api::ApiController
     if @announcement.update(announcement_params)
       render json: {}
     else
-      render json: @announcement.errors.full_messages
+      render status: 422, json: @announcement.errors.full_messages
     end
   end
   

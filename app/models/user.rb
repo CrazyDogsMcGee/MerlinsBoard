@@ -61,10 +61,6 @@ class User < ActiveRecord::Base
     errors.add(:email, "is not a valid email address") if !!emailRegex.match(@email)
   end
   
-  def all_courses
-    return self.courses + self.taughtcourses
-  end
-  
   private
 
   def ensure_session_token

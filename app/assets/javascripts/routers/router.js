@@ -94,6 +94,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     
     var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
     this.swapView(courseAnnouncements);
+    
+    MerlinsBoard.Vent.trigger("courseRender",{courseID: id});
   },
   
   newAnnouncement: function (id) {
@@ -119,6 +121,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     var courseAssignments = new MerlinsBoard.Views.assignmentList({collection: assignments});
     this.swapView(courseAssignments);
+    
+    MerlinsBoard.Vent.trigger("courseRender",{courseID: id});
   },
   
   newAssignment: function (id) {

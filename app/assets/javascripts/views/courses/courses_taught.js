@@ -8,8 +8,8 @@ MerlinsBoard.Views.CoursesTaught = Backbone.View.extend({
 	className: "course-taught",
   
   events: {
-    "click button":"editCourse",
-    "click a":"goToCourse"
+    "click button":"editCourse"
+//     "click a":"goToCourse"
   },
    
   render: function () {
@@ -18,10 +18,11 @@ MerlinsBoard.Views.CoursesTaught = Backbone.View.extend({
     return this
   },
   
-  goToCourse: function (event) {
-    event.preventDefault();
-    Backbone.history.navigate("course/"+course_id+"/announcements",{trigger:true});
-  },
+//   goToCourse: function (event) {
+//     event.preventDefault();
+//     var course_id = $(event.currentTarget).data("id");
+//     Backbone.history.navigate("course/"++"/announcements",{trigger:true});
+//   },
 
   editCourse: function (event) {
     var course_id = $(event.currentTarget).data("id");

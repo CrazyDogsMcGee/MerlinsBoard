@@ -21,7 +21,7 @@ class Api::AssignmentsController < Api::ApiController
     if @assignment.update(assignment_params)
       render json: @assignment
     else
-      render json: @assignment.errors.full_messages
+      render status: 422, json: @assignment.errors.full_messages
     end
   end
   

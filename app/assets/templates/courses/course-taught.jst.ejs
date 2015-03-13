@@ -2,7 +2,7 @@
 
 <section class="course-list">
   <% courses.each( function (course) { %>
-	<li><a href="#" data-id="<%=course.id%>"><%= course.escape("name") %></a></li>
+	<li><a href="<%= '#course/'+course.id+'/announcements' %>" data-id="<%=course.id%>"><%= course.escape("name") %></a></li>
   <button data-id="<%=course.id%>">Edit Course</button>
   <% })%>
 </section>
