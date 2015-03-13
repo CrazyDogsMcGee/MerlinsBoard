@@ -32,7 +32,7 @@ class Course < ActiveRecord::Base
     new_course = self
     #will want to optimize this later, unsure whether a giant SQL statement is the way to go
     possible_matches = Course.where("location = ? AND day = ?", self.location, self.day)
-    course_conflict(self, possible_matches)
+    course_conflict(self, possible_matches, {eval_enroll: false})
   end
 #   
   def self.parsed_time(time)

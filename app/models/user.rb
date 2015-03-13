@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   validates :fname, :lname, :email, :password_digest, :session_token, presence: true
   validates :email, :session_token, uniqueness: true
-  validates :password, length: {minimum: 6, allow_nil:true} #needs to allow nil, because we might edit other aspects of the user without passing in another password - also we don't want it to become part of the model
+  validates :password, length: {minimum: 6, allow_nil:true} #needs to allow nil, because we might edit other aspects of the  without passing in another password - also we don't want it to become part of the model
   validate :emailFormat
   after_initialize :ensure_session_token
 
@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
   def emailFormat
     emailRegex = Regexp.new("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
     errors.add(:email, "is not a valid email address") if !!emailRegex.match(@email)
+  end
+  
+  def all_courses
+    return self.courses + self.taughtcourses
   end
   
   private

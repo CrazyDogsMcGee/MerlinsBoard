@@ -1,2 +1,2 @@
-class AssignmentsController < ApplicationController
-end
+# class AssignmentsController < ApplicationController
+# end

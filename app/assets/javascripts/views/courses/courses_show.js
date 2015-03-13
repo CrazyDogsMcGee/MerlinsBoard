@@ -31,7 +31,7 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
         this.render();
       }.bind(this),
       error: function (model, resp) {
-        this.$("section.errors").html(resp)
+        this.$("section.errors").html("Internal Server Error - check logs for more information")
       }.bind(this)
     })
 	},

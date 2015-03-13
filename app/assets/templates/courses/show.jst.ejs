@@ -1,6 +1,7 @@
 <h1><%= course.escape("name") %></h1>
 
-<section class="errors"></section>
+<section class="errors">
+</section>
 
 <p>
   <%= course.escape("description") %>
@@ -28,6 +29,7 @@
   <form class="cancelcourse">
     <input type="submit" value="Cancel Class">
   </form>
+  <a href="<%='#course/' + course.id + '/edit'%>">Edit Course</a>
 <% } else { %>
   <% if (!!course.students().findWhere({id: userID})) {%>
     <form class="dropcourse">

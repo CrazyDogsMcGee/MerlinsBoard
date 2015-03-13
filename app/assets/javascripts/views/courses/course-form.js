@@ -19,15 +19,16 @@ MerlinsBoard.Views.CourseForm = Backbone.View.extend({
 	submitform: function (event) {
 		event.preventDefault();
 		var attrs = $(event.target).serializeJSON();
+    debugger
 		this.model.save(attrs, {
 			success: function () {
-				MerlinsBoard.Courses.add(this.model)
+				MerlinsBoard.Courses.add(this.model,{merge: true})
 				Backbone.history.navigate("",{trigger: true}) //instead do a "course created/saved"
 			}.bind(this),
 			error: function (model,resp) {
 				var errorArray = resp.responseJSON;
         var $errorList = $("<ul>");
-        
+        debugger
         _.each(errorArray, function (error) {
           var $error = $("<li>").text(error);
           $errorList.append($error);

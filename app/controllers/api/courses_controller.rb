@@ -12,15 +12,15 @@ class Api::CoursesController < Api::ApiController
 		
 		if @course.valid?
 			
-      begin
-        Course.transaction do
-          @course.save!
-          CoursesInstructors.create!(user_id: current_user.id, course_id: @course.id)
-        end #need exception handling here in case db is broken - http://api.rubyonrails.org/classes/ActiveRecord/Transactions/ClassMethods.html
-      rescue ActiveRecord::RecordNotSaved => e
-        render status: 500, text: "Internal Server Error - Contact system admin and try again"
-      end
-
+#       begin
+#         Course.transaction do
+#           @course.save!
+#           CoursesInstructors.create!(user_id: current_user.id, course_id: @course.id)
+#         end #need exception handling here in case db is broken - http://api.rubyonrails.org/classes/ActiveRecord/Transactions/ClassMethods.html
+#       rescue ActiveRecord::RecordNotSaved => e
+#         render status: 500, text: "Internal Server Error - Contact system admin and try again"
+#       end
+      current_user.taughtcourses.create()
       render json: @course
     else
       render json: @course.errors.full_messages, status: 422
@@ -38,7 +38,7 @@ class Api::CoursesController < Api::ApiController
     if @course.update(course_params)
       render json: @course
     else
-      render json: @course.errors.full_messages
+      render json: @course.errors.full_messages, status: 422
     end
   end
 	

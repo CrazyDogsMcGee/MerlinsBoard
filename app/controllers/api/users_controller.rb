@@ -11,3 +11,5 @@ class Api::UsersController < Api::ApiController
 	end
 	
 end
+
+#JSON items
