@@ -1,7 +1,6 @@
 class Api::CoursesInstructorsController < Api::ApiController
   
-  def create
-  end
-  
+#   def create
+#   end
   
 end

@@ -1,6 +1,6 @@
 class Api::CoursesController < Api::ApiController 
-  #before_action :has_course_access, only: [:create, :show, :update]
-  #How will I grant access? A seperate route or collection perhaps?
+  #before_action :has_course_access, only: [:create, :update]
+  helper_method :has_course_access_view
   
 	def index
     @courses = Course.all
@@ -12,12 +12,16 @@ class Api::CoursesController < Api::ApiController
 		
 		if @course.valid?
 			
-			Course.transaction do
-				@course.save!
-        CoursesInstructors.create!(user_id: cuid, course_id: cid)
-			end #need error handling still for this block
+      begin
+        Course.transaction do
+          @course.save!
+          CoursesInstructors.create!(user_id: current_user.id, course_id: @course.id)
+        end #need exception handling here in case db is broken - http://api.rubyonrails.org/classes/ActiveRecord/Transactions/ClassMethods.html
+      rescue ActiveRecord::RecordNotSaved => e
+        render status: 500, text: "Internal Server Error - Contact system admin and try again"
+      end
 
-			render json: @course 
+      render json: @course
     else
       render json: @course.errors.full_messages, status: 422
     end
@@ -51,7 +55,7 @@ class Api::CoursesController < Api::ApiController
     render json: @courseGrades 
   end
   
-  def has_course_access
+  def has_course_access #figure out how to separate this...my first instinct is to have a sha
     @course = Course.includes(:instructors,:students).find(params[:id])
     user_id = current_user.id
     
@@ -59,6 +63,16 @@ class Api::CoursesController < Api::ApiController
       return
     else
       render :status => :forbidden, :text => "You do not have sufficient rights to perform that action"
+    end
+  end
+  
+  def has_course_access_view(user) #will it still run from this context? - curious
+    @course = Course.includes(:instructors,:students).find(params[:id])
+    
+    if (@course.instructors.exists?(user.id) || @course.students.exists?(user.id))
+      return true
+    else
+      return false
     end
   end
 

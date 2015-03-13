@@ -1,5 +1,4 @@
 class Api::CoursesStudentsController < Api::ApiController
-  #validation for conflicts
   
 	def create
     @enrollment = CoursesStudents.new(enrollment_params)

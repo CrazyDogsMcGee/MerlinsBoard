@@ -1,4 +1,8 @@
 class CoursesStudents < ActiveRecord::Base
+  include Scheduling
+  
+  validate :conflicts_with_link, :not_instructor
+  
   belongs_to(
     :student,
     class_name: "User",
@@ -14,18 +18,13 @@ class CoursesStudents < ActiveRecord::Base
   validate :not_instructor
   validates :user_id, uniqueness: {scope: :course_id, message: "Can't enroll in the same class twice"}
 
-  def conflicts_with
-    newCourse = self.course
+  def conflicts_with_link
+    new_link = self
+    new_enroll = self.course
+    user_courses = self.user.courses #violation of LoD - should investigate and refactor
+    user_courses = user_courses.where("location = ? AND day = ?", self.location, self.day) #ugly as sin, will need to be refactored to reduce # of queries
+    
+    course_conflict(new_enroll, user_courses)
   end
-	
-	def not_instructor
-		course = self.course
-		user = User.find(self.student)
-		
-		if course.instructors.include?(user)
-			errors.add(:base, "Instructor cannot be student of class!")
-		end
-		
-	end
 
 end
