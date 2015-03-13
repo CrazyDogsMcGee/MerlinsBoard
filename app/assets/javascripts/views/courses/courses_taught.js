@@ -7,10 +7,10 @@ MerlinsBoard.Views.CoursesTaught = Backbone.View.extend({
 	tagName: "section",
 	className: "course-taught",
   
-  events: function () {
-    "click button":"editCourse"
+  events: {
+    "click button":"editCourse",
     "click a":"goToCourse"
-  }
+  },
    
   render: function () {
     var renderedContent = this.template({courses: this.collection});

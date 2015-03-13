@@ -3,5 +3,6 @@ class Assignment < ActiveRecord::Base
   #validate due date is after current date
   
   belongs_to :course
+  has_many :grades, dependent: :destroy
   
 end

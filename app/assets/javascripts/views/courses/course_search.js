@@ -25,7 +25,7 @@ MerlinsBoard.Views.CoursesSearch = Backbone.View.extend({
       return result
     })
     
-    var filteredCollection = new MerlinsBoard.Collections.Courses();
+    var filteredCollection = new MerlinsBoard.Collections.Courses([],{owner: MerlinsBoard.CurrentUser});
     filteredCollection.set(filtered);
     
     var searchList = new MerlinsBoard.Views.CoursesList({collection: filteredCollection});

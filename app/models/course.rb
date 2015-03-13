@@ -4,8 +4,8 @@ class Course < ActiveRecord::Base
   validates :name, :location, :start_time, :end_time, :day, :description, presence: true
   validates :name, uniqueness: true
   validates :day, inclusion: {in: WEEKDAYS}
-  #validates :start_time, :end_time, :inclusion => { :in => 0..1439 }
   validate :conflicts_with
+  #validate endstartime
 
   has_many(
   :courses_students, #maybe should change this to enrollments
@@ -21,10 +21,10 @@ class Course < ActiveRecord::Base
   inverse_of: :course
   )
   
-  has_many :announcements
+  has_many :announcements, dependent: :destroy
   has_many :students, through: :courses_students, source: :student
   has_many :instructors, through: :courses_instructors, source: :instructor
-  has_many :assignments
+  has_many :assignments, dependent: :destroy
   has_many :grades, through: :assignments, source: :grade
 
   def conflicts_with #refactor with a where search - may have to index on some of these properties
@@ -47,19 +47,37 @@ class Course < ActiveRecord::Base
 
   end
   
-#   def start_time=(start_time_string)
+  def conflicts_with_new
+    new_course = self
+    #will want to optimize this later, unsure whether a giant SQL statement is the way to go
+    possible_matches = Course.where("location = ? AND day = ?", self.location, self.day)
     
-#   end
+    possible_matches.each do |existing_course| #straight O(n) query also not ideal
+      next if existing_course.id == new_course.id
+      
+      if overlapping_time?(self,existing_course)
+        errors.add(:base, "Time/location conflict with existing class #{existing_course.name}")
+      else
+        next
+      end
+    end
+  end
   
-#   def end_time=(end_time_string)
+  def self.parsed_time(time)
+    time_regexp = Regexp.new(/\d\d:\d\d/)
+    return time_regexp.match(time.to_s)[0]
+  end
+
+  private 
+  
+  def overlapping_time?(course1,course2)
+    end_time_1 = course1.end_time.to_i
+    start_time_1 = course1.start_time.to_i
     
-#   end
-  
-#   def parse_time(time_string)
+    end_time_2 = course2.end_time.to_i
+    start_time_2 = course2.start_time.to_i
     
-#   end
-  
-  #conflicting_courses = Course.where("location = ? AND day = ?",self.location,self.day)
-  #
+    return (start_time_1 - end_time_2) * (start_time_2 - end_time_1) >= 0
+  end
 
 end

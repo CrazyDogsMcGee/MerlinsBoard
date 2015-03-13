@@ -6,6 +6,10 @@
   <%= course.escape("description") %>
 </p>
 
+<p><%= course.escape("start_time") %></p>
+<p><%= course.escape("end_time") %></p>
+<p><%= course.escape("day") %></p>
+
 <h2>Instructors</h2>
 <ul>
   <% course.instructors().each( function (instructor) { %> 

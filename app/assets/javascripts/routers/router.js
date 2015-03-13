@@ -37,7 +37,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 	},
 	
 	enrollcourses: function () {
-    var allcourses = new MerlinsBoard.Collections.Courses();
+    var allcourses = new MerlinsBoard.Collections.Courses([],{owner: this.currentUser});
    
     allcourses.fetch(); 
   

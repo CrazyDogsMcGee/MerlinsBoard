@@ -1,5 +1,5 @@
 class CoursesInstructors < ActiveRecord::Base
-  validate :conflicts_with
+  #validate :conflicts_with
 
   belongs_to(
     :instructor,
@@ -10,19 +10,7 @@ class CoursesInstructors < ActiveRecord::Base
   belongs_to :course, inverse_of: :courses_instructors
 
   def conflicts_with
-    newCourse = self.course
-
-    self.instructor.courses.each do |taughtcourse|
-      if taughtcourse.day == newCourse.day
-        if (
-          ((taughtcourse.end_time < newCourse.start_time) && (taughtcourse.start_time < newCourse.start_time)) || ((taughtcourse.start_time > newCourse.end_time) && (taughtcourse.end_time > newCourse.end_time))
-          )
-          next
-        else
-          errors.add(:course_id, "Time conflict with another taught class")
-        end
-      end
-    end
+    #How will I change this...?
   end
 
 end

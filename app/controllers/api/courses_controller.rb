@@ -1,14 +1,11 @@
 class Api::CoursesController < Api::ApiController 
-  before_action :has_course_access, only: [:create, :show, :update]
+  #before_action :has_course_access, only: [:create, :show, :update]
+  #How will I grant access? A seperate route or collection perhaps?
   
 	def index
     @courses = Course.all
 		render json: @courses 
   end
-
-#   def new
-#     @course = Course.new()
-#   end
 
   def create
     @course = Course.new(course_params)
@@ -17,7 +14,10 @@ class Api::CoursesController < Api::ApiController
 			
 			Course.transaction do
 				@course.save
-      	CoursesInstructors.create(user_id: current_user.id, course_id: @course.id)
+        cuid = current_user.id
+        cid = @course.id
+        puts "In transaction"
+        CoursesInstructors.create!(user_id: cuid, course_id: cid)
 			end #need error handling still for this block
 
 			render json: @course 
