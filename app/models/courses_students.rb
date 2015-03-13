@@ -11,24 +11,11 @@ class CoursesStudents < ActiveRecord::Base
   has_many :announcements, foreign_key: :course_id, primary_key: :course_id
   #A "belongs_to" association is only valid when then the resource in question has the resource ID of its "owner" object
   
-  validate :conflicts_with, :not_instructor
+  validate :not_instructor
   validates :user_id, uniqueness: {scope: :course_id, message: "Can't enroll in the same class twice"}
 
   def conflicts_with
     newCourse = self.course
-
-    self.student.courses.each do |enrolledcourse|
-      if enrolledcourse.day == newCourse.day
-        if (
-          ((enrolledcourse.end_time < newCourse.start_time) && (enrolledcourse.start_time < newCourse.start_time)) || ((enrolledcourse.start_time > newCourse.end_time) && (enrolledcourse.end_time > newCourse.end_time))
-          )
-          next
-        else
-          errors.add(:course_id, "Time conflict with another class")
-        end
-      end
-    end
-
   end
 	
 	def not_instructor

@@ -68,7 +68,7 @@ class Course < ActiveRecord::Base
     return time_regexp.match(time.to_s)[0]
   end
 
-  private 
+  #private 
   
   def overlapping_time?(course1,course2)
     end_time_1 = course1.end_time.to_i

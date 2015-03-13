@@ -9,8 +9,4 @@ class CoursesInstructors < ActiveRecord::Base
   )
   belongs_to :course, inverse_of: :courses_instructors
 
-  def conflicts_with
-    #How will I change this...?
-  end
-
 end

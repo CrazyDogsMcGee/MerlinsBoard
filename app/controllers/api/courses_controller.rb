@@ -13,10 +13,7 @@ class Api::CoursesController < Api::ApiController
 		if @course.valid?
 			
 			Course.transaction do
-				@course.save
-        cuid = current_user.id
-        cid = @course.id
-        puts "In transaction"
+				@course.save!
         CoursesInstructors.create!(user_id: cuid, course_id: cid)
 			end #need error handling still for this block
 
