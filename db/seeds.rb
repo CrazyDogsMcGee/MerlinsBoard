@@ -81,5 +81,8 @@ CousesInstructors.all.each do |admin_link|
 end
 
 CoursesStudents.all.each do |student_link|
+  course_no = student_link.course_id
+  student_id = student_link.user_id
   #grades here
+  
 end

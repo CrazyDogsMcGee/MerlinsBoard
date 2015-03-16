@@ -15,6 +15,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   },
   
 	routes: {
+    //course resources
     "course/search" : "enrollcourses",
     "course/:id/enroll" : "showcourse",
     "course/new": "newcourse",
@@ -30,12 +31,15 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:id/assignments" : "showAssignments",
     "course/:course_id/assignments/:id/edit" : "editAssignment",
     //grades
-    
+    "course/:id/grades/student-search" : "gradeSearch",
+    "course/:course_id/grades/user/:user_id" : "gradesShow"
     //misc
-    "user/:id": "showuser"
+//     "user/:id": "showuser"
     //":wildcard": "does not exist" --self explanatory
 	},
 	
+  
+  //course resources
 	enrollcourses: function () {
     var allcourses = new MerlinsBoard.Collections.Courses([],{owner: this.currentUser});
    
@@ -89,8 +93,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //course detail nav should be instantiated here + announcements!
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var announcements = course.announcements();
-    
-    course.fetch();
+
     
     var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
     this.swapView(courseAnnouncements);
@@ -117,8 +120,6 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   showAssignments: function (id) {
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var assignments = course.assignments();
-    
-    course.fetch();
 
     var courseAssignments = new MerlinsBoard.Views.assignmentList({collection: assignments});
     this.swapView(courseAssignments);
@@ -140,6 +141,26 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(assignmentForm);
   },
   
+  //grades
+  
+  gradeSearch: function () {
+  //I will have to call the course fetch here to determine privileges
+    var course = MerlinsBoard.Courses.getOrFetch(id);
+    var users = course.users()
+    
+    var usersList = MerlinsBoard.Views.
+  },
+  
+  gradeShow: function (:course_id, :user_id) {
+  //I will have to call the course fetch here to determine privileges
+    var course = MerlinsBoard.Courses.getOrFetch(id);
+    var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
+    
+    grades.fetch();
+    
+    var gradesList
+  },
+  
   // utils
   resourceNotFound: function () {
     //this.swapView();
@@ -159,4 +180,3 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
 //var course = new MerlinsBoard.Models.Course({id: course_id})
 //course.fetch()
-//

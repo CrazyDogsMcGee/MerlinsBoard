@@ -7,14 +7,15 @@ json.instructors @course.instructors do |instructor|
 	json.fname instructor.fname
 end
 
-if has_course_access_view(current_user)
-  
-  json.enrollments @course.courses_students do |enrollment|
-    json.id enrollment.id
-    json.user_id enrollment.user_id
-    json.course_id enrollment.course_id
-  end
+json.enrollments @course.courses_students do |enrollment|
+  json.id enrollment.id
+  json.user_id enrollment.user_id
+  json.course_id enrollment.course_id
+end
 
+access = course_access_view(current_user)
+
+if (access == :student) || (access == :instructor)
   json.students @course.students do |student|
     json.id student.id
     json.fname student.fname
@@ -38,3 +39,20 @@ if has_course_access_view(current_user)
   end
 
 end
+
+# if (access == :instructor)
+#   json.grades @course.grades do |grade|
+#     json.user_id grade.user_id
+#     json.assignment_id grade.assignment_id
+#     json.grade grade.grade
+#   end
+# end
+
+if (access == student)
+  json.grades @course.grades.select {|grade| grade.user_id == current_user.id} do |grade|
+    json.assignment_id grade.assignment_id
+    json.grade grade.grade
+  end
+end
+
+#only want to use extract for top-level attrs

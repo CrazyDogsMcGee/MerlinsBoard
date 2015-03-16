@@ -1,6 +1,5 @@
 class Api::AnnouncementsController < Api::ApiController
   
-  
   def index
     @announcements = Announcement.all
     render json: @announcements

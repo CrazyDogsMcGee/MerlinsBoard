@@ -26,7 +26,7 @@ class Course < ActiveRecord::Base
   has_many :students, through: :courses_students, source: :student
   has_many :instructors, through: :courses_instructors, source: :instructor
   has_many :assignments, dependent: :destroy
-  has_many :grades, through: :assignments, source: :grade
+  has_many :grades, through: :assignments, source: :grades
   
   def conflicts_with_any_course
     new_course = self
@@ -34,7 +34,7 @@ class Course < ActiveRecord::Base
     possible_matches = Course.where("location = ? AND day = ?", self.location, self.day)
     course_conflict(self, possible_matches, {eval_enroll: false})
   end
-#   
+  
   def self.parsed_time(time)
     time_regexp = Regexp.new(/\d\d:\d\d/)
     return time_regexp.match(time.to_s)[0]

@@ -1,0 +1,6 @@
+<h1>Find A Student</h1>
+
+<% student.each(function (student) { %>
+<a><%= student.escape('lname') + ", " + student.escape('fname')%></a>
+<br>
+<% }) %>

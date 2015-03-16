@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   #Linear associations
   has_many :courses, through: :courses_students, source: :course
   has_many :taughtcourses, through: :courses_instructors, source: :course
-  has_many :grades
+  has_many :grades, dependent: :destroy
   
   #Bypass associations
   has_many :assignments, through: :courses_students, source: :assignments

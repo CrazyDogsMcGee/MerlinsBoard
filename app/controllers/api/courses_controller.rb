@@ -20,7 +20,7 @@ class Api::CoursesController < Api::ApiController
   end
 
   def show
-		@course = Course.find(params[:id])
+    @course = Course.includes(:students, :courses_students, :instructors, :announcements, :assignements, :grades).find(params[:id])
     render :show #jbuilder render
   end
   
@@ -52,16 +52,18 @@ class Api::CoursesController < Api::ApiController
     end
   end
   
-  def has_course_access_view(user) #will it still run from this context? - curious
+  def course_access_view(user) #will it still run from this context? - curious
     @course = Course.includes(:instructors,:students).find(params[:id])
     
-    if (@course.instructors.exists?(user.id) || @course.students.exists?(user.id))
-      return true
+    if @course.students.exists?(user.id)
+      return :student
+    elsif @course.instructors.exists?(user.id)
+      return :instructor
     else
       return false
     end
   end
-
+  
   private
 
   def course_params

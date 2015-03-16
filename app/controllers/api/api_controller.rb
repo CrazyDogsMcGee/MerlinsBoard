@@ -12,6 +12,7 @@ class Api::ApiController < ApplicationController
   end
   
   def get_course_id(incoming_params)
+    #I think I would just break it open and iterate, unless I can find some rails metaprogramming that allows me to get the calling class
   end
   
 end
