@@ -17,12 +17,6 @@ MerlinsBoard.Views.CoursesTaught = Backbone.View.extend({
     this.$el.html(renderedContent);
     return this
   },
-  
-//   goToCourse: function (event) {
-//     event.preventDefault();
-//     var course_id = $(event.currentTarget).data("id");
-//     Backbone.history.navigate("course/"++"/announcements",{trigger:true});
-//   },
 
   editCourse: function (event) {
     var course_id = $(event.currentTarget).data("id");

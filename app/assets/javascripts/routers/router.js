@@ -105,9 +105,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   },
   
   editAnnouncement: function (course_id,id) {
-    var course = MerlinsBoard.Courses.getOrFetch(course_id);
-    var announcement = course.announcements().get(id)
-    var announcementForm = new MerlinsBoard.Views.announcementForm({model: announcement});
+    var announcement = new MerlinsBoard.Models.Announcement({id: id})
+    announcement.fetch()
+
+    var announcementForm = new MerlinsBoard.Views.announcementForm({model: announcement, course_id: course_id});
     this.swapView(announcementForm);
   },
   
@@ -127,13 +128,16 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   
   newAssignment: function (id) {
     var newAssignment = new MerlinsBoard.Models.Assignment();
-    var assignmentForm = new MerlinsBoard.Views.assignentForm({model: newAssignment, course_id: id});
+    var assignmentForm = new MerlinsBoard.Views.assignmentForm({model: newAssignment, course_id: id});
     this.swapView(assignmentForm);
   },
   
   editAssignment: function (course_id,id) {
-    var course = MerlinsBoard.Courses.getOrFetch(course_id)
-    var assignment = course.assignments().get(id);
+    var assignment = new MerlinsBoard.Models.Assignment({id: id});
+    assignment.fetch();
+    
+    var assignmentForm = new MerlinsBoard.Views.assignmentForm({model: assignment, course_id: course_id});
+    this.swapView(assignmentForm);
   },
   
   // utils

@@ -9,6 +9,10 @@
     <td><%= assignment.get("due_date") %></td>
   </tr>
 </table>
+<% if (isInstructor) {%>
+<a class="assignement-edit" href="<%= '#course/' + assignment.get('course_id') + '/assignments/' + assignment.id + '/edit'%>">Edit Assignment</a>
+<% } %>
+<br>
 <% }) %>
 
 <% if (isInstructor) {%>

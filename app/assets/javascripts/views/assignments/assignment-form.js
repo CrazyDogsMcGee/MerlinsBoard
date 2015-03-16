@@ -1,4 +1,4 @@
-MerlinsBoard.Views.assignentForm = Backbone.View.extend({
+MerlinsBoard.Views.assignmentForm = Backbone.View.extend({
   initialize: function (options) {
     this.listenTo(this.model, "sync", this.render)
     this.course_id = options["course_id"]
@@ -28,7 +28,6 @@ MerlinsBoard.Views.assignentForm = Backbone.View.extend({
         Backbone.history.navigate("course/" + this.course_id + "/assignments",{trigger: true});
       }.bind(this),
       error: function (model,response) {
-        debugger
         var errorArray = response.responseJSON;
         var $errorList = $("<ul>");
         _.each(errorArray, function (error) {

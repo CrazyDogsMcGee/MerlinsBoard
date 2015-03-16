@@ -1,4 +1,4 @@
-<h1><%= assignment.isNew ? "New Assignment" : "Edit Assignment"%></h1>
+<h1><%= assignment.isNew() ? "New Assignment" : "Edit Assignment"%></h1>
 <section class='form-errors'>
 </section>
 <form class="assignment-form">
@@ -14,5 +14,5 @@
   <input type="date" name=assignment[due_date] value="<%= assignment.get('due_date')%>">
   </label>
   <input type="hidden" name=assignment[course_id] value="<%= assignment.course_id || course_id %>">
-  <input type="submit" value="<%= assignment.isNew ? 'Create' : 'Save Changes'%>">
+  <input type="submit" value="<%= assignment.isNew() ? 'Create' : 'Save Changes'%>">
 </form>

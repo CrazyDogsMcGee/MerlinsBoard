@@ -1,12 +1,12 @@
 class Api::AssignmentsController < Api::ApiController
-  before_action(except: [:index]) {admins_only(params[:assignment][:course_id])}
+#   before_action(except: [:index]) {admins_only(params[:assignment][:course_id])}
   
   def index
     @assignments = Assignment.all
     render json: @assignments
   end
   
-  def create
+  def create #form AJAX
     @assignment = Assignment.new(assignment_params)
     if @assignment.save
       render json: @assignment
@@ -15,7 +15,7 @@ class Api::AssignmentsController < Api::ApiController
     end
   end
   
-  def update
+  def update #form AJAX
     @assignment = Assignment.find(params[:id])
     
     if @assignment.update(assignment_params)
@@ -25,10 +25,15 @@ class Api::AssignmentsController < Api::ApiController
     end
   end
   
-  def destroy
-    @announcement = Announcement.find(params[:id])
-    @announcement.destroy
+  def destroy #form AJAX
+    @assignment = Assignment.find(params[:id])
+    @assignment.destroy
     render json: {}
+  end
+  
+  def show #flat ID
+    @assignment = Assignment.find(params[:id])
+    render json: @assignment
   end
   
   private

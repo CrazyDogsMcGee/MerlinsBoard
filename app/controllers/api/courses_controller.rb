@@ -41,11 +41,6 @@ class Api::CoursesController < Api::ApiController
   
   #not implemented
   
-  def grades #easier to just include with course Jbuilder response?
-    @courseGrades = Course.find(params[:id]).grades
-    render json: @courseGrades 
-  end
-  
   def has_course_access #figure out how to separate this...my first instinct is to have a sha
     @course = Course.includes(:instructors,:students).find(params[:id])
     user_id = current_user.id

@@ -26,6 +26,7 @@ if has_course_access_view(current_user)
     json.title announcement.title
     json.body announcement.body
     json.user_id announcement.user_id
+    json.course_id announcement.course_id
   end
 
   json.assignments @course.assignments do |assignment|
@@ -33,6 +34,7 @@ if has_course_access_view(current_user)
     json.title assignment.title
     json.description assignment.description
     json.due_date assignment.due_date
+    json.course_id assignment.course_id
   end
 
 end

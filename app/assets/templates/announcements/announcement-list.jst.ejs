@@ -1,11 +1,15 @@
 <h1>Announcements for <%= courseName %></h1>
 
 <% announcements.each(function (announcement) { %>
+<section class="announcement">
 <h3 class="announcement-title"><%= announcement.escape("title") %></h3>
 <p class="announcement-body"><%= announcement.escape("body") %></p>
+<a class="announcement-edit" href="<%='#course/'+announcement.get('course_id')+'/announcements/' + announcement.id + '/edit'%>"> Edit </a>
+</section>
+<br>
 <% }) %>
-
-<% if (showNew) {%>
+<br>
+<% if (isInstructor) {%>
 <button type="button" class="form">
   New Announcement
 </button>

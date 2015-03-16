@@ -11,5 +11,8 @@ class Api::ApiController < ApplicationController
     end
   end
   
+  def get_course_id(incoming_params)
+  end
+  
 end
 
