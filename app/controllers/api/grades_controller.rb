@@ -1,5 +1,6 @@
 class Api::GradesController < Api::ApiController
   before_action(except: [:index]) {admins_only(params["course_id"])} #wil always need to pass this in on every fetch
+  before_action(only: [:index]) {is_owner_or_admin?}
   
   def destroy
     @grade = Grade.find(params[:id])
@@ -37,4 +38,22 @@ class Api::GradesController < Api::ApiController
   def grade_params
     params.require(:grade).permit(:grade, :assignment_id, :user_id)
   end
+  
+  def is_owner_or_admin? #this only is a fetch
+    user_id = params["user_id"]
+    course = Course.find(course_id)
+
+    
+    if current_user.id == user_id
+      return
+    else
+      begin
+        status = course.instructors.find(current_user.id)
+      rescue
+        render :status => :forbidden, :text => "You do not have sufficient rights to perform that action"
+      end
+    end
+    
+  end
+  
 end
