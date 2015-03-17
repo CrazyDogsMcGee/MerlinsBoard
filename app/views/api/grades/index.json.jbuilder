@@ -5,3 +5,6 @@ json.grades @grades do |grade_obj|
   json.assignment_title grade_obj.assignment.title
   json.assignment_description grade_obj.assignment.description
 end
+
+json.student_fname @student.fname
+json.student_lname @student.lname

@@ -5,12 +5,14 @@ MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
     //for jbuidler - nest each of a student's grade under them along with basic information about the assignment
   },
 
-  // template: JST[""],
+  template: JST["grades/grades-student"],
 
-  events: {},
+  events: {
+
+  },
 
   render: function () {
-
+    var renderedContent = this.template({grades: this.collection})
   },
 
   editGrade: function (event) {

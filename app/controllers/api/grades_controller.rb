@@ -5,9 +5,9 @@ class Api::GradesController < Api::ApiController
   def index
     #I may want an internal control here instead of using the before_action...
     @grades = Grade.includes(:assignment,:course,:user).where("user_id = ?", params["user_id"])
+    @student = @grades.first.user
     #only other recourse is to add course_id to column..which may be easier to work with anyway
     @grades = @grades.select {|grade| grade.course.id == params["course_id"].to_i}
-    puts "The object is: #{params["course_id"].class}"
   end
 
   def destroy
