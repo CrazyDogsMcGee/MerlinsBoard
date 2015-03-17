@@ -1,11 +1,8 @@
-<h1>Grades for </h1>
+<h1>Grades for <%=grades.escape('fname') + " " + grades.escape('lname')%></h1>
 
 <% grades.each(function (grade) { %>
   <h4> grade.escape('assignment_title') </h4>
   <p> grade.escape('description')</p>
-  <ul>
-    <li></li>
-    <li></li>
-  </ul>
+  Grade: <><strong class="grade-number"><%= grade.get('grade')%></strong><>
   <br>
 <% }) %>

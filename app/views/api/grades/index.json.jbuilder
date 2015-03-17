@@ -8,3 +8,8 @@ end
 
 json.student_fname @student.fname
 json.student_lname @student.lname
+
+#remember then that for a single model, only top-level attrs will be assigned
+# for a collection, each entry in the array should be top-level attrs (or wrapped in only a single object wrapper)
+# but the array itself must be top-level
+# weird: Cannot mix json.array! with other top-level attrs

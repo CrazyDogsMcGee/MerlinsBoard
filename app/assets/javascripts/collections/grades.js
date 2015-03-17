@@ -33,11 +33,14 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
 
     _.extend(options,{ data: $.param({ course_id: this.course_id}) }); //options is changed
     //with this, I might always have to bind fetch - be mindful of this in case I need to fetch more data
-    return Backbone.Collection.prototype.fetch.call(this, optionsWithCourseData);
+    return Backbone.Collection.prototype.fetch.call(this, options);
   },
 
   parse: function (resp) {
-    this.student = new MerlinsBoard.Models.User({fname: resp.student_fname,lname: student_lname});
+    this.student = new MerlinsBoard.Models.User({fname: resp.student_fname,lname: resp.student_lname});
+    resp.student_fname.delete
+    resp.student_fname.delete
+    return resp.grades
   }
 
 })
