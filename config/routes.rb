@@ -6,17 +6,16 @@ Rails.application.routes.draw do
 #   resources :coursesinstructors, only: [:create, :destroy]
 # 	resources :coursesstudents, only: [:create, :destroy], controller: "courses_students"
 #   resources :courses, only: [:create, :index, :destroy, :new, :show]
-    
+
   namespace :api, defaults: { format: :json } do
     resources :coursesinstructors, only: [:create, :destroy]
     resources :coursesstudents, only: [:create, :destroy], controller: "courses_students"
     resources :courses
     resources :announcements #might have to "member do" for easy-access custom routes from a particular course
     resources :assignments
-#     resources :grades
     resources :users, only: [:show, :index] do
-      resources :grades
+      resources :grades, only: [:index]
     end
   end
-        
+
 end

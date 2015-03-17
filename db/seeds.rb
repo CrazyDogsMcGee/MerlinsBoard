@@ -6,6 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+#should create master user that has most functionality available to it.
+
+User.create(fname:"Jonathan", lname: "Lee", email: "l33.jonathan@gmail.com", password: "testing")
 
 (1..10).each do |user_no|
   User.create(
@@ -34,22 +37,29 @@ end
 
 
 #enrollment
+[1,3].each do |odd|
+  CoursesStudents.create(user_id: 1, course_id: odd)
+end
 
 2.times{
-  (1..10).each do |enroll| #will inevitably cause double enrollments somewhere - improper validations won't interrupt but errors will
+  (2..11).each do |enroll|
     course_no = (rand(5)+1)
     student_no = enroll
 
-    CoursesStudents.create(
+    CoursesStudents.create( #to make this less haphazard, I could just iterate over the courses and users and match up it to avoid collisions.
       user_id: student_no,
       course_id: course_no
     )
   end
 }
 
-(1..10).each do |teacher|
+[2,4].each do |even|
+  CoursesInstructors.create(user_id: 1, course_id: even)
+end
+
+(2..11).each do |teacher| #not getting hit enough times, need to rejigger to avoid conflicts or just increase number to increase chances of seeding database
   course_no = (rand(5)+1)
-  instructor_no = (rand(10)+1)
+  instructor_no = (rand(11)+1)
 
   CoursesInstructors.create(
     user_id: instructor_no,
@@ -59,7 +69,7 @@ end
 
 #for announcements and assignments, need to set up inverse relationship... maybe. Will need to think about it for a bit
 
-CousesInstructors.all.each do |admin_link|
+CoursesInstructors.all.each do |admin_link|
   course_no = admin_link.course_id
   admin_id = admin_link.user_id
 
@@ -72,15 +82,17 @@ CousesInstructors.all.each do |admin_link|
     )
   }
 
+end
+
+Course.all.each do |course|
   2.times {
     Assignment.create(
       title: Faker::Lorem.word.capitalize,
       description: Faker::Lorem.sentence,
       due_date: Faker::Date.forward(10), #should find someway to exclude weekends
-      course_id: course_no
+      course_id: course.id
     )
   }
-
 end
 
 #grades
@@ -92,6 +104,7 @@ CoursesStudents.all.each do |student_link|
   course = Course.find(course_id)
 
   course.assignments.each do |assignment|
-    Grade.create(user_id: user_id, assignment_id: assignentment_id, grade: rand(101))
+    Grade.create(user_id: user_id, assignment_id: assignment.id, grade: rand(101))
   end
+  # A note- creating entries haphazardly like this may cause there to be an grade for an class assignment that user doesn't even attend - in this particular case it can't happen, but its in the realm of possibility
 end
