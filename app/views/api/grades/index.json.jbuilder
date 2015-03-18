@@ -8,6 +8,7 @@ end
 
 json.student_fname @student.fname
 json.student_lname @student.lname
+json.course_id @student.course.id
 
 #remember then that for a single model, only top-level attrs will be assigned
 # for a collection, each entry in the array should be top-level attrs (or wrapped in only a single object wrapper)

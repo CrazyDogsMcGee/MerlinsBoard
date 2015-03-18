@@ -98,7 +98,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
     this.swapView(courseAnnouncements);
 
-    MerlinsBoard.Vent.trigger("courseRender",{courseID: id});
+    MerlinsBoard.Vent.trigger("courseRender",{courseID: id}); //for more functionality - it should pass in the reference to the course model instead
   },
 
   newAnnouncement: function (id) {
@@ -152,13 +152,12 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   },
 
   gradeShow: function (course_id, user_id) {
-  //I will have to call the course fetch here to determine privileges
-    var course = MerlinsBoard.Courses.getOrFetch(id);
+    // var course = MerlinsBoard.Courses.getOrFetch(id);
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
-
     grades.fetch();
 
-    var gradesList
+    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades});
+    this.swapView(gradesList)
   },
 
   // utils

@@ -41,6 +41,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem "backbone-on-rails"
 gem "faker"
+gem "paperclip", "~> 4.2"
+gem 'aws-sdk', '~> 1.5.7'
 
 group :development do
   gem 'pry-rails'

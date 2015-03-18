@@ -38,7 +38,8 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
 
   parse: function (resp) {
     this.student = new MerlinsBoard.Models.User({fname: resp.student_fname,lname: resp.student_lname});
-    resp.student_fname.delete
+
+    resp.student_fname.delete //is there a better way to clean this up?
     resp.student_fname.delete
     return resp.grades
   }
