@@ -12,6 +12,7 @@ module Scheduling
       raise "else"
     end
 
+    #See if seeding messes up here
     begin
     user_courses = user.courses.select {|course| (course.location == new_enroll.location) && (course.day == new_enroll.day)} #ugly as sin, will need to be refactored to reduce # of queries
     user_taughtcourses = user.taughtcourses.select {|course| (course.location == new_enroll.location) && (course.day == new_enroll.day)}
@@ -42,6 +43,7 @@ module Scheduling
       else
         next
       end
+
     end
   end
 
