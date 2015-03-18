@@ -8,6 +8,6 @@ class CreateResources < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :resources :course_id
+    add_index :resources, :course_id
   end
 end

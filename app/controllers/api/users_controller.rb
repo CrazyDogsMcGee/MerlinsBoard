@@ -11,7 +11,7 @@ class Api::UsersController < Api::ApiController
 	end
 
 	def users_search
-		@users_search = User.search_by_full_name(params["query"])
+		@users = User.search_by_full_name(params["query"])
 		render :index
 	end
 end
