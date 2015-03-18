@@ -39,10 +39,11 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "backbone-on-rails"
-gem "faker"
+gem 'backbone-on-rails'
+gem 'faker'
 gem "paperclip", "~> 4.2"
 gem 'aws-sdk', '~> 1.5.7'
+gem 'figaro'
 
 group :development do
   gem 'pry-rails'

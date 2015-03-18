@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :resources
+
 	root to: "static_pages#root"
 
  	resources :users, only: [:new, :create, :show]
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
     resources :courses
     resources :announcements #might have to "member do" for easy-access custom routes from a particular course
     resources :assignments
+    resources :resources
     resources :users, only: [:show, :index] do
       resources :grades, only: [:index]
     end
