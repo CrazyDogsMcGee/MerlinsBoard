@@ -15,15 +15,15 @@ class Api::GradesController < Api::ApiController
     render json: {}
   end
 
-  def create
-    @grade = Grade.new(grade_params)
-
-    if @grade.save
-      render json: @grade
-    else
-      render json: @grade.errors.full_messages, status: 422
-    end
-  end
+  # def create
+  #   @grade = Grade.new(grade_params)
+  #
+  #   if @grade.save
+  #     render json: @grade
+  #   else
+  #     render json: @grade.errors.full_messages, status: 422
+  #   end
+  # end
 
   def update
     @grade = Grade.find(params[:id])

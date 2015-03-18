@@ -1,7 +1,7 @@
 MerlinsBoard.Views.CoursesSearch = Backbone.View.extend({
 	initialize: function () {
 		this.searchCollection = new MerlinsBoard.Collections.CoursesSearch();
-	}
+	},
 
 	template: JST["courses/coursesearch"],
 
@@ -38,10 +38,11 @@ MerlinsBoard.Views.CoursesSearch = Backbone.View.extend({
 
 	search: function (event) {
 		event.preventDefault();
-	  var query = $("input.course-find-input").val();
+	  var queryCourse = $("input.course-find-input").val();
+		this.searchCollection.fetch({data: $.param(query: queryCourse)});
 
-		var searchList = new MerlinsBoard.Views.CoursesList({collection: filteredCollection});
-		this.$('section.course-results').html()
+		var searchList = new MerlinsBoard.Views.CoursesList({collection: this.searchCollection});
+		$('section.course-results').html(searchList.render.$el); //needs to be global from DOM.
 	}
 
 })

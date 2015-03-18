@@ -45,7 +45,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     allcourses.fetch();
 
-    var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses, model: this.currentUser});
+    var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses,model: this.currentUser});
     this.swapView(enrollView);
   },
 

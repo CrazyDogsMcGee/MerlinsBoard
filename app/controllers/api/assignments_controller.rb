@@ -1,5 +1,5 @@
 class Api::AssignmentsController < Api::ApiController
-  #before_action(except: [:index]) {admins_only(params[:assignment][:course_id])}
+  #before_action(except: [:index]) {admins_only(assignment_params["course_id"])}
 
   def index
     @assignments = Assignment.all
@@ -9,6 +9,14 @@ class Api::AssignmentsController < Api::ApiController
   def create #form AJAX
     @assignment = Assignment.new(assignment_params)
     if @assignment.save
+
+      # course = Course.includes(:students).find(assignment_params["course_id"])
+      # student = course.students
+      #
+      # students.each do |student| #is there any non- O(n) way of doing this?
+      #   Grade.create(user_id: student.id, assignment_id: @assignment.id, grade: 0)
+      # end
+
       render json: @assignment
     else
       render status: 422, json: @assignment.errors.full_messages

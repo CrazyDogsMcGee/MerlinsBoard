@@ -11,7 +11,7 @@ class Api::CoursesController < Api::ApiController
     @course = Course.new(course_params)
 
 		if @course.valid?
-      current_user.taughtcourses.create(course_params)
+      current_user.taughtcourses.create(course_params) 
       render json: @course
     else
       render json: @course.errors.full_messages, status: 422

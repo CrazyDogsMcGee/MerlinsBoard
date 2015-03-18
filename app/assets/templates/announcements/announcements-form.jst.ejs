@@ -1,4 +1,4 @@
-<h1><%= announcement.isNew ? "New Announcement" : "Edit Announcement"%></h1>
+<h1><%= announcement.isNew() ? "New Announcement" : "Edit Announcement"%></h1>
 <section class='form-errors'>
 </section>
 <form class="announcement-form">
@@ -12,5 +12,5 @@
   <input type="hidden" name="announcement[user_id]" value="<%= MerlinsBoard.CurrentUser.id %>">
   <input type="hidden" name="announcement[course_id]" value="<%= announcement.get('course_id') || course_id %>">
   <br>
-  <input type="submit" value="<%= announcement.isNew ? 'Create' : 'Save Changes'%>">
+  <input type="submit" value="<%= announcement.isNew() ? 'Create' : 'Save Changes'%>">
 </form>
