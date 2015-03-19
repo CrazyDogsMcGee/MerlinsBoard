@@ -7,7 +7,7 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
 
   model: MerlinsBoard.Models.Grade,
 
-  getOrFetch: function (id) {
+  getOrFetch: function (id, course_id) {
     var grade = this.get(id);
     var grades = this;
 
@@ -31,16 +31,26 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
 
     //some logic here to check if "data" was already passed in, and fusing that to the data parameter...
 
-    _.extend(options,{ data: $.param({ course_id: this.course_id}) }); //options is changed
-    //with this, I might always have to bind fetch - be mindful of this in case I need to fetch more data
+    _.extend(options,{ data: $.param({ course_id: this.course_id}) });
     return Backbone.Collection.prototype.fetch.call(this, options);
   },
 
+  student: function () {
+    if (!this._student) {
+      this._student = new MerlinsBoard.Models.User();
+    }
+
+    return this._student
+  },
+
   parse: function (resp) {
-    this.student = new MerlinsBoard.Models.User({fname: resp.student_fname,lname: resp.student_lname});
+    this.student().set({fname: resp.student_fname,lname: resp.student_lname});
+    // this.course_id = resp.course_id should only set once and then never again
 
     resp.student_fname.delete //is there a better way to clean this up?
     resp.student_fname.delete
+    resp.course_id.delete
+
     return resp.grades
   }
 

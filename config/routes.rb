@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :announcements #might have to "member do" for easy-access custom routes from a particular course
     resources :assignments
     resources :resources
+    resources :grades, only: [:update, :show]
     resources :courses do
       get "course_search", on: :collection
     end

@@ -1,8 +1,7 @@
 MerlinsBoard.Views.CoursesList = Backbone.View.extend({
 	initialize: function () {
- 		this.listenTo(this.collection, "add remove sync", this.render);
+ 		this.listenTo(this.collection, "reset add sync", this.render);
 	},
-
 
 	template: JST["courses/list"],
 

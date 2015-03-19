@@ -9,6 +9,8 @@
 #should create master user that has most functionality available to it.
 
 User.create(fname:"Jonathan", lname: "Lee", email: "l33.jonathan@gmail.com", password: "testing")
+User.create(fname:"John", lname: "Doe", email: "johndoe@gmail.com",
+password: "testing")
 
 (1..10).each do |user_no|
   User.create(

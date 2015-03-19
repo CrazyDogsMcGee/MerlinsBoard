@@ -1,9 +1,9 @@
-MerlinsBoard.Views.SearchStudent = Backbone.View.extend({
+MerlinsBoard.Views.SearchStudentGradesResults = Backbone.View.extend({
   initialize: function () {
     this.listenTo(this.collection, "add remove reset", this.render)
   },
 
-  className: "grades-studentsearch",
+  className: "grades-student-search",
 
   template: JST["grades/grades-student-search"],
 

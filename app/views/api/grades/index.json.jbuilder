@@ -1,14 +1,15 @@
 json.grades @grades do |grade_obj|
+  json.id grade_obj.id
   json.grade grade_obj.grade
-  json.assignment_id grade_obj.assignment_id
+  json.id grade_obj.assignment_id
   json.user_id grade_obj.user_id
-  json.assignment_title grade_obj.assignment.title
-  json.assignment_description grade_obj.assignment.description
+  json.title grade_obj.assignment.title
+  json.description grade_obj.assignment.description
 end
 
 json.student_fname @student.fname
 json.student_lname @student.lname
-json.course_id @student.course.id
+json.course_id @course_id
 
 #remember then that for a single model, only top-level attrs will be assigned
 # for a collection, each entry in the array should be top-level attrs (or wrapped in only a single object wrapper)

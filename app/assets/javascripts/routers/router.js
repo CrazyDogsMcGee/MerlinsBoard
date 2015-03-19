@@ -32,7 +32,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:course_id/assignments/:id/edit" : "editAssignment",
     //grades
     "course/:id/grades/student-search" : "gradeSearch",
-    "course/:course_id/grades/user/:user_id" : "gradesShow"
+    "course/:course_id/grades/user/:user_id" : "gradeShow"
     //misc
 //     "user/:id": "showuser"
     //":wildcard": "does not exist" --self explanatory
@@ -43,9 +43,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 	enrollcourses: function () {
     var allcourses = new MerlinsBoard.Collections.Courses([],{owner: this.currentUser});
 
-    allcourses.fetch();
+    this.currentUser.fetch()
 
-    var enrollView = new MerlinsBoard.Views.CoursesEnroll({collection: allcourses,model: this.currentUser});
+    var enrollView = new MerlinsBoard.Views.CoursesEnroll({model: this.currentUser});
     this.swapView(enrollView);
   },
 
@@ -154,6 +154,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   gradeShow: function (course_id, user_id) {
     // var course = MerlinsBoard.Courses.getOrFetch(id);
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
+
     grades.fetch();
 
     var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades});

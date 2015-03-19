@@ -23,7 +23,7 @@ MerlinsBoard.Views.CourseForm = Backbone.View.extend({
 		this.model.save(attrs, {
 			success: function () {
 				MerlinsBoard.Courses.add(this.model,{merge: true})
-				Backbone.history.navigate("",{trigger: true}) //instead do a "course created/saved"
+				Backbone.history.navigate("course/search",{trigger: true}) 
 			}.bind(this),
 			error: function (model,resp) {
 				var errorArray = resp.responseJSON;
