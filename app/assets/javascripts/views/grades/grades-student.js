@@ -1,7 +1,7 @@
 //Lists a students grade - an admin has access to this view to edit grades
 MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
   initialize: function () {
-    this.listenTo(this.collection, "add change:grade remove sync", this.render)
+    this.listenTo(this.collection, "add", this.render)
     _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback")
     //for jbuidler - nest each of a student's grade under them along with basic information about the assignmen
   },
@@ -18,6 +18,7 @@ MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
   tagName: "section",
 
   render: function () {
+    debugger
     var renderedContent = this.template({grades: this.collection, student: this.collection.student()});
     this.$el.html(renderedContent);
     return this
@@ -32,21 +33,25 @@ MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
   },
 
   saveGrade: function (event) {
-    var editedGrade = this.collection.getOrFetch(this.modelNumber);
+    var editedGrade = this.collection.getOrFetch(this.modelNumber); //I already have the model number, I don't even need to do another fetch.
     var newGrade = parseInt($('input.grade-input').val());
     var courseID = this.collection.course_id;
 
-    debugger
-
     editedGrade.set({grade: newGrade});
-    editedGrade.save({course_id: courseID},{success: this.gradeSaveCallback(editedGrade),
+    editedGrade.save({course_id: courseID},{success:          this.gradeSaveCallback(editedGrade),
     error: this.gradeSaveErrorCallback
     });
   },
 
   gradeSaveCallback: function (editedGrade) {
-    this.collection.fetch(); //unideal - needs to be banished with composite view paradigm.
-    // this.collection.add(editedGrade,{merge: true});
+    var $grade = $('<strong>').text(editedGrade.get("grade"))
+    $(".grade-number[data-id=".concat(this.modelNumber,"]")).html($grade)       //unideal - needs to be banished with composite view paradigm.
+
+    //this.collection.fetch();
+
+    //the save is happening, but the render is out of sync
+    //the changes don't become visible until another requet is made
+    //it seems the old data is still on the collection...
   },
 
   gradeSaveErrorCallback: function (model, resp) {

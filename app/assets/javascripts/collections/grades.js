@@ -7,18 +7,20 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
 
   model: MerlinsBoard.Models.Grade,
 
-  getOrFetch: function (id, course_id) {
+  getOrFetch: function (id) {
     var grade = this.get(id);
     var grades = this;
+    var courseData = {data: $.param({"course_id": this.course_id})}
 
     if (!grade) {
       grade = new MerlinsBoard.Models.Grade({id: id});
       grade.fetch({ success: function () {
         this.add(grade);
-      }
+      },
+      data: $.param({"course_id": this.course_id})
       })
     } else {
-      grade.fetch();
+      grade.fetch(courseData);
     }
 
     return grade

@@ -7,26 +7,8 @@ class Api::GradesController < Api::ApiController
     @grades = Grade.includes(:assignment,:course,:user).where("user_id = ?", params["user_id"])
     @student = @grades.first.user
     @course_id = params["course_id"].to_i
-
     @grades = @grades.select {|grade| grade.course.id == params["course_id"].to_i}
   end
-
-  #Neither of these may be needed because they should only be created/destroyed depending on the assignment
-
-  # def destroy
-  #   @grade = Grade.find(params[:id])
-  #   @grade.destroy
-  #   render json: {}
-  # end
-  # def create
-  #   @grade = Grade.new(grade_params)
-  #
-  #   if @grade.save
-  #     render json: @grade
-  #   else
-  #     render json: @grade.errors.full_messages, status: 422
-  #   end
-  # end
 
   def show
     @grade = Grade.find(params[:id])
