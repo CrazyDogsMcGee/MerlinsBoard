@@ -9,7 +9,7 @@ class Course < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :day, inclusion: {in: WEEKDAYS}
   validate :conflicts_with_any_course, on: :create
-  #validate endstarttime
+  #validate :start_before_end
 
   has_many(
   :courses_students,
@@ -37,6 +37,10 @@ class Course < ActiveRecord::Base
     new_course = self
     possible_matches = Course.where("location = ? AND day = ?", self.location, self.day) #should index on these fields then
     course_conflict(self, possible_matches, {eval_enroll: false})
+  end
+
+  def start_before_end
+    errors.add(:base, "Course end time must be greater than course start time") if Course.parsed_time(self.end_time) <= Course.parsed_time(self.start_time)
   end
 
   def self.parsed_time(time)

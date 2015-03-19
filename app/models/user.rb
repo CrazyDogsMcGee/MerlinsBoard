@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
   include PgSearch
   pg_search_scope :search_by_full_name, against: [:fname, :lname]
 
+  #paperclip
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/corgi.jpg"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
   #Validators
   validates :fname, :lname, :email, :password_digest, :session_token, presence: true
   validates :email, :session_token, uniqueness: true

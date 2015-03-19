@@ -1,7 +1,7 @@
 //Lists a students grade - an admin has access to this view to edit grades
 MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
   initialize: function () {
-    this.listenTo(this.collection, "add", this.render)
+    this.listenTo(this.collection, "add reset", this.render)
     _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback")
     //for jbuidler - nest each of a student's grade under them along with basic information about the assignmen
   },
@@ -11,6 +11,7 @@ MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
   events: {
     "click .grade-number":"editGrade",
     "blur .grade-input": "saveGrade"
+    //http://stackoverflow.com/questions/21926083/failed-to-execute-removechild-on-node
   },
 
   className: "grade-list",
@@ -18,7 +19,6 @@ MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
   tagName: "section",
 
   render: function () {
-    debugger
     var renderedContent = this.template({grades: this.collection, student: this.collection.student()});
     this.$el.html(renderedContent);
     return this
@@ -45,13 +45,9 @@ MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
 
   gradeSaveCallback: function (editedGrade) {
     var $grade = $('<strong>').text(editedGrade.get("grade"))
-    $(".grade-number[data-id=".concat(this.modelNumber,"]")).html($grade)       //unideal - needs to be banished with composite view paradigm.
+    this.$(".grade-number[data-id=".concat(this.modelNumber,"]")).html($grade)       //unideal - needs to be banished with composite view paradigm.
 
-    //this.collection.fetch();
-
-    //the save is happening, but the render is out of sync
-    //the changes don't become visible until another requet is made
-    //it seems the old data is still on the collection...
+    //the save is happening - the collection stubbornly refuses to update...should just refactor to composite view.
   },
 
   gradeSaveErrorCallback: function (model, resp) {

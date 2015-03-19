@@ -5,6 +5,8 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
     this.url = "api/users/" + options["user_id"] + "/grades"
   },
 
+  //comparator: function () {},
+
   model: MerlinsBoard.Models.Grade,
 
   getOrFetch: function (id) {
@@ -34,6 +36,7 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
     //some logic here to check if "data" was already passed in, and fusing that to the data parameter...
 
     _.extend(options,{ data: $.param({ course_id: this.course_id}) });
+    debugger
     return Backbone.Collection.prototype.fetch.call(this, options);
   },
 
@@ -47,13 +50,17 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
 
   parse: function (resp) {
     this.student().set({fname: resp.student_fname,lname: resp.student_lname});
-    // this.course_id = resp.course_id should only set once and then never again
 
     resp.student_fname.delete //is there a better way to clean this up?
     resp.student_fname.delete
     resp.course_id.delete
 
     return resp.grades
+  },
+
+  gpa: function () {
+    //may be nightmarish to get working correctly
+
   }
 
 })

@@ -33,7 +33,9 @@ class Api::GradesController < Api::ApiController
   end
 
   def grade_params
-    params.permit(:grade, :assignment_id, :user_id) #need to change grade column - it confuses params_wrapper
+    params.permit(:grade, :assignment_id, :user_id)
+    #need to change grade column - it confuses params_wrapper I think.
+    #change the column name and see what happens...would also have to refactor backbone views and jbuilder
   end
 
 end
