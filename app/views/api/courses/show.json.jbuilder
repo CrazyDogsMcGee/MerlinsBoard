@@ -40,15 +40,7 @@ if (access == :student) || (access == :instructor)
 
 end
 
-# if (access == :instructor)
-#   json.grades @course.grades do |grade|
-#     json.user_id grade.user_id
-#     json.assignment_id grade.assignment_id
-#     json.grade grade.grade
-#   end
-# end
-
-if (access == student)
+if (access == :student)
   json.grades @course.grades.select {|grade| grade.user_id == current_user.id} do |grade|
     json.assignment_id grade.assignment_id
     json.grade grade.grade
