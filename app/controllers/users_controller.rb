@@ -17,18 +17,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-		@user = User.find(params[:id]) #will this be the user's profile page?
-  end
-  
-  def index
-    
-  end
-
   private
 
   def user_params
     #params are the response from the form
-    params.require(:user).permit(:fname,:lname,:password,:email)
+    params.require(:user).permit(:fname,:lname,:password,:email, :avatar)
   end
 end

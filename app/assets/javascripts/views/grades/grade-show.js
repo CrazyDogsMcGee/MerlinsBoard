@@ -1,4 +1,4 @@
-MerlinsBoard.Views.GradeForm = MerlinsBoard.Views.CompositeView.extend({
+MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   initialize: function () {
     _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback");
     this.listenTo(this.model, "sync change:grade", this.render)
