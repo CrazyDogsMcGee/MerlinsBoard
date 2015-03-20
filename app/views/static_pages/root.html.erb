@@ -1,7 +1,7 @@
 <!-- This will be yieded to the application.html -->
 
-<h1>Root.html</h1>
-<nav class="headernav">Class tabs go here
+<h1 class="app-header">MerlinsBoard</h1>
+<nav class="header-nav">Class tabs go here
 </nav>
 
 <form class="form-signout" action="/session" method="post">
@@ -10,13 +10,12 @@
   <input type="submit" value="Sign out!">
 </form>
 
-<nav class="sidenav">in-class nav goes here</nav>
+<nav class="side-nav">in-class nav goes here</nav>
 
 <main id="content">
 </main>
 
-<script type="text/javascript"> 
+<script> 
     window.currentUserID = <%=current_user.id%>
+    $(MerlinsBoard.initialize)
 </script>
-
-<script>$(MerlinsBoard.initialize)</script>

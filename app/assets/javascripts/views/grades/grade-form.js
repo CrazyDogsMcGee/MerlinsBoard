@@ -1,28 +1,11 @@
-MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
+MerlinsBoard.Views.GradeForm = MerlinsBoard.Views.CompositeView.extend({
   initialize: function () {
-    this.listenTo(this.collection, "add reset", this.render)
-    _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback")
-    //need to refactor with composite view
+    _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback");
+    this.listenTo(this.model, "sync change:grade", this.render)
   },
-
-  template: JST["grades/grades-student-list"],
-
-  events: {
-    "click .grade-number":"editGrade",
-    "blur .grade-input": "saveGrade"
-    //http://stackoverflow.com/questions/21926083/failed-to-execute-removechild-on-node
-  },
-
-  className: "grade-list",
-
-  tagName: "section",
-
-  render: function () {
-    var renderedContent = this.template({grades: this.collection, student: this.collection.student()});
-    this.$el.html(renderedContent);
-    return this
-  },
-
+  
+  className: "grade-item",
+  
   editGrade: function (event) {
     var gradeString = $(event.currentTarget).val();
     var num = parseInt(gradeString);
@@ -60,7 +43,4 @@ MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
 
     $("section.grade-errors").html($errorList);
   }
-  
-  //renderResults
-  //Move these methods to a singular grade "form"
 })

@@ -1,6 +1,7 @@
 class Api::GradesController < Api::ApiController
   before_action(only: [:update, :show]) {admins_only(params["course_id"])}
   before_action :is_user_or_instructor?, only: [:index]
+  #wrap_parameters false
 
   def index
     #I may want an internal control here instead of using the before_action...
@@ -33,7 +34,7 @@ class Api::GradesController < Api::ApiController
   end
 
   def grade_params
-    params.permit(:grade, :assignment_id, :user_id)
+    params.permit(:grade, :assignment_id, :user_id, :submission)
     #need to change grade column - it confuses params_wrapper I think.
     #change the column name and see what happens...would also have to refactor backbone views and jbuilder
   end

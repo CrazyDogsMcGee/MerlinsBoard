@@ -30,9 +30,15 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:id/assignments/new" : "newAssignment",
     "course/:id/assignments" : "showAssignments",
     "course/:course_id/assignments/:id/edit" : "editAssignment",
+    //document resources
+    
+    "course/:id/resources":"courseResources",
+    "course/:id/resources/new":"newResource",
+    
     //grades
-    "course/:id/grades/student-search" : "gradeSearch",
+    //"course/:id/grades/student-search" : "gradeSearch",
     "course/:course_id/grades/user/:user_id" : "gradeShow"
+    
     //misc
 //     "user/:id": "showuser"
     //":wildcard": "does not exist" --self explanatory

@@ -5,7 +5,7 @@ class Resource < ActiveRecord::Base
     "application/vnd.ms-excel",
     "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "text/plain"]},:message => ", Only PDF, WORD or TEXT files are allowed."
+    "text/plain"]},:message => "Only PDF, WORD or TEXT files are allowed."
 
   #active record
   belongs_to :course

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  #wrap_parameters false
+  
   def new
     @user = User.new #This doesn't even need to be here tbh, this is only necessary if using something like a partial
   end
@@ -17,6 +19,10 @@ class UsersController < ApplicationController
 
   def show
 		@user = User.find(params[:id]) #will this be the user's profile page?
+  end
+  
+  def index
+    
   end
 
   private
