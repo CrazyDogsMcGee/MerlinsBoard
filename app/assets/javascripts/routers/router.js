@@ -36,7 +36,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:id/resources/new":"newResource",
     
     //grades
-    //"course/:id/grades/student-search" : "gradeSearch",
+    "course/:id/grades/student-search" : "gradeSearch",
     "course/:course_id/grades/user/:user_id" : "gradeShow"
     
     //misc

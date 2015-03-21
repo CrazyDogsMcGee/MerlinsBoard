@@ -1,20 +1,31 @@
-MerlinsBoard.Views.GradesStudent = Backbone.View.extend({
+MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
   initialize: function () {
-    this.listenTo(this.collection, "add reset", this.render)
-    _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback")
-    //need to refactor with composite view
+    
   },
 
   template: JST["grades/grades-student-list"],
 
-  events: {
-   
-  },
-
   className: "grade-list",
 
   tagName: "section"
+
+  render: function () {
+    this.clearSubviews();
+    this.addGrades().bind(this);
+    //this.attachSubviews(); needs to happen after the regular template is rendered
+    var renderedContent = this.template({student: this.model})
+    this.$el.html(renderedContent);
+
+    this.attachSubviews();
+    return this
+  }
   
-  //renderResults
-  //Move these methods to a singular grade "form"
+  addGrades: function () {
+    this.subviews() = {}; //clears subviews
+
+    this.collection.each(function (grade) {
+      var gradeView = new MerlinsBoard.Views.GradeShow({model: grade});
+      this.addSubview("section.grade-list",gradeView.render())
+    });
+  }
 })

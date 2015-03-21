@@ -10,7 +10,7 @@ MerlinsBoard.Views.CompositeView = Backbone.View.extend({
   },
   
   attachSubview: function (selector, subview) {
-    this.$(selector).append(subview.$el);
+    this.$(selector).append(subview.$el); //looks or selector in view's native $el
     
     if (subview.attachSubviews) {
       subview.attachSubviews(); //for subviews that are composite views
@@ -47,5 +47,9 @@ MerlinsBoard.Views.CompositeView = Backbone.View.extend({
     
     var subviews = this.subviews(selector); //finds ref to subview objects in parent composite view
     subviews.splice(subviews.indexOf(selector), 1)//cuts out selector-view array key-value pair from object
+  },
+  
+  clearSubviews: function () {
+    this._subviews = {}
   }
 })
