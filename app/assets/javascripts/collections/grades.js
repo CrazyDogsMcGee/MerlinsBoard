@@ -36,7 +36,6 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
     //some logic here to check if "data" was already passed in, and fusing that to the data parameter...
 
     _.extend(options,{ data: $.param({ course_id: this.course_id}) });
-    debugger
     return Backbone.Collection.prototype.fetch.call(this, options);
   },
 

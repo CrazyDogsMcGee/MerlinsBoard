@@ -148,10 +148,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   //grades
 
-  gradeSearch: function () {
+  gradeSearch: function (id) {
     //just link to this on the homepage of admins...unsure yet how to gracefully prevent access client-side
     var gradeLinkTemplate = MerlinsBoard.Views.SearchStudentGradesResults;
-    var userSearch = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate});
+    var userSearch = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course_id: id});
     
     this.swapView(userSearch);
     // var usersList = MerlinsBoard.Views.
@@ -163,7 +163,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     grades.fetch();
 
-    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades});
+    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student()});
     this.swapView(gradesList);
   },
 

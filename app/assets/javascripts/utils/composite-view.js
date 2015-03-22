@@ -5,6 +5,7 @@ MerlinsBoard.Views.CompositeView = Backbone.View.extend({
     if (!selector) {
       return this._subviews //return entire object
     } else {
+      this._subviews[selector] = this._subviews[selector] || [];
       return this._subviews[selector];
     }
   },
@@ -19,15 +20,15 @@ MerlinsBoard.Views.CompositeView = Backbone.View.extend({
   
   addSubview: function (selector, subview) {
     this.subviews(selector).push(subview);
-    
-    this.attachSubview(selector, subview.render());
   },
   
   attachSubviews: function () {
     var view = this;
     _(this.subviews()).each(function (subviews, selector) { //javascript does (value, key) instead of (key,value) like in ruby
-      view.$(selector).empty(); 
+      view.$(selector).empty();
+
       _(subviews).each(function (subview) { //subviews array value
+              debugger
         view.attachSubview(selector, subview);
       });
     });

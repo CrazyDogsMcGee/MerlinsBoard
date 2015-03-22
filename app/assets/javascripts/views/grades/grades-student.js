@@ -1,16 +1,17 @@
 MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
   initialize: function () {
+    this.listenTo(this.collection, "sync", this.render)
   },
 
-  template: JST["grades/grades-student-list"],
+  template: JST["grades/grades-student"],
 
-  className: "grade-list",
+  className: "grade-student",
 
   tagName: "section",
 
   render: function () {
     this.clearSubviews();
-    this.addGrades().bind(this);
+    this.addGrades();
     //this.attachSubviews(); needs to happen after the regular template is rendered
     var renderedContent = this.template({student: this.model})
     this.$el.html(renderedContent);
@@ -20,11 +21,13 @@ MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
   },
   
   addGrades: function () {
-    this.subviews() = {}; //clears subviews
+    this.clearSubviews(); //clears subviews
+    
+    var gradesStudentView = this
 
     this.collection.each(function (grade) {
       var gradeView = new MerlinsBoard.Views.GradeShow({model: grade});
-      this.addSubview("section.grade-list",gradeView.render())
+      gradesStudentView.addSubview("section.grade-student-list",gradeView.render())
     });
   }
 })

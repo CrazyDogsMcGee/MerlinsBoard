@@ -8,6 +8,12 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   
   className: "grade-item",
   
+  render: function () {
+    var renderedContent = this.template({grade: this.model});
+    this.$el.html(renderedContent);
+    return this
+  },
+  
   editGrade: function (event) {
     var gradeString = $(event.currentTarget).val();
     var num = parseInt(gradeString);

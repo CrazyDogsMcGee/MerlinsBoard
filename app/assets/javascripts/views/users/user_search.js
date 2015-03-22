@@ -1,6 +1,7 @@
 MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
-    this.searchCollectionView = options["collectionView"]; //pass in constructor function
+    this.searchCollectionView = options["collectionView"];//pass in constructor function
+    this.course_id = options["course_id"];
   },
   
   searchCollection: function () {
@@ -24,13 +25,14 @@ MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
   },
                                                       
   userSearch: function (event) {
+
     event.preventDefault();
 	  var queryUser = $("input.user-find-input").val();
 		this.searchCollection().fetch({data: $.param({query: queryUser})});
 
-		var searchList = new this.searchCollectionView({collection: this.searchCollection()});
+		var searchList = new this.searchCollectionView({collection: this.searchCollection(), course_id: this.course_id});
 		//want to call remove on search results
-		$('section.course-results').html(searchList.render().$el);
+		$('section.student-results').html(searchList.render().$el);
   }                                      
 
 });

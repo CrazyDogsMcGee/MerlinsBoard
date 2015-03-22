@@ -19,7 +19,6 @@ MerlinsBoard.Views.CourseForm = Backbone.View.extend({
 	submitform: function (event) {
 		event.preventDefault();
 		var attrs = $(event.target).serializeJSON();
-    debugger
 		this.model.save(attrs, {
 			success: function () {
 				MerlinsBoard.Courses.add(this.model,{merge: true})
