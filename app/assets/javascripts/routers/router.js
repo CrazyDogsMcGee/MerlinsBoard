@@ -100,7 +100,6 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var announcements = course.announcements();
 
-
     var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
     this.swapView(courseAnnouncements);
 
@@ -150,10 +149,11 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   //grades
 
   gradeSearch: function () {
-  //I will have to call the course fetch here to determine privileges
-    var course = MerlinsBoard.Courses.getOrFetch(id);
-    var users = course.users()
-
+    //just link to this on the homepage of admins...unsure yet how to gracefully prevent access client-side
+    var gradeLinkTemplate = MerlinsBoard.Views.SearchStudentGradesResults;
+    var userSearch = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate});
+    
+    this.swapView(userSearch);
     // var usersList = MerlinsBoard.Views.
   },
 
@@ -164,7 +164,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     grades.fetch();
 
     var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades});
-    this.swapView(gradesList)
+    this.swapView(gradesList);
   },
 
   // utils

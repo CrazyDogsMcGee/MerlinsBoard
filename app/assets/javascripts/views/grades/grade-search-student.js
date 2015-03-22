@@ -8,7 +8,8 @@ MerlinsBoard.Views.SearchStudentGradesResults = Backbone.View.extend({
   className: "grades-student-search",
 
   render: function () {
-    var renderedContent = this.template({students: this.collection});
+    var urlRoot = "#course/".concat(course_id,"/grades/user/")
+    var renderedContent = this.template({students: this.collection, gradeUrl: urlRoot});
     this.$el.html(renderedContent);
     return this.$el
   }

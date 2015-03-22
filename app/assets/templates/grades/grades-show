@@ -1,4 +1,4 @@
-  <h4> Assignment name:<%= grade.escape('title') %></h4>
-  <p> description: <%= grade.escape('description') %></p>
-  Grade: <strong class="grade-number" data-id="<%= grade.id %>"><%= grade.get('grade')%></strong>
-  <br>
+<h4> Assignment name:<%= grade.escape('title') %></h4>
+<p> description: <%= grade.escape('description') %></p>
+Grade: <strong class="grade-number" data-id="<%= grade.id %>"><%= grade.get('grade')%></strong>
+<br>

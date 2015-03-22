@@ -1,8 +1,6 @@
 MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
     this.searchCollectionView = options["collectionView"]; //pass in constructor function
-    
-
   },
   
   searchCollection: function () {

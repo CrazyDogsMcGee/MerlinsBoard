@@ -4,6 +4,8 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     this.listenTo(this.model, "sync change:grade", this.render)
   },
   
+  template: JST["grades/grades-show"]
+  
   className: "grade-item",
   
   editGrade: function (event) {

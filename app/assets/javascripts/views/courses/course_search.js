@@ -2,7 +2,7 @@ MerlinsBoard.Views.CoursesSearch = Backbone.View.extend({
 	initialize: function () {
 	},
 
-	template: JST["courses/coursesearch"],
+	template: JST["courses/course-search"],
 
 	render: function () {
 		var renderedContent = this.template({courses: this.collection});

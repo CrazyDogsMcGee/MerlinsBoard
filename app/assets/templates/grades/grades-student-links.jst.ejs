@@ -1,4 +1,3 @@
-<% var gradeUrl = "#course/".concat(course_id,"/grades/user/"%>
 <% students.each(function (student) { %>
-<a href="<%= gradeUrl.concat(student.id) %>"><%= student.escape("fname") + " " + student.escape("lname")%>("</a>
+<a href="<%= gradeUrl.concat(student.id) %>"><%= "Grades for: ".concat(student.escape("fname")," ",student.escape("lname"))%>("</a>
 <% }) %>
