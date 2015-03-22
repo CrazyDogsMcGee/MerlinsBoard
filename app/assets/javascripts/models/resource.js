@@ -1,1 +1,5 @@
-class MerlinsBoard.Models.Resource extends Backbone.Model
+MerlinsBoard.Models.Resource = Backbone.Model.extend({
+  initialize: function () {},
+  
+  urlRoot: "api/resources"
+})

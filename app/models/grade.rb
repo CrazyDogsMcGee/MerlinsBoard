@@ -9,11 +9,11 @@ class Grade < ActiveRecord::Base
 
   #paperclip
   has_attached_file :submission,
-  validates_attachment_content_type :document, :content_type => {:content_type => ["application/pdf",
+   :content_type => { :content_type => ["application/pdf",
     "application/vnd.ms-excel",
     "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "text/plain"]},:message => "Only PDF, WORD or TEXT files are allowed."
+    "text/plain"] }
 
   #   Migration: column for if it has submission (boolean), max score (int), change "grade" to "score", 
 end

@@ -10,8 +10,8 @@ window.MerlinsBoard = {
 		MerlinsBoard.CurrentUser = new MerlinsBoard.Models.User({id: window.currentUserID});
 		new MerlinsBoard.Routers.Router({
      rootEl: $("main#content"),
-     sideNav: $("nav.sidenav"),
-     tabNav: $("nav.headernav")
+     sideNav: $("nav.side-nav"),
+     tabNav: $("nav.header-nav")
     });
 		Backbone.history.start();
   }

@@ -12,6 +12,12 @@ class Api::UsersController < Api::ApiController
 	end
   
   def update
+    @user = User.find(params[:id])
+    
+    if @user.update(user_params)
+    else
+    end
+  end
 
 	def users_search
 		@users = User.search_by_full_name(params["query"])
@@ -22,6 +28,7 @@ class Api::UsersController < Api::ApiController
     #params are the response from the form
     params.require(:user).permit(:fname,:lname,:password,:email, :avatar)
   end
+    
 end
 
 # #JSON items

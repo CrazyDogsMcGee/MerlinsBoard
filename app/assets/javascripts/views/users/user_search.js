@@ -9,13 +9,13 @@ MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
     }
     
     return this._searchCollection
-  }
+  },
   
   template: JST["users/user-search"],
   
   events: {
     "submit form.student-find":"userSearch"
-  }
+  },
   
   render: function () {
     var renderedContent = this.template();

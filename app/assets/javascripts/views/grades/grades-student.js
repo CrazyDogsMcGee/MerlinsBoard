@@ -1,13 +1,12 @@
 MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
   initialize: function () {
-    
   },
 
   template: JST["grades/grades-student-list"],
 
   className: "grade-list",
 
-  tagName: "section"
+  tagName: "section",
 
   render: function () {
     this.clearSubviews();
@@ -18,7 +17,7 @@ MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
 
     this.attachSubviews();
     return this
-  }
+  },
   
   addGrades: function () {
     this.subviews() = {}; //clears subviews
