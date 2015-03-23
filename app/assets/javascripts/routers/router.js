@@ -103,7 +103,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
     this.swapView(courseAnnouncements);
 
-    MerlinsBoard.Vent.trigger("courseRender",{courseID: id}); //for more functionality - it should pass in the reference to the course model instead
+    MerlinsBoard.Vent.trigger("courseRender",{courseModel: course}); //for more functionality - it should pass in the reference to the course model instead
   },
 
   newAnnouncement: function (id) {

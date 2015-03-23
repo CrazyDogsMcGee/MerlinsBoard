@@ -37,14 +37,23 @@ if (access == :student) || (access == :instructor)
     json.due_date assignment.due_date
     json.course_id assignment.course_id
   end
-
-end
-
-if (access == :student)
-  json.grades @course.grades.select {|grade| grade.user_id == current_user.id} do |grade|
-    json.assignment_id grade.assignment_id
-    json.grade grade.grade
+  
+  json.resources @course.resources do |resource|
+    json.id resource.id
+    json.name resource.name
+    json.description resource.description
+    #json.url/path resource.url/path
   end
+
 end
+
+# if (access == :student)
+#   json.grades @course.grades.select {|grade| grade.user_id == current_user.id} do |grade|
+#     json.assignment_id grade.assignment_id
+#     json.grade grade.grade
+#          
+  #     #I might be inclined just to use this instead- having a seperate url for a student to view their own grades
+#   end
+# end
 
 #only want to use extract for top-level attrs

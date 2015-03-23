@@ -1,0 +1,23 @@
+<h1><%= resource.isNew() ? "Create New Resource":"Edit Resource"%></h1>
+
+<section class="form-errors">
+</section>
+
+<form enctype="multipart/form-data" class="resource-form">
+<label> Resource Name
+<input type="text" name=resource[name] value="<%= resource.escape(name) %>">
+</label>
+<br>
+  
+<label> Resource Description
+<textarea name="resource[description]"><%= resource.escape("description")%></textarea>
+</label>
+
+<label> Resource File
+<input type="file" name="resource[document]" class="resource-form-fileinput">
+</label>
+
+<input type="hidden" name=resource[course_id] value="<%= resource.get('course_id') || course_id %>">
+<!--  Just realized I don't need to do this at all, because I can just set it on the router  -->
+<input type="submit" value="<%= resource.isNew() ? 'Create Resource':'Save Changes'%>">
+</form>

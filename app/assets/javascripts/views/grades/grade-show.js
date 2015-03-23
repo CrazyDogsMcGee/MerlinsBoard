@@ -1,12 +1,17 @@
 MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   initialize: function () {
     _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback");
-    this.listenTo(this.model, "sync change:grade", this.render)
+    this.listenTo(this.model, "sync", this.render)
   },
   
   template: JST["grades/grades-show"],
   
   className: "grade-item",
+  
+  events:{
+    "click strong.grade-number":"editGrade",
+    "blur input.grade-input":"saveGrade"
+  },
   
   render: function () {
     var renderedContent = this.template({grade: this.model});
@@ -18,26 +23,24 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     var gradeString = $(event.currentTarget).val();
     var num = parseInt(gradeString);
     var $input = $("<input type='number' min='0' step='1' max='100'>").addClass('grade-input').val(num);
+    //Need to turn the input into a text input, and then have an error callback that checks if the input is valid, and lists errors if it is not.
     this.modelNumber = $(event.currentTarget).data('id');
     $(".grade-number[data-id=".concat(this.modelNumber,"]")).html($input)
   },
 
   saveGrade: function (event) {
-    var editedGrade = this.collection.getOrFetch(this.modelNumber); //I already have the model number, I don't even need to do another fetch.
+    var editedGrade = this.model //I already have the model number, I don't even need to do another fetch.
     var newGrade = parseInt($('input.grade-input').val());
-    var courseID = this.collection.course_id;
 
     editedGrade.set({grade: newGrade});
-    editedGrade.save({course_id: courseID},{success:          this.gradeSaveCallback(editedGrade),
+    editedGrade.save({},{
+    success: this.gradeSaveCallback(editedGrade),
     error: this.gradeSaveErrorCallback
     });
   },
 
   gradeSaveCallback: function (editedGrade) {
-    var $grade = $('<strong>').text(editedGrade.get("grade"))
-    this.$(".grade-number[data-id=".concat(this.modelNumber,"]")).html($grade)       //unideal - needs to be banished with composite view paradigm.
-
-    //the save is happening - the collection stubbornly refuses to update...should just refactor to composite view.
+    console.log("The render should handle it fine")
   },
 
   gradeSaveErrorCallback: function (model, resp) {

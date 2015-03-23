@@ -2,6 +2,7 @@ MerlinsBoard.Views.assignmentForm = Backbone.View.extend({
   initialize: function (options) {
     this.listenTo(this.model, "sync", this.render)
     this.course_id = options["course_id"]
+    //bindAll
   },
   
   tagName: "section",
@@ -25,6 +26,7 @@ MerlinsBoard.Views.assignmentForm = Backbone.View.extend({
     var attrs = $(event.target).serializeJSON();
     this.model.save(attrs, {
       success: function () {
+        //should also pass in collection to add...
         Backbone.history.navigate("course/" + this.course_id + "/assignments",{trigger: true});
       }.bind(this),
       error: function (model,response) {
@@ -38,4 +40,6 @@ MerlinsBoard.Views.assignmentForm = Backbone.View.extend({
       }
     })
   }
-})
+  //need to filter out and bind callbacks
+  
+});

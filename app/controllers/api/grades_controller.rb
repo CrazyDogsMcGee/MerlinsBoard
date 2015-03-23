@@ -4,10 +4,9 @@ class Api::GradesController < Api::ApiController
   #wrap_parameters false
 
   def index
-    #I may want an internal control here instead of using the before_action...
     @grades = Grade.includes(:assignment,:course,:user).where("user_id = ?", params["user_id"])
     @student = @grades.first.user
-    @course_id = params["course_id"].to_i
+    @course_id = params["course_id"].to_i #should change this too into something less ghetto
     @grades = @grades.select {|grade| grade.course.id == params["course_id"].to_i}
   end
 
@@ -37,6 +36,10 @@ class Api::GradesController < Api::ApiController
     params.permit(:grade, :assignment_id, :user_id, :submission)
     #need to change grade column - it confuses params_wrapper I think.
     #change the column name and see what happens...would also have to refactor backbone views and jbuilder
+  end
+  
+  def grade_course_congruency
+    
   end
 
 end

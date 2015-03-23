@@ -1,6 +1,6 @@
 class Api::AssignmentsController < Api::ApiController
-  #before_action(except: [:index]) {admins_only(assignment_params["course_id"])}
-  # after_create :grade_population
+  before_action(except: [:index, :show]) {admins_only(assignment_params["course_id"])}
+  #after_create :create_grades
 
   def index
     @assignments = Assignment.all

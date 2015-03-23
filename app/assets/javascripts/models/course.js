@@ -45,6 +45,14 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 
 		return this._enrollments
 	},
+  
+  resources: function () {
+    if (!this._resources) {
+      this._resources = new MerlinsBoard.Collections.Resources([],{owner: this});
+    }
+    
+    return this._resources
+  }
 
 	parse: function (resp) {
     //could refactor this to an array + an iterative function with "call"
@@ -72,6 +80,11 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
     if (resp.assignments) {
       this.assignments().set(resp.assignments);
       resp.assignments.delete;
+    }
+    
+    if (resp.resources) {
+      this.resources().set(resp.resources);
+      resp.resources.delete;
     }
 		//probably should iterate through this to reduce the space
 		return resp
