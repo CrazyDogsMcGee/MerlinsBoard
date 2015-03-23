@@ -1,16 +1,25 @@
 <h1>Announcements for <%= courseName %></h1>
 
 <% announcements.each(function (announcement) { %>
-<section class="announcement">
+<section class="announcement-show">
 <h3 class="announcement-title"><%= announcement.escape("title") %></h3>
 <p class="announcement-body"><%= announcement.escape("body") %></p>
+<% if (isInstructor) {%>
+<button type="button" class="announcement-edit" data-id="<%= announcement.id %>">
+  Edit Announcement
+</button>
+<button type="button" class="announcement-new-button" data-id="<%= announcement.id %>">
+  Remove Announcement
+</button>
 <a class="announcement-edit" href="<%='#course/'+announcement.get('course_id')+'/announcements/' + announcement.id + '/edit'%>"> Edit </a>
+<a class="announcement-destroy" data-id="<%= announcement.id %>">Remove announcement</a>
+<% } %>
 </section>
 <br>
 <% }) %>
 <br>
 <% if (isInstructor) {%>
-<button type="button" class="form">
+<button type="button" class="announcement-new-button">
   New Announcement
 </button>
 <% } %>

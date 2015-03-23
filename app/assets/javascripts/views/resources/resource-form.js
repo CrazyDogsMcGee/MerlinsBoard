@@ -1,17 +1,17 @@
-Backbone.Views.resourceForm = Backbone.view.extend({
+MerlinsBoard.Views.resourceForm = Backbone.View.extend({
   initialize: function () {
     this.listenTo(this.model,"sync",this.render);
     _.bindAll(this, 'successCallback','errorCallback');
   },
   
-  className:"resource-form"
+  className:"resource-form",
   
   template: JST["resources/resource-form"],
   
   events: {
     "submit form.resource-form":"saveResource",
     "change input.resource-form-fileinput":"processFile"
-  }
+  },
   
   render: function () {
     var renderedContent = this.template({resource: this.model});

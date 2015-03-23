@@ -1,4 +1,5 @@
 class Api::AnnouncementsController < Api::ApiController
+  before_action(except: [:index, :show]) {admins_only(assignment_params["course_id"])}
   
   def index
     @announcements = Announcement.all

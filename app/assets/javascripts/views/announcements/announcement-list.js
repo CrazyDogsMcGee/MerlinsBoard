@@ -5,7 +5,9 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
   },
   
   events: {
-    "click button.form" : "newAnnouncement"
+    "click button.announcement-new-button" : "newAnnouncement",
+    "click button.announcement-edit" : "editAnnouncement",
+    "click button.annoucement-destroy" : "destroyAnnouncement"
   },
   
   tagName: "section",
@@ -24,5 +26,22 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
     
   newAnnouncement: function (event) {
     Backbone.history.navigate("course/"+this.course.id+"/announcements/new", {trigger: true});
+  },
+  
+  editAnnouncement: function (event) {
+    var announcementID = $(event.currentTarget).data('id');
+    var announcement = this.collection.getOrFetch(announcementID);
+    var editUrl = '#course/'+announcement.get('course_id')+'/announcements/' + announcement.id + '/edit';
+    Backbone.history.navigate(editUrl,{trigger: true});
+  },
+  
+  destroyAnnouncement: function (event) {
+    var announcementID = $(event.currentTarget).data('id');
+    var announcement = this.collection.getOrFetch(announcementID);
+    
+    announcement.destroy({success: function () {
+      this.render();
+    }.bind(this)
+    })
   }
 })

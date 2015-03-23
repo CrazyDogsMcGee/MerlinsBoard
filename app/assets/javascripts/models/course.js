@@ -1,6 +1,5 @@
 MerlinsBoard.Models.Course = Backbone.Model.extend({
   urlRoot: "api/courses",
-
   //nested resources
   initialize: function () {
   },
@@ -52,11 +51,9 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
     }
     
     return this._resources
-  }
+  },
 
-	parse: function (resp) {
-    //could refactor this to an array + an iterative function with "call"
-
+  parse: function (resp) {
 		if (resp.instructors) {
 			this.instructors().set(resp.instructors);
 			resp.instructors.delete;
@@ -90,13 +87,8 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 		return resp
 	},
 
-  validate: function (attrs) {
-		// if (attrs.end_time < attrs.start_time) {
-		// 	return "Class cannot end before it starts"
-		// }
-	},
-
   isInstructor: function (userID) {
+    debugger
     return !!this.instructors().get(userID)
   }
 });
