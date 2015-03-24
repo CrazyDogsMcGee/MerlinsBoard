@@ -5,7 +5,9 @@ MerlinsBoard.Views.assignmentList = Backbone.View.extend({
   },
   
   events: {
-    "click button.form":"newAssignment"
+    "click button.assignment-new-button" : "newAssignment",
+    "click button.assignment-edit" : "editAssignment",
+    "click button.assignment-destroy" : "destroyAssignment"
   },
   
   tagName: "section",
@@ -23,6 +25,24 @@ MerlinsBoard.Views.assignmentList = Backbone.View.extend({
     
   newAssignment: function () {
     Backbone.history.navigate("course/"+this.course.id+"/assignments/new", {trigger: true});
+  },
+  
+  editAssignment: function (event) {
+    var assignmentID = $(event.currentTarget).data('id');
+    var assignment = this.collection.getOrFetch(assignmentID);
+    var editUrl = '#course/'+assignment.get('course_id')+'/assignments/' + assignment.id + '/edit';
+    Backbone.history.navigate(editUrl,{trigger: true});
+  },
+  
+  destroyAssignment: function (event) {
+    var assignmentID = $(event.currentTarget).data('id');
+    var assignment = this.collection.getOrFetch(assignmentID);
+    
+    assignment.destroy({success: function () {
+      this.render();
+    }.bind(this),
+    data: $.param({course_id: this.course.id})
+    })
   }
   
 })

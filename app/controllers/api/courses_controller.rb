@@ -20,7 +20,7 @@ class Api::CoursesController < Api::ApiController
   end
 
   def show
-    @course = Course.includes(:students, :courses_students, :instructors, :announcements, :assignments, :grades).find(params[:id])
+    @course = Course.includes(:students, :courses_students, :instructors, :announcements, :assignments, :resources).find(params[:id])
     render :show #jbuilder render
   end
 

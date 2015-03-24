@@ -88,7 +88,6 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 	},
 
   isInstructor: function (userID) {
-    debugger
     return !!this.instructors().get(userID)
   }
 });

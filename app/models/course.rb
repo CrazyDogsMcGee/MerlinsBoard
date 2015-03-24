@@ -30,7 +30,7 @@ class Course < ActiveRecord::Base
   has_many :assignments, dependent: :destroy
 
   has_many :students, through: :courses_students, source: :student
-  has_many :grades, through: :assignments, source: :grades
+  has_many :grades, through: :assignments, source: :grades, dependent: :destroy
   has_many :instructors, through: :courses_instructors, source: :instructor
 
   def conflicts_with_any_course

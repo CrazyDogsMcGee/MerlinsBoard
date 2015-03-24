@@ -34,10 +34,12 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     
     "course/:id/resources":"courseResources",
     "course/:id/resources/new":"newResource",
+    "course/:course_id/resources/:id/edit":"editResource",
     
     //grades
     "course/:id/grades/student-search" : "gradeSearch",
-    "course/:course_id/grades/user/:user_id" : "gradeShow"
+    "course/:course_id/grades/user/:user_id" : "gradesAdminShow",
+    "course/:id/grades/my-grades": "gradesStudentShow"
     
     //misc
 //     "user/:id": "showuser"
@@ -103,7 +105,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
     this.swapView(courseAnnouncements);
 
-    MerlinsBoard.Vent.trigger("courseRender",{courseModel: course}); //for more functionality - it should pass in the reference to the course model instead
+    MerlinsBoard.Vent.trigger("courseRender",{courseModel: course});
   },
 
   newAnnouncement: function (id) {
@@ -145,6 +147,29 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var assignmentForm = new MerlinsBoard.Views.assignmentForm({model: assignment, course_id: course_id});
     this.swapView(assignmentForm);
   },
+  
+  //course resources
+  
+  courseResources: function (id) {
+    var course = MerlinsBoard.Courses.getOrFetch(id);
+    var resources = course.resources();
+    
+    var courseResources = new MerlinsBoard.Views.resourceList({collection: resources});
+    this.swapView(courseResources);
+  },
+  
+  newResource: function (id) {
+    var resource = new MerlinsBoard.Models.Resource({course_id: id});
+    var courseForm = new MerlinsBoard.Views.resourceForm({model: resource});
+    this.swapView(courseForm);
+  },
+  
+  editResource: function (course_id, id) {
+    var resource = new MerlinsBoard.Models.Resource({id: id})
+    resource.fetch();
+    var courseForm = new MerlinsBoard.Views.resourcForm({model: resource});
+    this.swapView(courseForm);
+  },
 
   //grades
 
@@ -157,19 +182,32 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     // var usersList = MerlinsBoard.Views.
   },
 
-  gradeShow: function (course_id, user_id) {
+  gradeAdminShow: function (course_id, user_id) {
     // var course = MerlinsBoard.Courses.getOrFetch(id);
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
 
     grades.fetch();
 
-    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student()});
+    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: true});
+    this.swapView(gradesList);
+  },
+  
+  gradesStudentShow: function (course_id) {
+    var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: this.currentUser.id});
+    
+    grades.fetch();
+    
+    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: false})
     this.swapView(gradesList);
   },
 
   // utils
   resourceNotFound: function () {
     //this.swapView();
+  },
+  
+  unauthorizedAccess: function () {
+    
   },
 
   swapView: function (newView, navView) {

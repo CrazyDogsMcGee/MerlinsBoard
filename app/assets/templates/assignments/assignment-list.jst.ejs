@@ -10,13 +10,18 @@
   </tr>
 </table>
 <% if (isInstructor) {%>
-<a class="assignement-edit" href="<%= '#course/' + assignment.get('course_id') + '/assignments/' + assignment.id + '/edit'%>">Edit Assignment</a>
+<button type="button" class="assignment-edit" data-id="<%= assignment.id %>">
+  Edit Announcement
+</button>
+<button type="button" class="assignment-destroy" data-id="<%= assignment.id %>">
+  Remove Announcement
+</button>
 <% } %>
 <br>
 <% }) %>
 
 <% if (isInstructor) {%>
-<button type="button" class="form">
+<button type="button" class="assignment-new-button">
   New Assignment
 </button>
 <% } %>

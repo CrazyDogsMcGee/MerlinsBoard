@@ -8,5 +8,5 @@ class Announcement < ActiveRecord::Base
     dependent: :destroy
   )
   
-  belongs_to :course, dependent: :destroy
+  belongs_to :course
 end

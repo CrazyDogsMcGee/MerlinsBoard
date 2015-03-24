@@ -39,7 +39,9 @@ class Api::GradesController < Api::ApiController
   end
   
   def grade_course_congruency
-    
+    unless self.course_id == params["course_id"].to_i
+      render text: "You do not have sufficient rights to perform this action", status: 403
+    end
   end
 
 end

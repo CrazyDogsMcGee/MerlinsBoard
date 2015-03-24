@@ -10,13 +10,18 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
 
   templateDetail: JST["navigation/coursedetail"],
   templateHome: JST["navigation/homedetail"],
+  
   tagName: "nav",
+  
   className: "nav-course",
 
   renderDetail: function (options) {
     var course = options["courseModel"];
+    
+    var isInstructor = course.isInstructor(MerlinsBoard.CurrentUser);
+    
     var courseID = course.id
-    var renderedContent = this.templateDetail({courseID: course.id}); //include boolean for if current user is an instructor..
+    var renderedContent = this.templateDetail({courseID: course.id, isInstructor: isInstructor});
     this.$el.html(renderedContent);
     return this
   },
@@ -25,5 +30,7 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
     var renderedContent = this.templateHome();
     this.$el.html(renderedContent);
     return this
-  }
+  },
+  
+  
 })

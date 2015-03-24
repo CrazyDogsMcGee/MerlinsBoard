@@ -7,7 +7,7 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
   events: {
     "click button.announcement-new-button" : "newAnnouncement",
     "click button.announcement-edit" : "editAnnouncement",
-    "click button.annoucement-destroy" : "destroyAnnouncement"
+    "click button.announcement-destroy" : "destroyAnnouncement"
   },
   
   tagName: "section",
@@ -41,7 +41,8 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
     
     announcement.destroy({success: function () {
       this.render();
-    }.bind(this)
+    }.bind(this),
+    data: $.param({course_id: this.course.id})
     })
   }
 })

@@ -8,11 +8,9 @@
 <button type="button" class="announcement-edit" data-id="<%= announcement.id %>">
   Edit Announcement
 </button>
-<button type="button" class="announcement-new-button" data-id="<%= announcement.id %>">
+<button type="button" class="announcement-destroy" data-id="<%= announcement.id %>">
   Remove Announcement
 </button>
-<a class="announcement-edit" href="<%='#course/'+announcement.get('course_id')+'/announcements/' + announcement.id + '/edit'%>"> Edit </a>
-<a class="announcement-destroy" data-id="<%= announcement.id %>">Remove announcement</a>
 <% } %>
 </section>
 <br>

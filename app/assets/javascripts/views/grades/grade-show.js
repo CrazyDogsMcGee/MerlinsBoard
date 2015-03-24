@@ -1,16 +1,25 @@
 MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
-  initialize: function () {
+  initialize: function (options) {
     _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback");
     this.listenTo(this.model, "sync", this.render)
+    this.adminView = options["adminView"];
   },
   
   template: JST["grades/grades-show"],
   
   className: "grade-item",
   
-  events:{
-    "click strong.grade-number":"editGrade",
-    "blur input.grade-input":"saveGrade"
+  events: function () {
+    var events_hash = {};
+    
+    if (this.adminView) {
+      _.extend(events_hash, {
+      "click strong.grade-number":"editGrade",
+      "blur input.grade-input":"saveGrade"
+      });
+    }
+    
+    return events_hash
   },
   
   render: function () {
