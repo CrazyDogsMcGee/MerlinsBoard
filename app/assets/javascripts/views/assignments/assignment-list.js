@@ -38,9 +38,8 @@ MerlinsBoard.Views.assignmentList = Backbone.View.extend({
     var assignmentID = $(event.currentTarget).data('id');
     var assignment = this.collection.getOrFetch(assignmentID);
     
-    assignment.destroy({success: function () {
-      this.render();
-    }.bind(this),
+    assignment.destroy({
+    success: this.render.bind(this),
     data: $.param({assignment: {course_id: this.course.id}})
     })
   }

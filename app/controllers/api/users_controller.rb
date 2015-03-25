@@ -1,6 +1,6 @@
 class Api::UsersController < Api::ApiController
-	#this is because I will need access to the current user in the backbone views...
-	
+	#wrap_parameters false
+  
 	def show
 		@user = User.includes(:courses, :taughtcourses).find(params[:id])
 		render :show

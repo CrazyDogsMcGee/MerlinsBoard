@@ -1,6 +1,6 @@
-class ResourcesController < Api::ApiController
-  #before_action :isAdmin only edit, create, destroy
-  #wrap_parameters false
+class Api::ResourcesController < Api::ApiController
+  before_action(only: [:update, :create, :destroy]) {admins_only(resource_params["course_id"])}
+  wrap_parameters false
   
   def index
     @resources = Resource.all
@@ -14,11 +14,12 @@ class ResourcesController < Api::ApiController
       render json: @resource
     else
       render json: @resource.errors.full_messages, status: 422
-    endg
+    end
   end
 
   def update
     @resource = Resource.find(params[:id])
+    
     if @resource.update(resource_params)
       render json: @resource
     else
@@ -37,4 +38,5 @@ class ResourcesController < Api::ApiController
   def resource_params
     params.require(:resource).permit(:name, :description, :course_id, :document)
   end
+    
 end

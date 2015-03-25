@@ -4,11 +4,14 @@ MerlinsBoard.Models.Resource = Backbone.Model.extend({
   urlRoot: "api/resources",
   
   toJSON: function () { //called in Backbone.model.save
+    debugger
     var json = {resource: _.clone(this.attributes)}; //this refers to model
     
     if (this._document) {
       json.resource.document = this._document;
     }
+    
+    debugger
     
     return json;
   } 

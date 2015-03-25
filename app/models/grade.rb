@@ -8,10 +8,10 @@ class Grade < ActiveRecord::Base
   has_one :course, through: :assignment, source: :course
 
   #paperclip
-  has_attached_file :submission,
-   :content_type => { :content_type => ["application/pdf",
+  has_attached_file :submission
+  validates_attachment_content_type :submission, :content_type => ["application/pdf",
     "application/vnd.ms-excel",
     "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "text/plain"] }
+    "text/plain"]
 end

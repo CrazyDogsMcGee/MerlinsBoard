@@ -5,21 +5,24 @@
 
 <form enctype="multipart/form-data" class="resource-form">
 <label> Resource Name
-<input type="text" name=resource[name] value="<%= resource.escape(name) %>">
+<input type="text" name=name value="<%= resource.escape('name') %>">
 </label>
 <br>
   
 <label> Resource Description
-<textarea name="resource[description]"><%= resource.escape("description")%></textarea>
+<textarea name="description"><%= resource.escape("description")%></textarea>
 </label>
 <br>
   
 <label> Resource File
-<input type="file" name="resource[document]" class="resource-form-fileinput">
+<% if (!resource.isNew()) { %>
+Current Resource: <a class='resource-url'>Download</a>
+<% } %>
+<input type="file" name="document" class="resource-form-fileinput">
 </label>
 <br>
   
-<input type="hidden" name=resource[course_id] value="<%= resource.get('course_id') || course_id %>">
+<input type="hidden" name=course_id value="<%= resource.get('course_id') || course_id %>">
 <!--  Just realized I don't need to do this at all, because I can just set it on the router  -->
 <input type="submit" value="<%= resource.isNew() ? 'Create Resource':'Save Changes'%>">
 </form>

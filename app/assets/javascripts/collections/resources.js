@@ -9,14 +9,15 @@ MerlinsBoard.Collections.Resources = Backbone.Collection.extend({
   
   getOrFetch: function (id) {
     var resource = this.get(id);
-    
-    if (!assignment) {
+
+    if (!resource) {
       resource = new MerlinsBoard.Models.Assignment({id:id});
       var collection = this
       
       resource.fetch({success: function () {
         collection.add(resource)
       }
+                      
       })
     } else {
       resource.fetch();

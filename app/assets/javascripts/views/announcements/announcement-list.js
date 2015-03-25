@@ -40,7 +40,7 @@ MerlinsBoard.Views.announcementList = Backbone.View.extend({
     var announcement = this.collection.getOrFetch(announcementID);
     
     announcement.destroy({
-      success: function () {this.render()}.bind(this),
+      success: this.render.bind(this),
       data: $.param({announcement: {course_id: this.course.id}})
     })
   }

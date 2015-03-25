@@ -153,7 +153,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   courseResources: function (id) {
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var resources = course.resources();
-    
+   
     var courseResources = new MerlinsBoard.Views.resourceList({collection: resources});
     this.swapView(courseResources);
   },

@@ -7,7 +7,7 @@ class Api::AssignmentsController < Api::ApiController
     render json: @assignments
   end
 
-  def create #form AJAX
+  def create
     @assignment = Assignment.new(assignment_params)
     if @assignment.save
 #       create_grades

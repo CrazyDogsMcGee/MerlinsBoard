@@ -1,8 +1,23 @@
-<h1> Course Resources</h1>
+<h1> Resource for <%= course.escape("name") %> </h1>
 
-<% resources.each(function (resource) {%>
-<h3 class="resource-name">resource.escape("name")</h3>
-<p class="resource-description">resource.escape("description")</p>
-<!-- <a href="<%= resource.get(url) %>" class="resource-link">Download resource</a> -->
+<% resources.each(function (resource) { %>
+<h3 class="resource-name"><%= resource.escape("name")%></h3>
+<p class="resource-description"><%= resource.escape("description") %></p>
+<a href="<%= resource.get('url') %>" class="resource-link">Download resource</a>
 <br>
+  <% if (isInstructor) {%>
+<button type="button" class="resource-edit" data-id="<%= resource.id %>">
+  Edit Resource
+</button>
+<button type="button" class="resource-destroy" data-id="<%= resource.id %>">
+  Remove Resource
+</button>
+  <% } %>
+
 <% }) %>
+
+<% if (isInstructor) { %>
+<button type="button" class="resource-new">
+  New Resource
+</button>
+<% } %>
