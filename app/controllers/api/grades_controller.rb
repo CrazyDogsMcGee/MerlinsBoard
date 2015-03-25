@@ -1,13 +1,14 @@
 class Api::GradesController < Api::ApiController
-  before_action(only: [:update, :show]) {admins_only(params["course_id"])}
+  before_action(only: [:update, :show]) {admins_only(params["course_id"])} #needs to be included manually on any change
   before_action :is_user_or_instructor?, only: [:index]
   #wrap_parameters false
 
   def index
     @grades = Grade.includes(:assignment,:course,:user).where("user_id = ?", params["user_id"])
     @student = @grades.first.user
-    @course_id = params["course_id"].to_i #should change this too into something less ghetto
-    @grades = @grades.select {|grade| grade.course.id == params["course_id"].to_i}
+    @course_id = params["course_id"].to_i
+    
+    @grades = @grades.select {|grade| grade.course.id == @course_id}
   end
 
   def show
@@ -33,12 +34,14 @@ class Api::GradesController < Api::ApiController
   end
 
   def grade_params
-    params.permit(:grade, :assignment_id, :user_id, :submission)
-    #need to change grade column - it confuses params_wrapper I think.
-    #change the column name and see what happens...would also have to refactor backbone views and jbuilder
+    #     if current_user
+#     else
+#     end
+    params.require(:grade).permit(:score, :assignment_id, :user_id, :submission)
+    
   end
   
-  def grade_course_congruency
+  def grade_course_congruency(grade) #how to see if the cu is an admin of that grade's course? I think you can call association methods even before things are saved/committed
     unless self.course_id == params["course_id"].to_i
       render text: "You do not have sufficient rights to perform this action", status: 403
     end

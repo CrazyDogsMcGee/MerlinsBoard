@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319212939) do
+ActiveRecord::Schema.define(version: 20150325164137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20150319212939) do
   add_index "courses_students", ["user_id", "course_id"], name: "index_courses_students_on_user_id_and_course_id", unique: true, using: :btree
 
   create_table "grades", force: true do |t|
-    t.integer  "grade"
+    t.integer  "score"
     t.integer  "assignment_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150319212939) do
     t.string   "submission_content_type"
     t.integer  "submission_file_size"
     t.datetime "submission_updated_at"
+    t.boolean  "allow_submission"
   end
 
   add_index "grades", ["assignment_id"], name: "index_grades_on_assignment_id", using: :btree

@@ -41,7 +41,7 @@ MerlinsBoard.Views.assignmentList = Backbone.View.extend({
     assignment.destroy({success: function () {
       this.render();
     }.bind(this),
-    data: $.param({course_id: this.course.id})
+    data: $.param({assignment: {course_id: this.course.id}})
     })
   }
   

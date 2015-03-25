@@ -13,10 +13,19 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     var events_hash = {};
     
     if (this.adminView) {
+      
       _.extend(events_hash, {
       "click strong.grade-number":"editGrade",
-      "blur input.grade-input":"saveGrade"
+      "blur input.grade-input":"saveGrade",
+      "submit form.grade-submission":"submitSubmission"
       });
+      
+    } else {
+      
+      _.extend(events_hash, {
+      "submit form.grade-submission":"submitSubmission"
+      });
+      
     }
     
     return events_hash
@@ -38,11 +47,11 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   },
 
   saveGrade: function (event) {
-    var editedGrade = this.model //I already have the model number, I don't even need to do another fetch.
+    var editedGrade = this.model
     var newGrade = parseInt($('input.grade-input').val());
 
     editedGrade.set({grade: newGrade});
-    editedGrade.save({},{
+    editedGrade.save({},{ //course_id is already on the model, it will be available from the params
     success: this.gradeSaveCallback(editedGrade),
     error: this.gradeSaveErrorCallback
     });

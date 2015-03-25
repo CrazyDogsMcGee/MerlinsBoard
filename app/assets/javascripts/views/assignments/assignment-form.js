@@ -2,7 +2,7 @@ MerlinsBoard.Views.assignmentForm = Backbone.View.extend({
   initialize: function (options) {
     this.listenTo(this.model, "sync", this.render)
     this.course_id = options["course_id"]
-    //bindAll
+    _.bindAll(this,"assignmentSuccessCallback","assignmentErrorCallback")
   },
   
   tagName: "section",
@@ -25,21 +25,23 @@ MerlinsBoard.Views.assignmentForm = Backbone.View.extend({
     event.preventDefault();
     var attrs = $(event.target).serializeJSON();
     this.model.save(attrs, {
-      success: function () {
-        //should also pass in collection to add...
-        Backbone.history.navigate("course/" + this.course_id + "/assignments",{trigger: true});
-      }.bind(this),
-      error: function (model,response) {
-        var errorArray = response.responseJSON;
-        var $errorList = $("<ul>");
-        _.each(errorArray, function (error) {
-          var $error = $("<li>").text(error);
-          $errorList.append($error);
-        })
-        $("section.form-errors").html($errorList)
-      }
+      success: this.assignmentSuccessCallback,
+      error: this.assignmentErrorCallback
     })
+  },
+
+  assignmentSuccessCallback: function () {
+    //should also pass in collection to add...
+    Backbone.history.navigate("course/" + this.course_id + "/assignments",{trigger: true});
+  },
+                                                         
+  assignmentErrorCallback: function (model,response) {
+    var errorArray = response.responseJSON;
+    var $errorList = $("<ul>");
+    _.each(errorArray, function (error) {
+      var $error = $("<li>").text(error);
+      $errorList.append($error);
+    })
+    this.$("section.form-errors").html($errorList)
   }
-  //need to filter out and bind callbacks
-  
 });

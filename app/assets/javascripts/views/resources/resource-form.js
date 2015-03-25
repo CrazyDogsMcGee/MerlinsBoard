@@ -24,12 +24,12 @@ MerlinsBoard.Views.resourceForm = Backbone.View.extend({
     var attrs = $(event.target).serializeJSON();
     
     this.model.save(attrs,{
-      success: successCallback,
-      error: errorCallback
+      success: this.successCallback,
+      error: this.errorCallback
     })
   },
     
-  processFile: function (event) {
+  processFile: function (event) { //should move this to save resource - capture event using $(event.target).find("inputwhatever").files[0]
     var that = this
     var file = event.currentTarget.files[0];
     var reader = new FileReader();

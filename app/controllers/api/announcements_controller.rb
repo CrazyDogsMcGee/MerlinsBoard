@@ -1,5 +1,5 @@
 class Api::AnnouncementsController < Api::ApiController
-  before_action(except: [:index, :show]) {admins_only(params["course_id"])}
+  before_action(except: [:index, :show]) {admins_only(announcement_params["course_id"])}
   
   def index
     @announcements = Announcement.all

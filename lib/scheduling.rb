@@ -1,26 +1,27 @@
 module Scheduling
   def conflicts_with_link
     new_enroll = self.course
-    user = User.includes(:courses,:taughtcourses).find(self.user_id)
+    user = User.includes(:courses,:taughtcourses).find(self.user_id) #only fishing for only the one users courses, this is wasteful. Only include when avoiding n+1 queries
 
-    case self #case statements use triple-equals (a === b) - is 'b' an instance of 'a'?
+    case self #case uses ===
     when CoursesStudents
       double_enrolled?(self.course_id, user.taughtcourses)
     when CoursesInstructors
       double_enrolled?(self.course_id, user.courses)
     else
-      raise "else"
+      raise "Wrong validator used."
     end
 
-    #See if seeding messes up here
-    begin
-    user_courses = user.courses.select {|course| (course.location == new_enroll.location) && (course.day == new_enroll.day)} #ugly as sin, will need to be refactored to reduce # of queries
+    user_courses = user.courses.select {|course| (course.location == new_enroll.location) && (course.day == new_enroll.day)} #just use a where query for this
     user_taughtcourses = user.taughtcourses.select {|course| (course.location == new_enroll.location) && (course.day == new_enroll.day)}
-    rescue
-      puts user
-    end
+    
+    all_user_courses = user_courses.concat(user_taughtcourses)
 
-    course_conflict(new_enroll, user_courses+user_taughtcourses,{eval_enroll: true})
+    course_conflict(
+      new_enroll,
+      all_user_courses,
+      {eval_enroll: true}
+    )
   end
 
   def double_enrolled?(course_id, course_array)
@@ -34,7 +35,7 @@ module Scheduling
   def course_conflict(course, course_array, options)
     course_array.each do |existing_course| #straight O(n) query also not ideal
       if options[:eval_enroll]
-        next if existing_course.id == course.id #I need this because the course is always saved to the database before the enrollment, which will then undergo its own validation. It will be part of the users courses already
+        next if existing_course.id == course.id 
       end
 
       if overlapping_time?(course,existing_course)

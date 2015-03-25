@@ -30,8 +30,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:id/assignments/new" : "newAssignment",
     "course/:id/assignments" : "showAssignments",
     "course/:course_id/assignments/:id/edit" : "editAssignment",
-    //document resources
     
+    //document resources
     "course/:id/resources":"courseResources",
     "course/:id/resources/new":"newResource",
     "course/:course_id/resources/:id/edit":"editResource",

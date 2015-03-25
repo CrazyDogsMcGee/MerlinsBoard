@@ -1,8 +1,6 @@
 <h4> Assignment name:<%= grade.escape('title') %></h4>
 <p> description: <%= grade.escape('description') %></p>
 Grade: <strong class="grade-number" data-id="<%= grade.id %>"><%= grade.get('score')%></strong>
-
-<%%>
-
-<%%>
+<% if (grade.get('allow_submission')) { %>
+<% } %>
 <br>

@@ -97,16 +97,12 @@ Course.all.each do |course|
   }
 end
 
-#grades
-
 CoursesStudents.all.each do |student_link|
   course_id = student_link.course_id
   user_id = student_link.user_id
-
   course = Course.find(course_id)
 
   course.assignments.each do |assignment|
-    Grade.create(user_id: user_id, assignment_id: assignment.id, grade: rand(101))
+    Grade.create(user_id: user_id, assignment_id: assignment.id, score: rand(101), allow_submission: true)
   end
-  # A note- creating entries haphazardly like this may cause there to be an grade for an class assignment that user doesn't even attend - in this particular case it can't happen, but its in the realm of possibility
 end
