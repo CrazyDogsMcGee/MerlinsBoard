@@ -43,13 +43,13 @@ class Api::AssignmentsController < Api::ApiController
   def assignment_params
     params.require(:assignment).permit(:title, :description, :due_date, :course_id, :grade)
   end
-  
+
   def create_grades
     course = Course.includes(:students).find(assignment_params["course_id"])
     student = course.students
 
     students.each do |student| #is there any non- O(n) way of doing this?
-      Grade.create(user_id: student.id, assignment_id: @assignment.id, grade: 0)
+      Grade.create(user_id: student.id, assignment_id: @assignment.id, score: 0)
     end
   end
 end

@@ -1,6 +1,6 @@
 json.grades @grades do |grade_obj|
   json.id grade_obj.id
-  json.grade grade_obj.grade
+  json.score grade_obj.score
   json.assignment_id grade_obj.assignment_id
   json.user_id grade_obj.user_id
   json.title grade_obj.assignment.title
