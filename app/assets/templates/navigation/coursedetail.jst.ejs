@@ -1,10 +1,6 @@
- <a href="#"> resources (need to implement)</a><br>
+<a href="#"> resources (need to implement)</a><br>
 <a href="<%='#course/' + courseID + '/assignments'%>"> assignments </a><br>
 <a href="<%='#course/'+ courseID +'/announcements' %>"> Announcements </a><br>
-<% if (isInstructor) {%>
-<a href="<%='#course/'+courseID+'/grades/student-search'%>"> Grade Search </a>
-<% } else { %>
-<a href="<%='#course/'+courseID+'/grades/my-grades'%>"> Grades </a><br>
-<% } %>
+<a href="javascript:void(0)" data-id="<%= courseID %>"> Grades </a><br>
 <br>
 <a href="#">Home</a>
