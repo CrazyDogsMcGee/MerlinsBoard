@@ -12,14 +12,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     this.$tabNav.html(courseTabs.$el)
     this.$sideNav.html(courseDetails.$el)
-    
-    this.on("route",function (event, args) {
-      console.log("An event happened")
-      console.log(event) //will need to regexp on this
-      console.log(args) //the first argument is always the courseid, or whatever comes first i nthe route
-    })
+
   },
- 
+
 	routes: {
     //course resources
     "course/search" : "enrollcourses",
@@ -36,17 +31,17 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:id/assignments/new" : "newAssignment",
     "course/:id/assignments" : "showAssignments",
     "course/:course_id/assignments/:id/edit" : "editAssignment",
-    
+
     //document resources
     "course/:id/resources":"courseResources",
     "course/:id/resources/new":"newResource",
     "course/:course_id/resources/:id/edit":"editResource",
-    
+
     //grades
     "course/:id/grades/student-search" : "gradeSearch",
     "course/:course_id/grades/user/:user_id" : "gradesAdminShow",
     "course/:id/grades/my-grades": "gradesStudentShow"
-    
+
     //misc
 //     "user/:id": "showuser"
     //":wildcard": "does not exist" --self explanatory
@@ -153,29 +148,29 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var assignmentForm = new MerlinsBoard.Views.assignmentForm({model: assignment, course_id: course_id});
     this.swapView(assignmentForm);
   },
-  
+
   //course resources
-  
+
   courseResources: function (id) {
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var resources = course.resources();
-   
+
     var courseResources = new MerlinsBoard.Views.resourceList({collection: resources});
     this.swapView(courseResources);
   },
-  
+
   newResource: function (id) {
     var resource = new MerlinsBoard.Models.Resource({course_id: id});
     var courseForm = new MerlinsBoard.Views.resourceForm({model: resource});
     this.swapView(courseForm);
   },
-  
+
   editResource: function (course_id, id) {
     var resource = new MerlinsBoard.Models.Resource({id: id})
     resource.fetch();
-    
+
     debugger
-    
+
     var courseForm = new MerlinsBoard.Views.resourceForm({model: resource});
     this.swapView(courseForm);
   },
@@ -186,7 +181,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //just link to this on the homepage of admins...unsure yet how to gracefully prevent access client-side
     var gradeLinkTemplate = MerlinsBoard.Views.SearchStudentGradesResults;
     var userSearch = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course_id: id});
-    
+
     this.swapView(userSearch);
     // var usersList = MerlinsBoard.Views.
   },
@@ -195,17 +190,17 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     // var course = MerlinsBoard.Courses.getOrFetch(id);
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
 
-    grades.fetch();
+    grades.fetch({parse: true});
 
     var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: true});
     this.swapView(gradesList);
   },
-  
+
   gradesStudentShow: function (course_id) {
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: this.currentUser.id});
-    
-    grades.fetch();
-    
+
+    grades.fetch({parse: true});
+
     var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: false})
     this.swapView(gradesList);
   },
@@ -214,9 +209,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   resourceNotFound: function () {
     //this.swapView();
   },
-  
+
   unauthorizedAccess: function () {
-    
+
   },
 
   swapView: function (newView, navView) {
@@ -230,6 +225,3 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.$rootEl.html(newView.render().$el);
   }
 })
-
-//var course = new MerlinsBoard.Models.Course({id: course_id})
-//course.fetch()

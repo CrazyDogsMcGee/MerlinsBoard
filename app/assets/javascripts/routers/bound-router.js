@@ -1,5 +1,7 @@
- MerlinsBoard.Routers.BoundRouter = Backbone.Router.extend({
-  bindFilter: function () {
+MerlinsBoard.Routers.BoundRouter = Backbone.Router.extend({
+  bindFilter: function (homeRoutes, detailRoutes) {
+
+
     this.on("route",function (event, args) {
       console.log("An event happened")
       console.log(event)
