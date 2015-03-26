@@ -1,5 +1,5 @@
 class Api::GradesController < Api::ApiController
-  before_action(only: [:update, :show]) {admins_only(params["course_id"])} #needs to be included manually on ANY change
+  before_action(only: :show) {admins_only(grade_params["course_id"])} #needs to be included manually on ANY change
   before_action :is_user_or_instructor?, only: [:index]
   #wrap_parameters false
 
@@ -34,10 +34,11 @@ class Api::GradesController < Api::ApiController
   end
 
   def grade_params
-    #     if current_user
-#     else
-#     end
-    params.require(:grade).permit(:score, :assignment_id, :user_id, :submission)
+    if current_user
+      params.require(:grade).permit(:score, :assignment_id, :user_id, :submission)
+    else
+      params.require(:grade).permit(:submission)
+    end
   end
   
   def grade_course_congruency(grade) #how to see if the cu is an admin of that grade's course? I think you can call association methods even before things are saved/committed

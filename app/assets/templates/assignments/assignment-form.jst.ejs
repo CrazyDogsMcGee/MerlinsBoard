@@ -2,17 +2,27 @@
 <section class='form-errors'>
 </section>
 <form class="assignment-form">
+  
   <label> Assignment Name
   <input type="text" name="assignment[title]" value="<%= assignment.escape('title')%>">
   </label>
   <br>
+  
   <label> Assignment Description
   <textarea name="assignment[description]"><%= assignment.escape('description') %></textarea>
   </label>
   <br>
+  
   <label> Assignment Due Date
   <input type="date" name=assignment[due_date] value="<%= assignment.get('due_date')%>">
   </label>
+  <br>
+  
+  <label> Allow Submissions
+  <input type="checkbox" name=allow_submission value="true">
+  </label>
+  <br>
+  
   <input type="hidden" name=assignment[course_id] value="<%= assignment.get('course_id') || course_id %>">
   <input type="submit" value="<%= assignment.isNew() ? 'Create' : 'Save Changes'%>">
 </form>

@@ -31,14 +31,12 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
   },
   
   gradeRedirection: function (event) {
-    var course_id = $()
+    var courseID = this.course.id
     
-    if (this.course.isInstructor(MerlinsBoard.current_user.id)) {
-      console.log("admin")
-//       Backbone.history.navigate("",{trigger: true});
+    if (this.course.isInstructor(MerlinsBoard.CurrentUser.id)) {
+       Backbone.history.navigate("course/"+courseID+"/grades/student-search",{trigger: true});
     } else {
-      console.log("joe schmoe")
-//       Backbone.history.navigate("",{trigger: true});
+       Backbone.history.navigate("course/"+courseID+"/grades/my-grades",{trigger: true});
     }
   }
   

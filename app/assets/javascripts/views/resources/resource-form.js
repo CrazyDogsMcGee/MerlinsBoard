@@ -1,5 +1,5 @@
 MerlinsBoard.Views.resourceForm = Backbone.View.extend({
-  initialize: function () {
+  initialize: function (options) {
     this.listenTo(this.model,"sync",this.render);
     _.bindAll(this, 'successCallback','errorCallback');
   },
@@ -14,6 +14,7 @@ MerlinsBoard.Views.resourceForm = Backbone.View.extend({
   },
   
   render: function () {
+    debugger
     var renderedContent = this.template({resource: this.model});
     this.$el.html(renderedContent);
     return this
@@ -46,8 +47,7 @@ MerlinsBoard.Views.resourceForm = Backbone.View.extend({
   },
                     
   successCallback: function () {
-    
-    console.log("resource saved")
+    Backbone.history.navigate("course/"+this.model.get('course_id')+"/resources",{trigger: true})
   },
       
   errorCallback: function (model,response) {

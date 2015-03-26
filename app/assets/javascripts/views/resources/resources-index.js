@@ -24,7 +24,9 @@ MerlinsBoard.Views.resourceList = Backbone.View.extend({
   },
     
   editResource: function (event) {
-    Backbone.history.navigate("#course/"+this.course.id+"/resources/",{trigger: true})
+    var resourceID = $(event.currentTarget).data('id');
+    
+    Backbone.history.navigate("#course/"+this.course.id+"/resources/"+resourceID+"/edit",{trigger: true})
   },
     
   destroyResource: function (event) {

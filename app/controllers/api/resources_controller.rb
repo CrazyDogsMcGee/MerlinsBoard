@@ -1,11 +1,6 @@
 class Api::ResourcesController < Api::ApiController
   before_action(only: [:update, :create, :destroy]) {admins_only(resource_params["course_id"])}
   wrap_parameters false
-  
-  def index
-    @resources = Resource.all
-    render json: @resources
-  end
 
   def create
     @resource = Resource.new(resource_params)
@@ -15,6 +10,10 @@ class Api::ResourcesController < Api::ApiController
     else
       render json: @resource.errors.full_messages, status: 422
     end
+  end
+  
+  def show
+    @resource = Resource.find(params[:id])
   end
 
   def update

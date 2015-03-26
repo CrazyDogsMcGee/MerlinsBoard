@@ -42,7 +42,7 @@ if (access == :student) || (access == :instructor)
     json.id resource.id
     json.name resource.name
     json.description resource.description
-    #json.url/path resource.url/path
+    json.path resource.document.path
   end
 
 end

@@ -167,7 +167,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   editResource: function (course_id, id) {
     var resource = new MerlinsBoard.Models.Resource({id: id})
     resource.fetch();
-    var courseForm = new MerlinsBoard.Views.resourcForm({model: resource});
+    
+    debugger
+    
+    var courseForm = new MerlinsBoard.Views.resourceForm({model: resource});
     this.swapView(courseForm);
   },
 

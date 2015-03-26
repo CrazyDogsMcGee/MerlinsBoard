@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325164137) do
+ActiveRecord::Schema.define(version: 20150325213800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 20150325164137) do
   add_index "grades", ["user_id"], name: "index_grades_on_user_id", using: :btree
 
   create_table "resources", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "course_id"
+    t.string   "name",                  null: false
+    t.text     "description",           null: false
+    t.integer  "course_id",             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "document_file_name"

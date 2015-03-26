@@ -11,8 +11,6 @@ MerlinsBoard.Models.Resource = Backbone.Model.extend({
       json.resource.document = this._document;
     }
     
-    debugger
-    
     return json;
-  } 
+  }
 });

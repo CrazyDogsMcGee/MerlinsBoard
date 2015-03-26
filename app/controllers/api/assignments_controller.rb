@@ -1,6 +1,5 @@
 class Api::AssignmentsController < Api::ApiController
   before_action(except: [:index, :show]) {admins_only(assignment_params["course_id"])}
-  #after_create :create_grades
 
   def index
     @assignments = Assignment.all
@@ -10,8 +9,8 @@ class Api::AssignmentsController < Api::ApiController
   def create
     @assignment = Assignment.new(assignment_params)
     if @assignment.save
-#       create_grades
-      render json: @assignment
+      render json: @assignment, status: 200
+      create_grades(@assignment)
     else
       render status: 422, json: @assignment.errors.full_messages
     end
@@ -44,12 +43,12 @@ class Api::AssignmentsController < Api::ApiController
     params.require(:assignment).permit(:title, :description, :due_date, :course_id, :grade)
   end
 
-  def create_grades
-    course = Course.includes(:students).find(assignment_params["course_id"])
-    student = course.students
+  def create_grades(assignment)
+    course = Course.find(assignment_params["course_id"])
+    students = course.students
 
     students.each do |student| #is there any non- O(n) way of doing this?
-      Grade.create(user_id: student.id, assignment_id: @assignment.id, score: 0)
+      Grade.create(user_id: student.id, assignment_id: assignment.id, score: 0, allow_submission: !!params["allow_submission"])
     end
   end
 end
