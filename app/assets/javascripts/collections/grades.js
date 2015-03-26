@@ -33,8 +33,6 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
       options = {};
     }
 
-    //some logic here to check if "data" was already passed in, and fusing that to the data parameter...
-
     _.extend(options,{ data: $.param({ course_id: this.course_id}) });
     return Backbone.Collection.prototype.fetch.call(this, options);
   },
@@ -50,7 +48,7 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
   parse: function (resp) {
     this.student().set({fname: resp.student_fname,lname: resp.student_lname});
 
-    resp.student_fname.delete //is there a better way to clean this up?
+    resp.student_fname.delete
     resp.student_fname.delete
     resp.course_id.delete
 
@@ -58,8 +56,11 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
   },
 
   gpa: function () {
-    //may be nightmarish to get working correctly
-
+    var average
+    
+    this.models.each(function (grade) {
+      
+    })
   }
 
 })

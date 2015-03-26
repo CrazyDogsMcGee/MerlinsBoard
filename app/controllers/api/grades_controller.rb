@@ -1,7 +1,6 @@
 class Api::GradesController < Api::ApiController
   before_action(only: :show) {admins_only(grade_params["course_id"])} #needs to be included manually on ANY change
   before_action :is_user_or_instructor?, only: [:index]
-  #wrap_parameters false
 
   def index
     @grades = Grade.includes(:assignment,:course,:user).where("user_id = ?", params["user_id"])

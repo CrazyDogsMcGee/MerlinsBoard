@@ -35,7 +35,7 @@ MerlinsBoard.Views.resourceForm = Backbone.View.extend({
     var file = event.currentTarget.files[0];
     var reader = new FileReader();
     
-    reader.onloadend = function () {
+    reader.onloadend = function () { 
       that.model._document = reader.result;
     };
     

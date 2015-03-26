@@ -3,5 +3,9 @@
 Grade: <strong class="grade-number" data-id="<%= grade.id %>"><%= grade.get('score')%></strong>
 <% if (grade.get('allow_submission')) { %>
 <!-- Remember, if doing the json duplication method for files, DO NOT nest params on the form. The returned JSON will be malformed -->
+<form enctype="multipart/form-data">
+  <input type="file" name="submission">
+  <input type="submit" value="Submit file">
+</form>
 <% } %>
 <br>

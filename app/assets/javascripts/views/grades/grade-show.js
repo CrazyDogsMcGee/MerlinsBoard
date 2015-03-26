@@ -71,5 +71,37 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     })
 
     $("section.grade-errors").html($errorList);
+  },
+  
+  submitFile: function (event) {
+    event.preventDefault();
+    
+    var file = $(event.target).find("")
+    var that = this
+    var reader = new FileReader();
+    
+    reader.onloadend = function () {
+      that.model._submission = reader.result;
+      
+      that.model.save({},{
+        success: that.submitFileSuccess,
+        error: that.submitFileError
+      })
+    };
+    
+    if (file) {
+      reader.readAsDataURL(file)
+    } else {
+      delete that.model._submission;
+    }
+    
+  },
+  
+  submitFileSuccess: function () {
+    
+  },
+  
+  submitFileError: function () {
+    
   }
 })
