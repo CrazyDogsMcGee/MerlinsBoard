@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
   #pg_search
   include PgSearch
-  pg_search_scope :search_by_full_name, against: [:fname, :lname]
+  pg_search_scope :search_by_full_name,
+                  :against => [:fname, :lname],
+                  :using => {
+                    :tsearch => {:prefix => true}
+                  }
 
   #paperclip
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/corgi.jpg"

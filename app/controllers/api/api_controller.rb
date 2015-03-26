@@ -4,11 +4,19 @@ class Api::ApiController < ApplicationController
 
   def admins_only(course_id)
     course = Course.find(course_id)
+    is_admin = course.instructors.exists?(current_user.id)
     
-    begin
-      status = course.instructors.find(current_user.id)
-    rescue ActiveRecord::RecordNotFound
-      render :status => :forbidden, :text => "You do not have sufficient rights to perform that action"
+    unless is_admin 
+      render status: :forbidden, :text => "You do not have sufficient rights to perform that action"
+    end
+  end
+  
+  def students_only(course_id)
+    course = Course.find(course_id)
+    is_student = course.students.exists?(current_user.id)
+    
+    unless is_student 
+      render status: :forbidden, :text => "You do not have sufficient rights to perform that action"
     end
   end
   

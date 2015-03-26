@@ -28,7 +28,7 @@ MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
     var adminView = this.adminView
 
     this.collection.each(function (grade) {
-      var gradeView = new MerlinsBoard.Views.GradeShow({model: grade, adminView: adminView, course_id: this.collection.course_id});
+      var gradeView = new MerlinsBoard.Views.GradeShow({model: grade, adminView: adminView});
       gradesStudentView.addSubview("section.grade-student-list",gradeView.render())
     });
   }

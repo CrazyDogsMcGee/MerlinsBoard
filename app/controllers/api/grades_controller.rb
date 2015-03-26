@@ -36,8 +36,8 @@ class Api::GradesController < Api::ApiController
 
   private
 
-  def is_user_or_instructor?(bool)
-    return if current_user.id == grade_params({weak: true})["user_id"].to_i
+  def is_user_or_instructor?
+    return if current_user.id == params["user_id"].to_i
     admins_only(params["course_id"])
   end
 
@@ -55,7 +55,13 @@ class Api::GradesController < Api::ApiController
 
   #Here's what's going on: When I fetch the grades from the index, I get them by course and user id,
   #with jbuilder, I dredge a lot of extra information like assignment name, user_id and course_id to
-  #get the page to display properly and for certain validations. Because of how I overwrite toJSON toJSON
-  #to process the attached document, these dangling attributes are still
-  
+  #get the page to display properly and for certain validations. Because of how I overwrite toJSON
+  #to process the attached document, these dangling attributes are still on the model when I process
+  #any changes. I need some of these extra attrs, so I included a weak options to deal with them.any
+  #It prbably behooves me to separate out these attrs as extra data during the request so this can be
+  #better organized, or I should overwrite the save method to always include these important parameters
+  #and the parse method to better organize these attributes too.
+  #
+  #The way it looks, I should pass everything else as loose params in the data area so I can refer to it directly.
+  #The only time i should deal with whole params is on update
 end
