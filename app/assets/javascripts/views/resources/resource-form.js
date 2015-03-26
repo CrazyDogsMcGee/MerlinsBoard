@@ -14,7 +14,6 @@ MerlinsBoard.Views.resourceForm = Backbone.View.extend({
   },
   
   render: function () {
-    debugger
     var renderedContent = this.template({resource: this.model});
     this.$el.html(renderedContent);
     return this

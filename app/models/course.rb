@@ -47,5 +47,13 @@ class Course < ActiveRecord::Base
     time_regexp = Regexp.new(/\d\d:\d\d/)
     return time_regexp.match(time.to_s)[0]
   end
+  
+  def isInstructor?(user)
+    if (self.instructors.exists?(user.id))
+      return true
+    else
+      return false
+    end
+  end
 
 end

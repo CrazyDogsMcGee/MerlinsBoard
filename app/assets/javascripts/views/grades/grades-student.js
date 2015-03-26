@@ -1,6 +1,7 @@
 MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
-  initialize: function () {
+  initialize: function (options) {
     this.listenTo(this.collection, "sync", this.render)
+    this.adminView = options["adminView"]
   },
 
   template: JST["grades/grades-student"],
@@ -24,9 +25,10 @@ MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
     this.clearSubviews(); //clears subviews
     
     var gradesStudentView = this
+    var adminView = this.adminView
 
     this.collection.each(function (grade) {
-      var gradeView = new MerlinsBoard.Views.GradeShow({model: grade});
+      var gradeView = new MerlinsBoard.Views.GradeShow({model: grade, adminView: adminView, course_id: this.collection.course_id});
       gradesStudentView.addSubview("section.grade-student-list",gradeView.render())
     });
   }

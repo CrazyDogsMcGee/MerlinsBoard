@@ -12,8 +12,14 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     this.$tabNav.html(courseTabs.$el)
     this.$sideNav.html(courseDetails.$el)
+    
+    this.on("route",function (event, args) {
+      console.log("An event happened")
+      console.log(event) //will need to regexp on this
+      console.log(args) //the first argument is always the courseid, or whatever comes first i nthe route
+    })
   },
-
+ 
 	routes: {
     //course resources
     "course/search" : "enrollcourses",
@@ -185,7 +191,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     // var usersList = MerlinsBoard.Views.
   },
 
-  gradeAdminShow: function (course_id, user_id) {
+  gradesAdminShow: function (course_id, user_id) {
     // var course = MerlinsBoard.Courses.getOrFetch(id);
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
 

@@ -1,9 +1,13 @@
 class Api::GradesController < Api::ApiController
-  before_action(only: :show) {admins_only(grade_params["course_id"])} #needs to be included manually on ANY change
+  before_action(only: :show) {admins_only(grade_params({weak: true})["course_id"])} #needs to be included manually on ANY change
   before_action :is_user_or_instructor?, only: [:index]
+  wrap_parameters false
 
   def index
     @grades = Grade.includes(:assignment,:course,:user).where("user_id = ?", params["user_id"])
+    
+    #unsure if this is warranted, it does prevent an n+1 query, but not by much, since I don't go through ALL the entries anyway
+    
     @student = @grades.first.user
     @course_id = params["course_id"].to_i
     
@@ -17,7 +21,12 @@ class Api::GradesController < Api::ApiController
   #will need to create unique validator to ensure congruency between course auth and resource id course....
   def update
     @grade = Grade.find(params[:id])
-
+    
+    unless @grade.course.id == grade_params({weak: true})["course_id"].to_i
+      render text: "You do not have sufficient rights to perform this action", status: 403
+      return
+    end
+    
     if @grade.update(grade_params)
       render json: @grades
     else
@@ -27,23 +36,26 @@ class Api::GradesController < Api::ApiController
 
   private
 
-  def is_user_or_instructor?
-    return if current_user.id == params["user_id"].to_i
+  def is_user_or_instructor?(bool)
+    return if current_user.id == grade_params({weak: true})["user_id"].to_i
     admins_only(params["course_id"])
   end
 
-  def grade_params
-    if current_user
+  def grade_params(options={weak: false})
+    if options[:weak] == true
+      params.require(:grade) #will need something similar for all file parsed things...
+    end
+    
+    if Course.find(grade_params({weak: true})["course_id"]).isInstructor?(current_user)
       params.require(:grade).permit(:score, :assignment_id, :user_id, :submission)
     else
       params.require(:grade).permit(:submission)
     end
   end
-  
-  def grade_course_congruency(grade) #how to see if the cu is an admin of that grade's course? I think you can call association methods even before things are saved/committed
-    unless self.course.id == params["course_id"].to_i
-      render text: "You do not have sufficient rights to perform this action", status: 403
-    end
-  end
 
+  #Here's what's going on: When I fetch the grades from the index, I get them by course and user id,
+  #with jbuilder, I dredge a lot of extra information like assignment name, user_id and course_id to
+  #get the page to display properly and for certain validations. Because of how I overwrite toJSON toJSON
+  #to process the attached document, these dangling attributes are still
+  
 end

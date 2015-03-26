@@ -2,7 +2,9 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
     _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback");
     this.listenTo(this.model, "sync", this.render)
+    
     this.adminView = options["adminView"];
+    this.course_id = options["course_id"];
   },
   
   template: JST["grades/grades-show"],
@@ -11,23 +13,21 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   
   events: function () {
     var events_hash = {};
-    
+
     if (this.adminView) {
-      
       _.extend(events_hash, {
       "click strong.grade-number":"editGrade",
       "blur input.grade-input":"saveGrade",
-      "submit form.grade-submission":"submitSubmission"
+      "submit form.grade-submission":"submitFile"
       });
       
     } else {
       
       _.extend(events_hash, {
-      "submit form.grade-submission":"submitSubmission"
+      "submit form.grade-submission":"submitFile"
       });
       
     }
-    
     return events_hash
   },
   
@@ -38,10 +38,11 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   },
   
   editGrade: function (event) {
-    var gradeString = $(event.currentTarget).val();
+    var gradeString = $(event.currentTarget).text();
     var num = parseInt(gradeString);
-    var $input = $("<input type='number' min='0' step='1' max='100'>").addClass('grade-input').val(num);
-    //Need to turn the input into a text input, and then have an error callback that checks if the input is valid, and lists errors if it is not.
+    
+    
+    var $input = $("<input type='text'>").addClass('grade-input').val(num);
     this.modelNumber = $(event.currentTarget).data('id');
     $(".grade-number[data-id=".concat(this.modelNumber,"]")).html($input)
   },
@@ -50,10 +51,14 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     var editedGrade = this.model
     var newGrade = parseInt($('input.grade-input').val());
 
-    editedGrade.set({grade: newGrade});
-    editedGrade.save({},{ //course_id is already on the model, it will be available from the params
+    if (isNaN(newGrade)) {
+      this.showErrors(["Grade must be a whole number"])
+      return
+    }
+    
+    editedGrade.save({score: newGrade},{ //course_id is already on the model, it will be available from the params
     success: this.gradeSaveCallback(editedGrade),
-    error: this.gradeSaveErrorCallback
+    error: this.gradeSaveErrorCallback,
     });
   },
 
@@ -62,22 +67,15 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   },
 
   gradeSaveErrorCallback: function (model, resp) {
-
     var errorArray = resp.responseJSON
-    var $errorList = $("<ul>").addClass('errors');
-    _.each(errorArray, function (error) {
-      var $error = $("<li>").text(error).addClass('error');
-      $errorList.append($error);
-    })
-
-    $("section.grade-errors").html($errorList);
+    this.showErrors(errorArray)
   },
   
-  submitFile: function (event) {
+  submitFile: function (event) { 
     event.preventDefault();
     
-    var file = $(event.target).find("")
-    var that = this
+    var file = $(event.target).find("input.grade-submission-fileinput")[0].files[0];
+    var that = this;
     var reader = new FileReader();
     
     reader.onloadend = function () {
@@ -85,12 +83,15 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
       
       that.model.save({},{
         success: that.submitFileSuccess,
-        error: that.submitFileError
+        error: that.gradeSaveErrorCallback,
+        data: $.param
       })
     };
     
+    
     if (file) {
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(file);
+      //jquery something here about uploading file...
     } else {
       delete that.model._submission;
     }
@@ -98,10 +99,16 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   },
   
   submitFileSuccess: function () {
-    
+    console.log('success')
   },
   
-  submitFileError: function () {
-    
+  showErrors: function (errorArray) {
+    var $errorList = $("<ul>").addClass('errors');
+    _.each(errorArray, function (error) {
+      var $error = $("<li>").text(error).addClass('error');
+      $errorList.append($error);
+    })
+
+    $("section.grade-errors").html($errorList);
   }
 })

@@ -1,6 +1,6 @@
 class Grade < ActiveRecord::Base
   validates :score, :assignment_id, :user_id, presence: true
-  validates :score, inclusion: {in: 0..100}
+  validates :score, inclusion: {in: 0..100, message: "Score must be a whole number between 0 and 100."}
 
   belongs_to :user
   belongs_to :assignment

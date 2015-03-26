@@ -7,6 +7,7 @@ json.grades @grades do |grade_obj|
   json.description grade_obj.assignment.description
   json.allow_submission grade_obj.allow_submission
   json.course_id @course_id
+  json.due_date grade_obj.assignment.due_date
 end
 
 json.student_fname @student.fname

@@ -4,8 +4,10 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
     this.course_id = options["course_id"]
     this.url = "api/users/" + options["user_id"] + "/grades"
   },
-
-  //comparator: function () {},
+  
+  comparator: function (grade) {
+    return -grade.id
+  },
 
   model: MerlinsBoard.Models.Grade,
 
