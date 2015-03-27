@@ -2,27 +2,27 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
   urlRoot: 'api/grades',
 
   toJSON: function () { //called in Backbone.model.save
-    var json = {grade: _.clone(this.attributes)}; //this refers to model
-
+    var json = {grade: _.clone({id: this.get('id'), score: this.get('score')})}; //this refers to model
+    
     if (this._submission) {
       json.grade.submission = this._submission;
     }
-
+    
+    json.course_id = this.course().id
+    json.user_id = this.student().id
+    
     return json;
   },
 
-  getAttribute: function (attrString) {
+  getAttributeModel: function (attrString) {
     if (!this["_".concat(attrString)]) {
-      this.["_".concat(attrString)] = new MerlinsBoard.Models[attrString]();
+      this["_".concat(attrString)] = new MerlinsBoard.Models[attrString]();
     }
 
     return this[attrString]
   },
 
-  assignment: function () { //this is not good, how to combine this into a single reusable method?
-    //for attributes use obj["name"]
-    //can easily refactor all of this into a singular method that can set whatever object attributes on the fly
-
+  assignment: function () {
     if (!this._assignment) {
       this._assignment = new MerlinsBoard.Models.Assignment();
     }
@@ -57,18 +57,35 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
 
     return response
   }
-});
+  
+//     save : function(key, value, options) {
 
-// For instance, the following will log "parse":
-//
-// var Model = Backbone.Model.extend({
-//
-//   parse: function(resp) {
-//     console.log('parse');
-//     return resp;
-//   }
-//
+//         var attributes={}, opts={};
+
+//         //Need to use the same conditional that Backbone is using
+//         //in its default save so that attributes and options
+//         //are properly passed on to the prototype
+//         if (_.isObject(key) || key == null) {
+//             attributes = key;
+//             opts = value;
+//         } else {
+//             attributes = {};
+//             attributes[key] = value;
+//             opts = options;
+//         }
+
+//         //Since backbone will post all the fields at once, we
+//         //need a way to post only the fields we want. So we can do this
+//         //by passing in a JSON in the "key" position of the args. This will
+//         //be assigned to opts.data. Backbone.sync will evaluate options.data
+//         //and if it exists will use it instead of the entire JSON.
+//         if (opts && attributes) {
+//             opts.data = JSON.stringify(attributes);
+//             opts.contentType = "application/json";
+//         }
+
+//         //Finally, make a call to the default save now that we've
+//         //got all the details worked out.
+//         return Backbone.Model.prototype.save.call(this, attributes, opts);
+//     }
 // });
-//
-// var Collection = Backbone.Collection.extend({model: Model});
-// new Collection().reset([{id: 1}], {parse: true});

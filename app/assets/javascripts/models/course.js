@@ -3,9 +3,17 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   //nested resources
   initialize: function () {
   },
+  
+  getAttributeModel: function (attrString) { //limitation- user/instructors/enrollments, also should be careful about naming
+    if (!this["_".concat(attrString)]) {
+      this["_".concat(attrString)] = new MerlinsBoard.Collections[attrString]([],{owner: this});
+    }
+
+    return this[attrString]
+  },
 
   //internal data - the distinction is somewhat arbitrary - wonder how I can refactor this...
-  announcements: function () {
+  announcements: function () { //OK
     if (!this._announcements) {
       this._announcements = new MerlinsBoard.Collections.Announcements([],{owner:this});
     }
@@ -13,7 +21,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
     return this._announcements
   },
 
-  assignments: function () {
+  assignments: function () { //OK
     if (!this._assignments) {
       this._assignments = new MerlinsBoard.Collections.Assignments([],{owner: this});
     }
@@ -45,7 +53,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 		return this._enrollments
 	},
   
-  resources: function () {
+  resources: function () { //OK
     if (!this._resources) {
       this._resources = new MerlinsBoard.Collections.Resources([],{owner: this});
     }
@@ -90,4 +98,4 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   isInstructor: function (userID) {
     return !!this.instructors().get(userID)
   }
-});
+})

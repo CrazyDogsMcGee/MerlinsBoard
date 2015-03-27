@@ -1,9 +1,14 @@
-<h4> Assignment name:<%= grade.escape('title') %></h4>
-<p> description: <%= grade.escape('description') %></p>
+<h4> Assignment name:<%= assignment.escape('title') %></h4>
+<p> description: <%= assignment.escape('description') %></p>
 Grade: <strong class="grade-number" data-id="<%= grade.id %>"><%= grade.get('score')%></strong>
+
+<%if (false) {%>
+  <a class="grade-submission-link" href="">Download submission</a>
+<%}%>  
+
 <% if (grade.get('allow_submission')) { %>
-<!-- Remember, if doing the json duplication method for files, DO NOT nest params on the form. The returned JSON will be malformed -->
 <form enctype="multipart/form-data" class="grade-submission">
+  <label for="submission">Submit File</label>
   <input type="file" name="submission" class="grade-submission-fileinput">
   <input type="submit" value="Submit file">
 </form>

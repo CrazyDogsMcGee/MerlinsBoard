@@ -1,12 +1,12 @@
 json.grades @grades do |grade_obj|
   json.id grade_obj.id
   json.score grade_obj.score
+  json.allow_submission grade_obj.allow_submission
 
   json.assignment do
     json.id grade_obj.assignment_id
     json.title grade_obj.assignment.title
     json.description grade_obj.assignment.description
-    json.allow_submission grade_obj.allow_submission
     json.due_date grade_obj.assignment.due_date
   end
 

@@ -101,8 +101,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(courseform);
   },
 
-	showcourse: function (id) {
-    var course = MerlinsBoard.Courses.getOrFetch(id); //here
+	showcourse: function (id) { //examines enrollments here
+    var course = MerlinsBoard.Courses.getOrFetch(id); 
     var showCourse = new MerlinsBoard.Views.CoursesShow({model: course});
     this.swapView(showCourse);
   },
@@ -194,8 +194,6 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   editResource: function (course_id, id) {
     var resource = new MerlinsBoard.Models.Resource({id: id})
     resource.fetch();
-
-    debugger
 
     var courseForm = new MerlinsBoard.Views.resourceForm({model: resource});
     this.swapView(courseForm);

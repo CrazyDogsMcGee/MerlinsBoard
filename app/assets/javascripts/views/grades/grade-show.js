@@ -1,6 +1,6 @@
 MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
-    _.bindAll(this, "gradeSaveCallback", "gradeSaveErrorCallback");
+    _.bindAll(this, "gradeSaveErrorCallback");
     this.listenTo(this.model, "sync", this.render)
     
     this.adminView = options["adminView"];
@@ -32,7 +32,7 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   },
   
   render: function () {
-    var renderedContent = this.template({grade: this.model});
+    var renderedContent = this.template({grade: this.model, assignment: this.model.assignment()});
     this.$el.html(renderedContent);
     return this
   },
@@ -56,14 +56,11 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
       return
     }
     
-    editedGrade.save({score: newGrade},{ //course_id is already on the model, it will be available from the params
-    success: this.gradeSaveCallback(editedGrade),
-    error: this.gradeSaveErrorCallback,
-    });
-  },
-
-  gradeSaveCallback: function (editedGrade) {
-    console.log("The render should handle it fine")
+    
+    editedGrade.save(
+      {score: newGrade},
+      {error: this.gradeSaveErrorCallback}
+    );
   },
 
   gradeSaveErrorCallback: function (model, resp) {
@@ -84,7 +81,6 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
       that.model.save({},{
         success: that.submitFileSuccess,
         error: that.gradeSaveErrorCallback,
-        data: $.param
       })
     };
     
