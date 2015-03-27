@@ -41,7 +41,6 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     var gradeString = $(event.currentTarget).text();
     var num = parseInt(gradeString);
     
-    
     var $input = $("<input type='text'>").addClass('grade-input').val(num);
     this.modelNumber = $(event.currentTarget).data('id');
     $(".grade-number[data-id=".concat(this.modelNumber,"]")).html($input)
@@ -77,7 +76,7 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     
     reader.onloadend = function () {
       that.model._submission = reader.result;
-      
+      debugger
       that.model.save({},{
         success: that.submitFileSuccess,
         error: that.gradeSaveErrorCallback,

@@ -8,7 +8,6 @@ MerlinsBoard.Views.announcementForm = Backbone.View.extend({
   template: JST["announcements/announcements-form"],
   
   render: function () {
-    debugger
     var renderedContent = this.template({course_id: this.course_id, announcement: this.model});
     this.$el.html(renderedContent);
     return this

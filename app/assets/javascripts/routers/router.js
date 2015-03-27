@@ -1,45 +1,44 @@
 MerlinsBoard.Routers.Router = Backbone.Router.extend({
   initialize: function (options) {
-    this.$rootEl = options["rootEl"];
+    this.currentUser = MerlinsBoard.CurrentUser //and this...
+    this.currentUser.fetch();
+    
+    this.$rootEl = options["rootEl"]; //need to abstract these
     this.$sideNav = options["sideNav"];
     this.$tabNav = options["tabNav"];
-    this.currentUser = MerlinsBoard.CurrentUser
-
-    var courseTabs = new MerlinsBoard.Views.CourseTabs({collection: this.currentUser.courses()})
+    var courseTabs = new MerlinsBoard.Views.CourseTabs({collection: this.currentUser.courses()}) //thse too
     var courseDetails = new MerlinsBoard.Views.CourseDetails();
-
-    this.currentUser.fetch();
-
     this.$tabNav.html(courseTabs.$el)
     this.$sideNav.html(courseDetails.$el)
-
   },
 
-  execute: function(callback, args) {
-      var actionName = this.getActionName(callback);
-      console.log(actionName);
+  execute: function (callback, args) {
+    console.log(this.getActionName(callback));
+    
+    var noNull = _.filter(args, function (arg) {
+      return !(arg === null)
+    })
 
-      //concat fetched course with arguments and pass to function
-      // super
-      Backbone.Router.prototype.execute.apply(this, arguments);
+    if (callback) callback.apply(this, noNull);
   },
-
+  
   getActionName: function(callback) {
-      if (!this.routes) {
-          return;
-      }
+    if (!this.routes) {
+        return;
+    }
 
-      var actionName;
-      var matched;
-      for (var routePattern in this.routes) { //goes through all values (function names)
-          actionName = this.routes[routePattern];
-          if (callback === this[actionName]) {
-              matched = actionName;
-              break;
-          }
-      }
-      return matched;
+    var actionName;
+    var matched;
+    for (var routePattern in this.routes) {
+        actionName = this.routes[routePattern];
+        if (callback === this[actionName]) {
+            matched = actionName;
+            break;
+        }
+    }
+    return matched;
   },
+  
 
 	routes: {
     //course resources

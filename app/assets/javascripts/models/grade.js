@@ -47,6 +47,7 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
     //      this.getattrmodel
     //    }
     // })
+    if (response === null) {return} //probably change this somehow...http://stackoverflow.com/questions/18457090/backbonejs-avoid-parse-after-save
     
     if (response.course) {
       this.course().set(response.course);

@@ -22,7 +22,6 @@ class Api::GradesController < Api::ApiController
   def update
     @grade = Grade.find(params[:id])
     
-    byebug
     
     unless @grade.course.id == params["course_id"].to_i
       render text: "You do not have sufficient rights to perform this action", status: 403

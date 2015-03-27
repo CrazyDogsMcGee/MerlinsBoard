@@ -1,13 +1,13 @@
 MerlinsBoard.Routers.BoundRouter = Backbone.Router.extend({
-  bindFilter: function (homeRoutes, detailRoutes) {
-    this.on("route",function (event, args) {
-      console.log("An event happened")
-      console.log(event)
-      console.log(args) //the first argument is always the courseid, or whatever comes first i nthe route
-    })
-  },
+  execute: function(callback, args, name) {
+      var actionName = this.getActionName(callback);
+      console.log(actionName);
+      console.log(args);
 
-
+      //concat fetched course with arguments and pass to function
+      // super
+      Backbone.Router.prototype.execute.apply(this, arguments);
+  }
 })
 
 // Backbone.Router.extend({
