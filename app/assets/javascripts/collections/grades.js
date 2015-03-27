@@ -49,7 +49,7 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
 
   parse: function (resp) {
     this.student().set({fname: resp.student_fname,lname: resp.student_lname});
-
+    
     resp.student_fname.delete
     resp.student_fname.delete
     resp.course_id.delete

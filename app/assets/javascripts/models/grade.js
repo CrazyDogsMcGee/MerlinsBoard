@@ -14,14 +14,6 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
     return json;
   },
 
-  getAttributeModel: function (attrString) {
-    if (!this["_".concat(attrString)]) {
-      this["_".concat(attrString)] = new MerlinsBoard.Models[attrString]();
-    }
-
-    return this[attrString]
-  },
-
   assignment: function () {
     if (!this._assignment) {
       this._assignment = new MerlinsBoard.Models.Assignment();
@@ -47,13 +39,29 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
   },
 
   parse: function (response) {
-    this.course().set(response.course) //should refactor this to use myobj["name"]
-    this.assignment().set(response.assignment)
-    this.student().set(response.student)
-
-    response.course.delete
-    response.assignment.delete
-    response.student.delete
+    
+    // var expected = [x,y,z]
+    //
+    // _.each(expected, function (attr) {
+    //    if (response[attr]) {
+    //      this.getattrmodel
+    //    }
+    // })
+    
+    if (response.course) {
+      this.course().set(response.course);
+      response.course.delete
+    }
+    
+    if (response.assignment) {
+      this.assignment().set(response.assignment);
+      response.assignment.delete
+    }
+    
+    if (response.student) {
+      this.student().set(response.student);
+      response.student.delete
+    }
 
     return response
   }
@@ -88,4 +96,4 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
 //         //got all the details worked out.
 //         return Backbone.Model.prototype.save.call(this, attributes, opts);
 //     }
-// });
+});
