@@ -1,34 +1,55 @@
 MerlinsBoard.Routers.BoundRouter = Backbone.Router.extend({
-  execute: function(callback, args, name) {
-      var actionName = this.getActionName(callback);
-      console.log(actionName);
-      console.log(args);
+  routeRegex: function (routeName) {
+    var courseFlag = new Regexp("-course");
+    var homeFlag = new Regexp("-home");
+    
+    if (courseFlag.test(routeName)) {
+      return "course" 
+    } else if (homeFlag.test(routeName)) {
+      return "home"
+    } else {
+      return false
+    }
+  },
 
-      //concat fetched course with arguments and pass to function
-      // super
-      Backbone.Router.prototype.execute.apply(this, arguments);
+  execute: function (callback, args) {
+    var actionName = this.getActionName(callback);
+    var noNullArgs = this.cleanArgs(args);
+    
+    if (this.routeRegex(actionName) == "course") {
+      MerlinsBoard.Models._currentCourse = MerlinsBoard.Courses.getOrFetch(noNull[0]);
+      MerlinsBoard.Models._currentCourse.fetch();
+      
+      MerlinsBoard.Vent.trigger("courseRender",{courseModel: this._currentCourse});
+    } else {
+      MerlinsBoard.Vent.trigger("homeRender");
+    }
+    
+    if (callback) callback.apply(this, noNullArgs);
+  },
+  
+  getActionName: function(callback) {
+    if (!this.routes) {
+        return;
+    }
+
+    var actionName;
+    var matched;
+    for (var routePattern in this.routes) {
+        actionName = this.routes[routePattern];
+        if (callback === this[actionName]) {
+            matched = actionName;
+            break;
+        }
+    }
+    return matched;
+  },
+  
+  cleanArgs: function (args) {
+    _.filter(args, function (arg) {
+      return !(arg === null)
+    })
+    
+    return args
   }
 })
-
-// Backbone.Router.extend({
-// execute: function(callback, args) {
-//     var actionName = this.getActionName(callback);
-//     // super
-//     Backbone.Router.prototype.execute.apply(this, arguments);
-// },
-// getActionName: function(callback) {
-//     if (!this.routes) {
-//         return;
-//     }
-//
-//     var actionName;
-//     var matched;
-//     for (var routePattern in this.routes) {
-//         actionName = this.routes[routePattern];
-//         if (callback === this[actionName]) {
-//             matched = actionName;
-//             break;
-//         }
-//     }
-//     return matched;
-// }

@@ -11,14 +11,34 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.$tabNav.html(courseTabs.$el)
     this.$sideNav.html(courseDetails.$el)
   },
+  
+  routeRegex: function (routeName) {
+    var courseFlag = new Regexp("-course");
+    var homeFlag = new Regexp("-home");
+    
+    if (courseFlag.test(routeName)) {
+      return "course" 
+    } else if (homeFlag.test(routeName)) {
+      return "home"
+    } else {
+      return false
+    }
+  },
 
   execute: function (callback, args) {
-    console.log(this.getActionName(callback));
+    var actionName = this.getActionName(callback);
     
     var noNull = _.filter(args, function (arg) {
       return !(arg === null)
     })
-
+    
+    if (this.routeRegex(actionName) == "course") {
+      this._currentCourse = MerlinsBoard.Courses.getOrFetch(noNull[0]);
+      
+    } else {
+      
+    }
+    
     if (callback) callback.apply(this, noNull);
   },
   
@@ -65,9 +85,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //grades
     "course/:id/grades/student-search" : "gradeSearch",
     "course/:course_id/grades/user/:user_id" : "gradesAdminShow",
-    "course/:id/grades/my-grades": "gradesStudentShow"
+    "course/:id/grades/my-grades": "gradesStudentShow",
 
     //misc
+    "test": "testRoute"
 //     "user/:id": "showuser"
     //":wildcard": "does not exist" --self explanatory
 	},
@@ -235,6 +256,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   unauthorizedAccess: function () {
 
+  },
+  
+  testRoute: function () {
+    console.log("testing");
   },
 
   swapView: function (newView, navView) {
