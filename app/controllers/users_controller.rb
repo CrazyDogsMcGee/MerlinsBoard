@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
   #wrap_parameters false
-  
-  def new
-    @user = User.new #This doesn't even need to be here tbh, this is only necessary if using something like a partial
-  end
 
   def create
     @user = User.new(user_params)

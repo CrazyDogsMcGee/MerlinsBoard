@@ -4,15 +4,16 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   initialize: function () {
   },
   
-  getAttributeModel: function (attrString) { //limitation- user/instructors/enrollments, also should be careful about naming
-    if (!this["_".concat(attrString)]) {
-      this["_".concat(attrString)] = new MerlinsBoard.Collections[attrString]([],{owner: this});
+  getOrSetAttributeCollection: function (attrString, collection) { //limitation- user/instructors/enrollments, also should be careful about naming
+    if (!this["_".concat(attrString)] && collection) {
+      this["_".concat(attrString)] = new MerlinsBoard.Collections[collection]([],{owner: this});
+    } else if (this["_".concat(attrString)] && collection) {
+      this["_".concat(attrString)] = new MerlinsBoard.Collections[collection]([],{owner: this});
     }
 
-    return this[attrString]
+    return this["_".concat(attrString)] //only allows collection to be set once...
   },
 
-  //internal data - the distinction is somewhat arbitrary - wonder how I can refactor this...
   announcements: function () { //OK
     if (!this._announcements) {
       this._announcements = new MerlinsBoard.Collections.Announcements([],{owner:this});

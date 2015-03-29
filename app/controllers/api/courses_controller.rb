@@ -43,8 +43,20 @@ class Api::CoursesController < Api::ApiController
     @courses = Course.search_by_name_and_desc(params["query"])
     render :search_index
   end
+  
+  def student_search
+    course = Course.find(params["id"])
+    @users = course.students.search_by_full_name(params["query"])
+    render "api/users/index"
+  end
 
-  def course_access_view(user)
+  private
+
+  def course_params
+    params.require(:course).permit(:name, :start_time, :end_time, :description, :location, :day)
+  end
+
+  def course_access_view(user) #even if its private, it's still yielded to the template
     @course = Course.includes(:instructors,:students).find(params[:id])
 
     if @course.students.exists?(user.id)
@@ -55,11 +67,5 @@ class Api::CoursesController < Api::ApiController
       return false
     end
   end
-
-  private
-
-  def course_params
-    params.require(:course).permit(:name, :start_time, :end_time, :description, :location, :day)
-  end
-
+  
 end

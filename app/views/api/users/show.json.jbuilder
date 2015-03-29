@@ -1,5 +1,7 @@
 json.(@user, :id, :fname, :lname, :email)
 
+json.avatar @user.avatar.url
+
 json.courses @user.courses do |course|
  	json.id course.id
  	json.name course.name

@@ -65,10 +65,11 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //grades
     "course/:id/grades/student-search" : "gradeSearch",
     "course/:course_id/grades/user/:user_id" : "gradesAdminShow",
-    "course/:id/grades/my-grades": "gradesStudentShow"
+    "course/:id/grades/my-grades": "gradesStudentShow",
 
+    //users
+    "student-profile": "showSelf"
     //misc
-//     "user/:id": "showuser"
     //":wildcard": "does not exist" --self explanatory
 	},
 
@@ -226,6 +227,14 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: false})
     this.swapView(gradesList);
+  },
+  
+  //users
+  
+  showSelf: function () {
+    this.currentUser.fetch();
+  
+    
   },
 
   // utils

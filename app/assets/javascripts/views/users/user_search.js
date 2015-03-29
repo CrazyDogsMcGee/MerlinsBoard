@@ -6,7 +6,7 @@ MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
   
   searchCollection: function () {
     if (!this._searchCollection) {
-      this._searchCollection = new MerlinsBoard.Collections.UsersSearch();
+      this._searchCollection = new MerlinsBoard.Collections.UsersSearch({course_id: this.course_id});
     }
     
     return this._searchCollection

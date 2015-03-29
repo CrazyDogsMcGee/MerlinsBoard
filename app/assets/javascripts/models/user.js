@@ -1,6 +1,18 @@
 MerlinsBoard.Models.User = Backbone.Model.extend({
   urlRoot: "api/users",
   
+  toJSON: function () { 
+    var json = {grade: _.clone(this.attributes); //this refers to model
+    
+    if (this._avatar) {
+      json.grade.avatar = this._avatar;
+    }
+    
+    json.supplied_password = this.supplied_password
+    
+    return json;
+  },
+  
   courses: function () {
     if (!this._courses) {
       this._courses = new MerlinsBoard.Collections.Courses([],{owner: this});  
@@ -24,8 +36,6 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
     
     return this._announcements
   },
-  
-  
   //the above are populated by the jbuilder response - I should wonder if I need to pass a parent reference in, it may make sense...but let's bench that idea for now.
   parse: function (resp) {
     if (resp.courses) {
@@ -49,18 +59,5 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
     }
     
     return resp
-  },
-  
-  //get rid of these methods
-  courseIDs: function () {
-    var courseIDArray = []
-    _.each(this.courses, function (course) {
-      courseIDArray.push(course.id);
-    });
-    return courseIDArray
-  },
-  
-  taughtCourseIDs: function () {
-    var taughtCourseIDArray = []
   }
 });

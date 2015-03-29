@@ -20,11 +20,6 @@ json.grades @grades do |grade_obj|
 
 end
 
-
-#What should I do here?
-# 1) Fetch on each item individually and make a new jbuilder for the show file - the disadvantage being the multiple fetch
-# 2) Parse out the information onto the grade model, I would have to override collection set or model set..unsure which one
-
 json.student_fname @student.fname
 json.student_lname @student.lname
 json.course_id @course_id

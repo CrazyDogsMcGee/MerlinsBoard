@@ -1,0 +1,8 @@
+<h3><%= user.escape('lname') + ", " + user.escape('fname')%></h3>
+
+<img src="<%= user.get('avatar')%>">
+
+<p><%= user.get('email') %></p>
+
+<button class="user-edit">Edit Information</button>
+<button class="user-password">Change Password</button>
