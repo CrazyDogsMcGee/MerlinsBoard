@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get "course_search", on: :collection
       get "student_search", on: :member
     end
-    resources :users, only: [:show, :index] do
+    resources :users, only: [:show, :index, :update] do
       get "users_search", on: :collection
       resources :grades, only: [:index]
     end

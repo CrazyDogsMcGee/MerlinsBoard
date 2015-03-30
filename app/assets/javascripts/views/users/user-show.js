@@ -6,18 +6,19 @@ MerlinsBoard.Views.UserShow = Backbone.View.extend({
   
   className: "user-show",
   
-  tagName: "section"
+  tagName: "section",
   
   template: JST["users/user-show"],
   
   formTemplate: JST["users/forms/user-form"],
   
-  passwordTemplate: JST["users/forms/password-form"],
+  passwordTemplate: JST["users/forms/user-password"],
   
   events: {
     "click .user-edit": "showForm",
     "click .user-password": "showPassword",
-    "submit .user-form": "submitForm"
+    "submit .user-form": "submitForm",
+    "click .user-back": "render"
   },
                                                     
   render: function () {
@@ -37,7 +38,9 @@ MerlinsBoard.Views.UserShow = Backbone.View.extend({
   },
     
   submitForm: function (event) {
-    var attrs = event.target.serializeJSON();
+    event.preventDefault();
+    var attrs = $(event.target).serializeJSON();
+    
     this.model.save(attrs,{
       success: this.userSuccessCallback,
       error: this.userErrorCallback
@@ -46,10 +49,13 @@ MerlinsBoard.Views.UserShow = Backbone.View.extend({
 
   userSuccessCallback: function (model, response) {
     this.render();
+    console.log("success callback")
   },
 
   userErrorCallback: function (model, response) {
-    var errorArray = response.errors.responseJSON;
+    console.log(response);
+    var errorArray = response.responseJSON.errors;
+
     var $errorList = $("<ul>").addClass("errors");
     _.each(errorArray, function (error) {
       var $error = $("<li>").text(error).addClass("error");

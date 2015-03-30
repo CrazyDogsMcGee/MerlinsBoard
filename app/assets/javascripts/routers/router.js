@@ -84,11 +84,6 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(enrollView);
   },
 
-	showuser: function () {
-    var userView = new MerlinsBoard.Views.UserShow({model: this.currentUser});
-    this.swapView(userView);
-  },
-
 	newcourse: function () {
     var newcourse = new MerlinsBoard.Models.Course();
     var courseform = new MerlinsBoard.Views.CourseForm({model: newcourse});
@@ -233,8 +228,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   
   showSelf: function () {
     this.currentUser.fetch();
-  
-    
+
+    var userShow = new MerlinsBoard.Views.UserShow({model: this.currentUser});
+    this.swapView(userShow);
   },
 
   // utils
