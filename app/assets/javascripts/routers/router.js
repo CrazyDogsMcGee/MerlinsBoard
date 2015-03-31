@@ -1,5 +1,7 @@
 MerlinsBoard.Routers.Router = Backbone.Router.extend({
   initialize: function (options) {
+    
+    //if the router is split, all the below has to be called in the application initialize
     this.currentUser = MerlinsBoard.CurrentUser //and this...
     this.currentUser.fetch();
     
@@ -11,14 +13,35 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.$tabNav.html(courseTabs.$el)
     this.$sideNav.html(courseDetails.$el)
   },
+  
+  routeRegex: function (routeName) {
+    var courseFlag = new RegExp("_course");
+    var homeFlag = new RegExp("_home");
+    
+    if (courseFlag.test(routeName)) {
+      return "course" 
+    } else if (homeFlag.test(routeName)) {
+      return "home"
+    } else {
+      return false
+    }
+  },
 
   execute: function (callback, args) {
-    console.log(this.getActionName(callback));
+    var actionName = this.getActionName(callback);
     
     var noNull = _.filter(args, function (arg) {
       return !(arg === null)
     })
-
+    
+    if (this.routeRegex(actionName) == "course") { //should probably extract this somewhere else
+      this._currentCourse = MerlinsBoard.Courses.getOrFetch(noNull[0]);
+      MerlinsBoard.Vent.trigger("courseRender",{courseModel: this._currentCourse});
+      this._currentCourse.fetch({success: function () {console.log(this._currentCourse)}.bind(this)});
+    } else {
+      MerlinsBoard.Vent.trigger("homeRender");
+    }
+    
     if (callback) callback.apply(this, noNull);
   },
   
@@ -51,7 +74,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "" : "homeAnnouncements",
     "course/:id/announcements/new": "newAnnouncement",
     "course/:course_id/announcements/:id/edit":"editAnnouncement",
-    "course/:id/announcements" : "courseAnnouncements", //shows announcements for course + navView
+    "course/:id/announcements" : "courseAnnouncements_course", //shows announcements for course + navView
     //assignment resources
     "course/:id/assignments/new" : "newAssignment",
     "course/:id/assignments" : "showAssignments",
@@ -70,6 +93,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //users
     "student-profile": "showSelf"
     //misc
+
     //":wildcard": "does not exist" --self explanatory
 	},
 
@@ -119,10 +143,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     MerlinsBoard.Vent.trigger("homeRender");
   },
 
-  courseAnnouncements: function (id) {
-    //course detail nav should be instantiated here + announcements!
-    var course = MerlinsBoard.Courses.getOrFetch(id);
-    var announcements = course.announcements();
+  courseAnnouncements_course: function (id) {
+    var announcements = this._currentCourse.announcements();
 
     var courseAnnouncements = new MerlinsBoard.Views.announcementList({collection: announcements});
     this.swapView(courseAnnouncements);
@@ -240,6 +262,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   unauthorizedAccess: function () {
 
+  },
+  
+  testRoute: function () {
+    console.log("testing");
   },
 
   swapView: function (newView, navView) {
