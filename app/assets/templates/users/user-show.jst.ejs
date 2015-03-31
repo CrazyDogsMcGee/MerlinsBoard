@@ -4,5 +4,7 @@
 
 <p><%= user.get('email') %></p>
 
+<% if (user.id == MerlinsBoard.CurrentUser.id) { %>
 <button class="user-edit">Edit Information</button>
 <button class="user-password">Change Password</button>
+<% } %>

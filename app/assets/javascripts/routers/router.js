@@ -91,7 +91,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/:id/grades/my-grades": "gradesStudentShow",
 
     //users
-    "student-profile": "showSelf"
+    "student-profile/:id": "showUser",
+    "show-user": "editUser"
     //misc
 
     //":wildcard": "does not exist" --self explanatory
@@ -221,52 +222,52 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   gradeSearch: function (id) {
     //just link to this on the homepage of admins...unsure yet how to gracefully prevent access client-side
     var gradeLinkTemplate = MerlinsBoard.Views.SearchStudentGradesResults;
-    var userSearch = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course_id: id});
+    var user_search = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course_id: id});
 
-    this.swapView(userSearch);
-    // var usersList = MerlinsBoard.Views.
+    this.swapView(user_search);
   },
 
   gradesAdminShow: function (course_id, user_id) {
-    // var course = MerlinsBoard.Courses.getOrFetch(id);
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
-
     grades.fetch({parse: true});
 
-    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: true});
-    this.swapView(gradesList);
+    var grades_list = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: true});
+    this.swapView(grades_list);
   },
 
   gradesStudentShow: function (course_id) {
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: this.currentUser.id});
-
     grades.fetch({parse: true});
 
-    var gradesList = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: false})
-    this.swapView(gradesList);
+    var grades_list = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: false})
+    this.swapView(grades_list);
   },
   
   //users
   
-  showSelf: function () {
-    this.currentUser.fetch();
+  showUser: function (id) {
+    var user = new MerlinsBoard.Models.User({id: id})
+    user.fetch();
 
-    var userShow = new MerlinsBoard.Views.UserShow({model: this.currentUser});
+    var userShow = new MerlinsBoard.Views.UserShow({model: user});
     this.swapView(userShow);
   },
-
-  // utils
-  resourceNotFound: function () {
-    //this.swapView();
-  },
-
-  unauthorizedAccess: function () {
-
+  
+  editUser: function () {
+    this.currentUser.fetch();
+    
+    var user_form = new MerlinsBoard.Views.UserForm({profile: true, model: this.currentUser});
+    this.swapView(user_form);
   },
   
-  testRoute: function () {
-    console.log("testing");
+  changePassword: function () {
+    this.currentUser.fetch();
+  
+    var password_form = new MerlinsBoard.Views.UserForm({model: this.currentUser});
+    this.swapView(password_form);
   },
+
+  //utils
 
   swapView: function (newView, navView) {
     if (!this._currentView) {

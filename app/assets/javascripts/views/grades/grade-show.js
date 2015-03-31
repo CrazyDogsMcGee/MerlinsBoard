@@ -51,7 +51,7 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     var newGrade = parseInt($('input.grade-input').val());
 
     if (isNaN(newGrade)) {
-      this.showErrors(["Grade must be a whole number"])
+      this.showErrors(["Grade must be a whole number"]) //refactor method, probably use backbone validator
       return
     }
     
@@ -83,10 +83,9 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
       })
     };
     
-    
     if (file) {
       reader.readAsDataURL(file);
-      //jquery something here about uploading file...
+      //jquery something here about uploading file...and disable submit button
     } else {
       delete that.model._submission;
     }
