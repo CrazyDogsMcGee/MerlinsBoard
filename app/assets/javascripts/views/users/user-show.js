@@ -1,7 +1,6 @@
 MerlinsBoard.Views.UserShow = Backbone.View.extend({
   initialize: function () {
     this.listenTo(this.model, "sync", this.render);
-    _.bindAll(this, "userSuccessCallback", "userErrorCallback");
   },
   
   className: "user-show",
@@ -11,8 +10,8 @@ MerlinsBoard.Views.UserShow = Backbone.View.extend({
   template: JST["users/user-show"],
   
   events: {
-    "click .user-edit": "showForm",
-    "click .user-password": "showPassword",
+    "click button.user-edit": "showForm",
+    "click button.user-password": "showPassword",
   },
                                                     
   render: function () {
@@ -22,10 +21,11 @@ MerlinsBoard.Views.UserShow = Backbone.View.extend({
   },
     
   showForm: function () {
-    Backbone.history.navigate("",{trigger: true})
+    console.log("fuck")
+    Backbone.history.navigate("edit-user",{trigger: true});
   },
 
   showPassword: function () {
-    Backbone.history.navigate("",{trigger: true})
+    Backbone.history.navigate("change-password",{trigger: true});
   }
 })

@@ -6,10 +6,10 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
     //is this bad practice to leave the extra params on here even if they'll be filtered?
     
     if (this._avatar) {
-      json.grade.avatar = this._avatar;
+      json.user.avatar = this._avatar;
     }
     
-    json.supplied_password = this.escape("supplied_password");
+    json.supplied_password = this.get("supplied_password");
     
     return json;
   },

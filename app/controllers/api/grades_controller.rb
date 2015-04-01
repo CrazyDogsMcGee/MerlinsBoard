@@ -28,6 +28,8 @@ class Api::GradesController < Api::ApiController
       return
     end
     
+    
+    
     if @grade.update(grade_params)
       render json: @grades
     else

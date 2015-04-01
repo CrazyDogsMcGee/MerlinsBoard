@@ -2,6 +2,8 @@ json.grades @grades do |grade_obj|
   json.id grade_obj.id
   json.score grade_obj.score
   json.allow_submission grade_obj.allow_submission
+  json.url grade_obj.submission.url
+  json.attachment_exists grade_obj.submission.exists?
 
   json.assignment do
     json.id grade_obj.assignment_id

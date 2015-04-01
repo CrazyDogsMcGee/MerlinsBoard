@@ -1,14 +1,20 @@
 MerlinsBoard.Views.UserForm = Backbone.View.extend({  
   initialize: function (options) {
-    if (options["profile"] == true)) {
-      this.template = return JST["users/forms/user-form"]
+    if (options["profile"] == true) {
+      this.template = JST["users/forms/user-form"]
       this.listenTo(this.model,"sync",this.render)
     } else {
-      this.template = return JST["users/forms/user-password"]
+      this.template = JST["users/forms/user-password"]
     }
+    
+    _.bindAll(this, "userErrorCallback", "userSuccessCallback")
   },
   
-  render: function () {},
+  render: function () {
+    var renderedContent = this.template({user: this.model})
+    this.$el.html(renderedContent);
+    return this
+  },
   
   events: {
     "submit .user-form":"submitForm",
@@ -17,6 +23,7 @@ MerlinsBoard.Views.UserForm = Backbone.View.extend({
   },
   
   submitForm: function (event) {
+    debugger
     event.preventDefault();
     var attrs = $(event.target).serializeJSON();
     
@@ -42,7 +49,7 @@ MerlinsBoard.Views.UserForm = Backbone.View.extend({
       $error_list.append($error);
     })
 
-    $("section.form-errors").html($errorList);
+    $("section.form-errors").html($error_list);
   },
   
   previewAvatar: function (event) {
@@ -50,9 +57,11 @@ MerlinsBoard.Views.UserForm = Backbone.View.extend({
     var reader = new FileReader();
     var formView = this
     
+    console.log("fuckeyu")
+    
     reader.onloadend = function () {
       formView.model._avatar = reader.result;
-      formView.$(".user-imgpreview").src = reader.result;
+      formView.$(".user-imgpreview > img")[0].src = reader.result;
     };
     
     if (file) {

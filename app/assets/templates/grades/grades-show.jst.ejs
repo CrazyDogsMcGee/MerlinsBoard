@@ -1,11 +1,9 @@
 <h4> Assignment name:<%= assignment.escape('title') %></h4>
 <p> description: <%= assignment.escape('description') %></p>
 Grade: <strong class="grade-number" data-id="<%= grade.id %>"><%= grade.get('score')%></strong>
-
-<%if (false) {%>
-  <a class="grade-submission-link" href="">Download submission</a>
-<%}%>  
-
+<% if (grade.get('attachment_exists')) {%>
+<a class="grade-submission-link" href="<%=grade.get('url')%>" download>Download submission</a>
+<% } %>
 <% if (grade.get('allow_submission')) { %>
 <form enctype="multipart/form-data" class="grade-submission">
   <label for="submission">Submit File</label>

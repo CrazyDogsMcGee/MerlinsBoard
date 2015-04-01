@@ -3,7 +3,7 @@
 <% resources.each(function (resource) { %>
 <h3 class="resource-name"><%= resource.escape("name")%></h3>
 <p class="resource-description"><%= resource.escape("description") %></p>
-<a href="<%= resource.get('path') %>" class="resource-link">Download resource</a>
+<a href="<%= resource.get('url') %>" class="resource-link">Download resource</a>
 <br>
   <% if (isInstructor) {%>
 <button type="button" class="resource-edit" data-id="<%= resource.id %>">

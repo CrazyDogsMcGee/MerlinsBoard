@@ -14,7 +14,7 @@ class Api::UsersController < Api::ApiController
   
   def update
     @user = User.find(params[:id])
-    
+
     unless @user.is_password?(params["supplied_password"])
       render :json => {:errors => ["Incorrect password"]}, :status => 403
       return

@@ -76,7 +76,6 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
     
     reader.onloadend = function () {
       that.model._submission = reader.result;
-      debugger
       that.model.save({},{
         success: that.submitFileSuccess,
         error: that.gradeSaveErrorCallback,

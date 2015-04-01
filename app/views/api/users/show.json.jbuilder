@@ -1,6 +1,6 @@
 json.(@user, :id, :fname, :lname, :email)
 
-json.avatar_picture @user.avatar.url
+json.avatar_picture @user.avatar.url(:medium)
 #json.avatar_picture_small @user.avatar.url(:thumb)
 
 json.courses @user.courses do |course|

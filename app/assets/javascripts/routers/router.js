@@ -92,7 +92,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     //users
     "student-profile/:id": "showUser",
-    "show-user": "editUser"
+    "edit-user": "editUser",
+    "change-password": "changePassword"
     //misc
 
     //":wildcard": "does not exist" --self explanatory
