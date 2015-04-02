@@ -1,0 +1,21 @@
+body {
+  background: #993399;
+}
+
+section.app-landing-form{
+  background: #FFF;
+  border: 1px solid #AAA;
+  font-style: Helvetica;
+}
+
+section.app-landing-form > h1 {
+  color: black;
+  font-size: 24px;
+}
+
+nav.app-landing a{
+  text-decoration: none;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: bold;
+}
