@@ -6,16 +6,36 @@ section.app-landing-form{
   background: #FFF;
   border: 1px solid #AAA;
   font-style: Helvetica;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  padding: 10px;
 }
 
 section.app-landing-form > h1 {
   color: black;
   font-size: 24px;
+  margin-bottom: 20px;
+}
+
+nav.app-landing {
+  background: whitesmoke;
+  opacity: 0.4;
+  font-family: sans-serif;
 }
 
 nav.app-landing a{
   text-decoration: none;
-  color: #FFF;
-  font-size: 16px;
+  color: #000;
+  font-size: 24px;
   font-weight: bold;
+  opacity: 1.0;
+  float: right;
+  padding: 15px;
+}
+
+section.app-landing-form input{
+  display: block;
 }

@@ -19,7 +19,8 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
   background: transparent;
-  font-family: inherit
+  font-family: inherit;
+  box-sizing: border-box;
 }
 
 /* util */
