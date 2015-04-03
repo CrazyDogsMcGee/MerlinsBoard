@@ -39,8 +39,11 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-
+#framework
 gem 'backbone-on-rails'
+gem "omniauth-google-oauth2"
+
+#db population
 gem 'faker'
 
 #file upload
