@@ -42,6 +42,7 @@ gem 'bcrypt', '~> 3.1.7'
 #framework
 gem 'backbone-on-rails'
 gem "omniauth-google-oauth2"
+gem "devise"
 
 #db population
 gem 'faker'

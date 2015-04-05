@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  #OAuth
+  devise :omniauthable, :omniauth_providers => [:google_oauth2]
+  
   #pg_search
   include PgSearch
   pg_search_scope :search_by_full_name,
@@ -45,15 +48,6 @@ class User < ActiveRecord::Base
   #Auth methods
   attr_reader :password
 
-  def password=(password)
-    @password = password
-    self.password_digest = BCrypt::Password.create(password)
-  end
-
-  def is_password?(password)
-    BCrypt::Password.new(self.password_digest).is_password?(password)
-  end
-
 	def self.find_by_credentials(email,password)
 		user = User.find_by_email(email)
     return nil if user.nil?
@@ -63,11 +57,34 @@ class User < ActiveRecord::Base
   def self.generate_session_token
     SecureRandom::urlsafe_base64(16)
   end
+  
+  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+    data = access_token.info
+    user = User.where(:email => data["email"]).first
+
+    # Uncomment the section below if you want users to be created if they don't exist
+    # unless user
+    #     user = User.create(name: data["name"],
+    #        email: data["email"],
+    #        password: Devise.friendly_token[0,20]
+    #     )
+    # end
+    user
+  end
 
   def reset_session_token!
     self.session_token = self.class.generate_session_token
     self.save! #saves token to model
     self.session_token #yields own session token
+  end
+  
+  def password=(password)
+    @password = password
+    self.password_digest = BCrypt::Password.create(password)
+  end
+
+  def is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
   private

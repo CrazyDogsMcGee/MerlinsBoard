@@ -10,13 +10,13 @@ module MerlinsBoard
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/lib)
     
-#     config.paperclip_defaults = {
-#       :storage => :s3,
-#       :s3_credentials => {
-#         :bucket => "MerlinsBoard",
-#         :access_key_id => ENV["s3_access_key_id"],
-#         :secret_access_key => ENV["s3_secret_access_key"]
-#       }
-#     }
+    config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_credentials => {
+        :bucket => "MerlinsBoard",
+        :access_key_id => ENV["s3_access_key_id"],
+        :secret_access_key => ENV["s3_secret_access_key"]
+      }
+    }
   end
 end
