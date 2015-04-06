@@ -26,4 +26,9 @@ class ApplicationController < ActionController::Base
 		redirect_to new_session_url unless signed_in? #will be available everywhere
   end
   
+#   def after_sign_in_path_for(resource)
+#     root_path
+#     #request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+#   end
+  
 end

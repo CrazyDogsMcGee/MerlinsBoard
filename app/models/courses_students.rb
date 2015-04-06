@@ -13,5 +13,4 @@ class CoursesStudents < ActiveRecord::Base
 
   has_many :assignments, foreign_key: :course_id, primary_key: :course_id #rails probably guesses the class/object-type smartly
   has_many :announcements, foreign_key: :course_id, primary_key: :course_id
-  #A "belongs_to" association is only valid when then the resource in question has the resource ID of its "owner" object
 end
