@@ -7,9 +7,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         login!(@user)
         redirect_to root_path
       else
-        byebug
         session["devise.google_data"] = request.env["omniauth.auth"]
-        redirect_to 
+        login!(@user)
+        redirect_to root_path
       end
   end
 end
