@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :courses do
       get "course_search", on: :collection
       get "student_search", on: :member
+			put "change_password", on: :member
     end
     resources :users, only: [:show, :index, :update] do
       get "users_search", on: :collection

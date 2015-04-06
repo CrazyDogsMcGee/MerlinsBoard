@@ -1,10 +1,10 @@
 MerlinsBoard.Routers.Router = Backbone.Router.extend({
   initialize: function (options) {
-    
+
     //if the router is split, all the below has to be called in the application initialize
     this.currentUser = MerlinsBoard.CurrentUser //and this...
     this.currentUser.fetch();
-    
+
     this.$rootEl = options["rootEl"]; //need to abstract these
     this.$sideNav = options["sideNav"];
     this.$tabNav = options["tabNav"];
@@ -13,13 +13,13 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.$tabNav.html(courseTabs.$el)
     this.$sideNav.html(courseDetails.$el)
   },
-  
+
   routeRegex: function (routeName) {
     var courseFlag = new RegExp("_course");
     var homeFlag = new RegExp("_home");
-    
+
     if (courseFlag.test(routeName)) {
-      return "course" 
+      return "course"
     } else if (homeFlag.test(routeName)) {
       return "home"
     } else {
@@ -29,11 +29,11 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   execute: function (callback, args) {
     var actionName = this.getActionName(callback);
-    
+
     var noNull = _.filter(args, function (arg) {
       return !(arg === null)
     })
-    
+
     if (this.routeRegex(actionName) == "course") { //should probably extract this somewhere else
       this._currentCourse = MerlinsBoard.Courses.getOrFetch(noNull[0]);
       MerlinsBoard.Vent.trigger("courseRender",{courseModel: this._currentCourse});
@@ -41,10 +41,10 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     } else {
       MerlinsBoard.Vent.trigger("homeRender");
     }
-    
+
     if (callback) callback.apply(this, noNull);
   },
-  
+
   getActionName: function(callback) {
     if (!this.routes) {
         return;
@@ -61,7 +61,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     }
     return matched;
   },
-  
+
 
 	routes: {
     //course resources
@@ -70,6 +70,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/new": "newcourse",
     "course/:id/edit": "editcourse",
     "course/taught": "taughtcourses",
+    //instructors
+    "course/:id/add-instructors":"addInstructors"
     //announcement resources
     "" : "homeAnnouncements",
     "course/:id/announcements/new": "newAnnouncement",
@@ -101,6 +103,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
 
   //course resources
+
 	enrollcourses: function () {
     var allcourses = new MerlinsBoard.Collections.Courses([],{owner: this.currentUser});
 
@@ -123,7 +126,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   },
 
 	showcourse: function (id) { //examines enrollments here
-    var course = MerlinsBoard.Courses.getOrFetch(id); 
+    var course = MerlinsBoard.Courses.getOrFetch(id);
     var showCourse = new MerlinsBoard.Views.CoursesShow({model: course});
     this.swapView(showCourse);
   },
@@ -133,8 +136,22 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var taughtCourseView = new MerlinsBoard.Views.CoursesTaught({collection: taughtCourses});
     this.swapView(taughtCourseView);
   },
+  
+  //instructors
+
+  addInstructors: function (:id) {
+    var user_search_collection = new MerlinsBoard.Collections.UsersSearch({course_id: id})
+    var grade_link_template = MerlinsBoard.Views.SearchStudentGradesResults;
+
+    var user_search = new MerlinsBoard.Views.UsersSearch({
+      collectionView: gradeLinkTemplate,
+      course_id: id});
+
+    this.swapView(user_search);
+  },
 
   //announcements
+
   homeAnnouncements: function () {
     this.currentUser.fetch()
 
@@ -221,9 +238,13 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   //grades
 
   gradeSearch: function (id) {
-    //just link to this on the homepage of admins...unsure yet how to gracefully prevent access client-side
-    var gradeLinkTemplate = MerlinsBoard.Views.SearchStudentGradesResults;
-    var user_search = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course_id: id});
+    var user_search_collection = new MerlinsBoard.Collections.UsersSearch({course_id: id})
+    var grade_link_template = MerlinsBoard.Views.SearchStudentGradesResults;
+
+    var user_search = new MerlinsBoard.Views.UsersSearch({
+      collectionView: grade_link_template,
+      searchCollection: user_search_collection,
+      course_id: id});
 
     this.swapView(user_search);
   },
@@ -243,9 +264,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var grades_list = new MerlinsBoard.Views.GradesStudent({collection: grades, model: grades.student(), adminView: false})
     this.swapView(grades_list);
   },
-  
+
   //users
-  
+
   showUser: function (id) {
     var user = new MerlinsBoard.Models.User({id: id})
     user.fetch();
@@ -253,17 +274,17 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var userShow = new MerlinsBoard.Views.UserShow({model: user});
     this.swapView(userShow);
   },
-  
+
   editUser: function () {
     this.currentUser.fetch();
-    
+
     var user_form = new MerlinsBoard.Views.UserForm({profile: true, model: this.currentUser});
     this.swapView(user_form);
   },
-  
+
   changePassword: function () {
     this.currentUser.fetch();
-  
+
     var password_form = new MerlinsBoard.Views.UserForm({model: this.currentUser});
     this.swapView(password_form);
   },
