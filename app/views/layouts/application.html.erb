@@ -5,8 +5,9 @@
 	<%= stylesheet_link_tag "application", media: "all" %> <!-- These two are needed to establish the windowspace for backbone -->
 	<%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <!-- http://stackoverflow.com/questions/6130593/adding-icon-to-rails-website -->
 </head>
-	
+
 <body>
 <% if current_user.nil? %>
   <nav class="app-landing group">

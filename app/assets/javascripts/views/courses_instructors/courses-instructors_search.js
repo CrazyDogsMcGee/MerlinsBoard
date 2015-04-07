@@ -9,7 +9,7 @@ MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.e
   //this is the outer collection view, its only purpose is to contain the composite models
   //I don't want composite logic in the search itself because I want it to be reuseable.
 
-  template: JST["courses_instructors/courses-instructors_search"],
+  template: JST["courses_instructors/instructors-composite"],
 
   className: "instructor-search",
 
@@ -28,7 +28,7 @@ MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.e
 
     this.collection.each(function (user) {
       var user_view = new MerlinsBoard.Views.StudentInstructor({model: user, course: this.course});
-      user_search_view.addSubview("instructors-search-results",user_view.render())
+      user_search_view.addSubview("section.instructors-search-results",user_view.render())
     });
   }
 })

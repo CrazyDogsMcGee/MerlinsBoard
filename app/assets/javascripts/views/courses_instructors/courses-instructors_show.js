@@ -9,7 +9,9 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
 
   render: function () {
     var rendered_content = this.template({user: this.model, course: this.course});
-    this.$el.html
+    this.$el.html(rendered_content);
+
+    return this
   },
 
   template: JST["courses_instructors/add-instructors"],
