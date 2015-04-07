@@ -1,44 +1,34 @@
 MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.collection, "add remove reset sync", this.render)
-    this.course = options["current_course"]
+    this.course = options["course"]
   },
-  
-  
+
+
   //this is the view that will be rendered into the results pane.
   //this is the outer collection view, its only purpose is to contain the composite models
   //I don't want composite logic in the search itself because I want it to be reuseable.
-  
-//   template: JST[""], I think it default to div
+
+  template: JST["courses_instructors/courses-instructors_search"],
 
   className: "instructor-search",
 
   render: function () {
-    //var urlRoot = "#course/".concat(this.course_id,"/grades/user/");
-    var renderedContent = this.template({users: this.collection, gradeUrl: urlRoot});
-    this.$el.html(renderedContent);
-    return this
-  },
-  
-  render: function () {
     this.addUsers();
-    
-    //var renderedContent = this.template({course: this.course})
-    //this.$el.html(renderedContent);
+    this.$el.html(this.template());
 
     this.attachSubviews();
     return this
   },
-  
+
   addUsers: function () {
     this.clearSubviews(); //clears subviews attribute
-    
-    var gradesStudentView = this
-    var adminView = this.adminView
+
+    var user_search_view = this
 
     this.collection.each(function (user) {
-      var gradeView = new MerlinsBoard.Views.StudentInstructor ({model: user, course: this.course});
-      gradesStudentView.addSubview("div.instructor-search",gradeView.render())
+      var grade_view = new MerlinsBoard.Views.StudentInstructor ({model: user, course: this.course});
+      user_search_view.addSubview("instructors-search-results",gradeView.render())
     });
   }
 })

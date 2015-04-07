@@ -3,7 +3,7 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
   //nested resources
   initialize: function () {
   },
-  
+
   getOrSetAttributeCollection: function (attrString, collection) { //limitation- user/instructors/enrollments, also should be careful about naming
     if (!this["_".concat(attrString)] && collection) {
       this["_".concat(attrString)] = new MerlinsBoard.Collections[collection]([],{owner: this}); //if it doesn't exist, set it
@@ -53,20 +53,20 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
 
 		return this._enrollments
 	},
-  
+
   resources: function () { //OK
     if (!this._resources) {
       this._resources = new MerlinsBoard.Collections.Resources([],{owner: this});
     }
-    
+
     return this._resources
   },
-  
+
   professorships: function () {
     if (!this._professorships) {
       this._professorships = new MerlinsBoard.Collections.CoursesInstructors([],{owner: this});
     }
-    
+
     return this._professorships
   },
 
@@ -95,12 +95,12 @@ MerlinsBoard.Models.Course = Backbone.Model.extend({
       this.assignments().set(resp.assignments);
       resp.assignments.delete;
     }
-    
+
     if (resp.resources) {
       this.resources().set(resp.resources);
       resp.resources.delete;
     }
-    
+
     if (resp.professorships) {
       this.professorships().set(resp.professorships);
       resp.professorships.delete;

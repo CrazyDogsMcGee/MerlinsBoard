@@ -3,7 +3,7 @@ class Api::CoursesInstructorsController < Api::ApiController
 
   def create
     @professorship = CoursesInstructors.new(enrollment_params)
-		
+
     if @professorship.save
       render json: {message: "Successfully enstated"}
     else
@@ -19,8 +19,8 @@ class Api::CoursesInstructorsController < Api::ApiController
     end
   end
 
-  private 
-  
+  private
+
   def professorship_params
     params.require(:courses_instructor).permit(:user_id, :course_id)
   end

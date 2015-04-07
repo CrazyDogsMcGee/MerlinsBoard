@@ -12,7 +12,7 @@ User.create(fname:"Jonathan", lname: "Lee", email: "l33.jonathan@gmail.com", pas
 User.create(fname:"John", lname: "Doe", email: "johndoe@gmail.com",
 password: "testing")
 
-(1..10).each do |user_no|
+(1..100).each do |user_no|
   User.create(
     fname: Faker::Name.first_name,
     lname: Faker::Name.last_name,
@@ -44,9 +44,9 @@ end
 end
 
 2.times{
-  (2..11).each do |enroll|
+  User.all.each do |user|
     course_no = (rand(5)+1)
-    student_no = enroll
+    student_no = user.id
 
     CoursesStudents.create( #to make this less haphazard, I could just iterate over the courses and users and match up it to avoid collisions.
       user_id: student_no,
@@ -61,7 +61,7 @@ end
 
 (2..11).each do |teacher| #not getting hit enough times, need to rejigger to avoid conflicts or just increase number to increase chances of seeding database
   course_no = (rand(5)+1)
-  instructor_no = (rand(11)+1)
+  instructor_no = (rand(100)+1)
 
   CoursesInstructors.create(
     user_id: instructor_no,
@@ -87,7 +87,7 @@ CoursesInstructors.all.each do |admin_link|
 end
 
 Course.all.each do |course|
-  2.times {
+  3.times {
     Assignment.create(
       title: Faker::Lorem.word.capitalize,
       description: Faker::Lorem.sentence,
@@ -106,3 +106,6 @@ CoursesStudents.all.each do |student_link|
     Grade.create(user_id: user_id, assignment_id: assignment.id, score: rand(101), allow_submission: true)
   end
 end
+
+#need to create resources
+#accoutn for gmail signins...somehow. Will probably need live dummies for this one
