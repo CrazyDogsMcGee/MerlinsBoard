@@ -1,8 +1,7 @@
 MerlinsBoard.Models.CoursesInstructor = Backbone.Model.extend({
-	urlRoot: "/api/coursesinstructor",
+	urlRoot: "/api/coursesinstructors",
 
 	validate: function (attrs) {
 	}
-
 
 });

@@ -1,6 +1,6 @@
 MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
-    this.listenTo(this.collection, "add remove reset sync", this.render)
+    this.listenTo(this.collection, "sync", this.render)
     this.course = options["course"]
   },
 

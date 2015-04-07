@@ -62,8 +62,6 @@ class User < ActiveRecord::Base
     data = access_token.info
     user = User.where(:email => data["email"]).first
     
-    byebug
-
     unless user
         user = User.create(
            fname: data["first_name"],

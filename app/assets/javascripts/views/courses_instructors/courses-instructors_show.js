@@ -8,6 +8,7 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
   tagName: "section",
 
   render: function () {
+    debugger
     var rendered_content = this.template({user: this.model, course: this.course});
     this.$el.html(rendered_content);
 
@@ -30,9 +31,10 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
 
     new_professorship.save({},{
       success: function () {
-        user_view.instructors().add(this.model);
-        user_view.professorships().add(new_professorship);
-        user_view.render()
+        user_view.course.instructors().add(user_view.model);
+        user_view.course.professorships().add(new_professorship);
+        user_view.render();
+        console.log("added")
       },
       error: function (model, response) {
         var errorArray = response.responseJSON.errors
@@ -47,9 +49,12 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
     //prevent user from unenrolling self.
     old_professorship.destroy({
       success: function () {
+        user_view.course.instructors().remove(user_view.model);
         user_view.render();
+        console.log("removed");
       }
     })
+    
   },
 
   //need to clear error messages
