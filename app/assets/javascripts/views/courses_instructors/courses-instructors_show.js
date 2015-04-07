@@ -33,7 +33,7 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
         user_view.render()
       },
       error: function (model, response) {
-        var = errorArray = response.responseJSON.errors
+        var errorArray = response.responseJSON.errors
         user_view.showErrors(errorArray);
       }
     })
@@ -48,7 +48,7 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
         user_view.render();
       }
     })
-  }
+  },
 
   //need to clear error messages
   showErrors: function (errorArray) {

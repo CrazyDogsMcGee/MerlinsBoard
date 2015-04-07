@@ -141,7 +141,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   addInstructors_course: function (id) {
     var search_collection = new MerlinsBoard.Collections.UsersSearch();
     var instructors_template = MerlinsBoard.Views.SearchStudentInstructors;
-    var user_search = new MerlinsBoard.Views.UsersSearch({collectionView: instructors_template, course: this._currentCourse});
+    var user_search = new MerlinsBoard.Views.UsersSearch({collectionView: instructors_template, course: this._currentCourse, collection: search_collection});
 
     this.swapView(user_search);
   },
@@ -233,7 +233,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   gradeSearch_course: function (id) {
     var search_collection = new MerlinsBoard.Collections.UsersSearch({course_id: id});
     var gradeLinkTemplate = MerlinsBoard.Views.SearchStudentGradesResults;
-    var user_search = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course: this.currentCourse});
+    var user_search = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course: this._currentCourse, collection: search_collection});
 
     this.swapView(user_search);
   },

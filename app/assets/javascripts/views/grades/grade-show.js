@@ -1,7 +1,7 @@
 MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
     _.bindAll(this, "gradeSaveErrorCallback", "submitFileSuccess");
-    this.listenTo(this.model, "sync", this.render)
+    this.listenTo(this.model, "sync", this.render);
 
     this.adminView = options["adminView"];
     this.course_id = options["course_id"];

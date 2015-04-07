@@ -27,8 +27,8 @@ MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.e
     var user_search_view = this
 
     this.collection.each(function (user) {
-      var grade_view = new MerlinsBoard.Views.StudentInstructor ({model: user, course: this.course});
-      user_search_view.addSubview("instructors-search-results",gradeView.render())
+      var user_view = new MerlinsBoard.Views.StudentInstructor({model: user, course: this.course});
+      user_search_view.addSubview("instructors-search-results",user_view.render())
     });
   }
 })

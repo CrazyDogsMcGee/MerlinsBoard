@@ -19,15 +19,15 @@ MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
     this.attachSubviews();
     return this
   },
-  
+
   addGrades: function () {
     this.clearSubviews(); //clears subviews
-    
+
     var gradesStudentView = this
     var adminView = this.adminView
 
     this.collection.each(function (grade) {
-      var gradeView = new MerlinsBoard.Views.StudentInstructor({model: grade, adminView: adminView});
+      var gradeView = new MerlinsBoard.Views.GradeShow({model: grade, adminView: adminView});
       gradesStudentView.addSubview("section.grade-student-list",gradeView.render())
     });
   }
