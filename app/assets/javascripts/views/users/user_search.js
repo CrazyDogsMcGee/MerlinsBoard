@@ -1,16 +1,16 @@
 MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
   initialize: function (options) {
     this.searchCollectionView = options["collectionView"];//pass in constructor function
-    this.course_id = options["course_id"];
+    this.course_id = options["course_id"]; //maybe just pass a ref to the course itself
   },
   
-  searchCollection: function () {
-    if (!this._searchCollection) {
-      this._searchCollection = new MerlinsBoard.Collections.UsersSearch({course_id: this.course_id});
-    }
+//   searchCollection: function () {
+//     if (!this._searchCollection) {
+//       this._searchCollection = new MerlinsBoard.Collections.UsersSearch({course_id: this.course_id});
+//     }
     
-    return this._searchCollection
-  },
+//     return this._searchCollection
+//   },
   
   template: JST["users/user-search"],
   
@@ -28,10 +28,10 @@ MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
 
     event.preventDefault();
 	  var queryUser = $("input.user-find-input").val();
-		this.searchCollection().fetch({data: $.param({query: queryUser})});
+		this.collection().fetch({data: $.param({query: queryUser})});
 
-		var searchList = new this.searchCollectionView({collection: this.searchCollection(), course_id: this.course_id});
-		//want to call remove on search results
+		var searchList = new this.searchCollectionView({collection: this.collection, course_id: this.course_id});
+		//can probably refactor this to be a set instead.
 		$('section.student-results').html(searchList.render().$el);
   }                                      
 

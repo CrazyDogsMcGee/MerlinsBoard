@@ -1,7 +1,7 @@
 class Api::CoursesInstructorsController < Api::ApiController
-  #before_action
+  #before_action {admins_only(params["course_id"])}
 
-def create
+  def create
     @professorship = CoursesInstructors.new(enrollment_params)
 		
     if @professorship.save
@@ -11,15 +11,14 @@ def create
     end
   end
 
-def destroy
-  @professorship = CoursesInstructors.find(params[:id])
-  
-  if @professorship.destroy
-    render json: {message: "DESYSOPPED"}
-  end
-end
+  def destroy
+    @professorship = CoursesInstructors.find(params[:id])
 
-#somehow new instructors can be onboarded.
+    if @professorship.destroy
+      render json: {message: "DESYSOPPED"}
+    end
+  end
+
   private 
   
   def professorship_params

@@ -70,6 +70,8 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     "course/new": "newcourse",
     "course/:id/edit": "editcourse",
     "course/taught": "taughtcourses",
+    //instructors
+    "course/:id/add-instructors": "addInstructors",
     //announcement resources
     "" : "homeAnnouncements",
     "course/:id/announcements/new": "newAnnouncement",
@@ -132,6 +134,14 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var taughtCourses = this.currentUser.taughtcourses();
     var taughtCourseView = new MerlinsBoard.Views.CoursesTaught({collection: taughtCourses});
     this.swapView(taughtCourseView);
+  },
+  
+  //instructors 
+  
+  addInstructors: function (id) {
+    this._currentCourse
+    
+    
   },
 
   //announcements
@@ -221,7 +231,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   //grades
 
   gradeSearch: function (id) {
-    //just link to this on the homepage of admins...unsure yet how to gracefully prevent access client-side
+    var search_collection = new MerlinsBoard.Collections.UsersSearch({course_id: id});
     var gradeLinkTemplate = MerlinsBoard.Views.SearchStudentGradesResults;
     var user_search = new MerlinsBoard.Views.UsersSearch({collectionView: gradeLinkTemplate, course_id: id});
 

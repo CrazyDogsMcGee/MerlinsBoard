@@ -11,7 +11,6 @@ MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
   tagName: "section",
 
   render: function () {
-    this.clearSubviews();
     this.addGrades();
     //this.attachSubviews(); needs to happen after the regular template is rendered
     var renderedContent = this.template({student: this.model})
@@ -28,7 +27,7 @@ MerlinsBoard.Views.GradesStudent = MerlinsBoard.Views.CompositeView.extend({
     var adminView = this.adminView
 
     this.collection.each(function (grade) {
-      var gradeView = new MerlinsBoard.Views.GradeShow({model: grade, adminView: adminView});
+      var gradeView = new MerlinsBoard.Views.StudentInstructor({model: grade, adminView: adminView});
       gradesStudentView.addSubview("section.grade-student-list",gradeView.render())
     });
   }

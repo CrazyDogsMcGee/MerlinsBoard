@@ -1,0 +1,8 @@
+<div>
+  <%= user.get('lname') + ", " + user.get('fname') %>
+</div>
+<% if (course.instructors().get(user.id)) { %>
+  <button class="add-instructor" id="<%= user.id %>">Add Instructor</button>
+<% } else { %>
+  <button class="remove-instructor" id="<%= user.id %>">Remove Instructor</button>
+<% } %>

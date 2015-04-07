@@ -6,8 +6,6 @@ class Api::GradesController < Api::ApiController
   def index
     @grades = Grade.includes(:assignment,:course,:user).where("user_id = ?", params["user_id"])
     
-    #unsure if this is warranted, it does prevent an n+1 query, but not by much, since I don't go through ALL the entries anyway
-    
     @student = @grades.first.user
     @course_id = params["course_id"].to_i
     
@@ -27,8 +25,6 @@ class Api::GradesController < Api::ApiController
       render text: "You do not have sufficient rights to perform this action", status: 403
       return
     end
-    
-    
     
     if @grade.update(grade_params)
       render json: @grades
