@@ -65,9 +65,12 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
     }
     
     _.extend(options,{
-      data: $.param({ course_id: this.course().id})
+      data: $.param({
+        course_id: this.course().id,
+        user_id: this.student().id
+      })
     });
-
+    
     return Backbone.Model.prototype.fetch.call(this, options);
   }
 
