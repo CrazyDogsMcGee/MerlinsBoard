@@ -39,15 +39,7 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
   },
 
   parse: function (response) {
-    
-    // var expected = [x,y,z]
-    //
-    // _.each(expected, function (attr) {
-    //    if (response[attr]) {
-    //      this.getattrmodel
-    //    }
-    // })
-    if (response === null) {return} //probably change this somehow...http://stackoverflow.com/questions/18457090/backbonejs-avoid-parse-after-save
+    if (response === null) {return}
     
     if (response.course) {
       this.course().set(response.course);
@@ -65,36 +57,18 @@ MerlinsBoard.Models.Grade = Backbone.Model.extend({
     }
 
     return response
-  }
+  },
   
-//     save : function(key, value, options) {
+  fetch: function(options) {
+    if (!options) {
+      options = {};
+    }
+    
+    _.extend(options,{
+      data: $.param({ course_id: this.course().id})
+    });
 
-//         var attributes={}, opts={};
+    return Backbone.Model.prototype.fetch.call(this, options);
+  }
 
-//         //Need to use the same conditional that Backbone is using
-//         //in its default save so that attributes and options
-//         //are properly passed on to the prototype
-//         if (_.isObject(key) || key == null) {
-//             attributes = key;
-//             opts = value;
-//         } else {
-//             attributes = {};
-//             attributes[key] = value;
-//             opts = options;
-//         }
-
-//         //Since backbone will post all the fields at once, we
-//         //need a way to post only the fields we want. So we can do this
-//         //by passing in a JSON in the "key" position of the args. This will
-//         //be assigned to opts.data. Backbone.sync will evaluate options.data
-//         //and if it exists will use it instead of the entire JSON.
-//         if (opts && attributes) {
-//             opts.data = JSON.stringify(attributes);
-//             opts.contentType = "application/json";
-//         }
-
-//         //Finally, make a call to the default save now that we've
-//         //got all the details worked out.
-//         return Backbone.Model.prototype.save.call(this, attributes, opts);
-//     }
 });

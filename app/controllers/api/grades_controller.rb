@@ -1,6 +1,6 @@
 class Api::GradesController < Api::ApiController
-  before_action(only: :show) {admins_only(params["course_id"])} #needs to be included manually on ANY change
-  before_action :is_user_or_instructor?, only: [:index]
+  #before_action(only: :show) {admins_only(params["course_id"])} #needs to be included manually on ANY change
+  before_action :is_user_or_instructor?, only: [:index, :show]
   wrap_parameters false
 
   def index
@@ -14,12 +14,10 @@ class Api::GradesController < Api::ApiController
 
   def show
     @grade = Grade.find(params[:id])
-    render json: @grade
   end
   
   def update
     @grade = Grade.find(params[:id])
-    
     
     unless @grade.course.id == params["course_id"].to_i
       render text: "You do not have sufficient rights to perform this action", status: 403

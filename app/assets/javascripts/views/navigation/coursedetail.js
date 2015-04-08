@@ -16,8 +16,10 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
   className: "nav-course",
 
   renderDetail: function (options) {
-    this.course = options["courseModel"]; //unsure if this would bite me in the ass anytime..so long as I always pass the reference to the course itself. I plan to do this 
-
+    if (options["courseModel"]) {
+      this.course = options["courseModel"]; //unsure if this would bite me in the ass anytime..so long as I always pass the reference to the course itself. I plan to do this 
+    }
+    
     var courseID = course.id
     var renderedContent = this.templateDetail({courseID: course.id});
     this.$el.html(renderedContent);

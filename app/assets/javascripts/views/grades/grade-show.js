@@ -92,7 +92,8 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   },
 
   submitFileSuccess: function () {
-    this.render();
+    this.model.fetch(); //get url? This will not work, because I don't ever fetch. I just get everything en masse, so I can't do any singular updates
+    //put something here about "file successfully uploaded"
     console.log('success')
   },
 

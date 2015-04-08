@@ -55,14 +55,5 @@ MerlinsBoard.Collections.Grades = Backbone.Collection.extend({
     resp.course_id.delete
 
     return resp.grades
-  },
-
-  gpa: function () {
-    var average
-    
-    this.models.each(function (grade) {
-      
-    })
   }
-
 })

@@ -9,6 +9,8 @@ class Grade < ActiveRecord::Base
 
   #paperclip
   has_attached_file :submission
+  #, :path => ":attachment/:id/:style/:basename.:extension", :storage => :s3, 
+  
   validates_attachment_content_type :submission, :content_type => [
     "application/pdf",
     "application/vnd.ms-excel",

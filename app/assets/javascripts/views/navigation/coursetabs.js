@@ -26,6 +26,5 @@
     var course_id = $(event.currentTarget).data("id");
     
     Backbone.history.navigate("course/" + course_id +"/announcements", {trigger: true});
-    MerlinsBoard.Vent.trigger("courseRender",{courseID: course_id});
   }
 })
