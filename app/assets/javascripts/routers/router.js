@@ -65,37 +65,37 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
 	routes: {
     //course resources
-    "course/search" : "enrollcourses",
-    "course/:id/enroll" : "showcourse",
-    "course/new": "newcourse",
-    "course/:id/edit": "editcourse",
-    "course/taught": "taughtcourses",
+    "course/search" : "enrollcourses_home",
+    "course/:id/enroll" : "showcourse_home",
+    "course/new": "newcourse_home",
+    "course/:id/edit": "editcourse_home",
+    "course/taught": "taughtcourses_home",
     //instructors
     "course/:id/add-instructors": "addInstructors_course",
     //announcement resources
     "" : "homeAnnouncements_home",
-    "course/:id/announcements/new": "newAnnouncement",
-    "course/:course_id/announcements/:id/edit":"editAnnouncement",
+    "course/:id/announcements/new": "newAnnouncement_course",
+    "course/:course_id/announcements/:id/edit":"editAnnouncement_course",
     "course/:id/announcements" : "courseAnnouncements_course", //shows announcements for course + navView
     //assignment resources
-    "course/:id/assignments/new" : "newAssignment",
-    "course/:id/assignments" : "showAssignments",
-    "course/:course_id/assignments/:id/edit" : "editAssignment",
+    "course/:id/assignments/new" : "newAssignment_course",
+    "course/:id/assignments" : "showAssignments_course",
+    "course/:course_id/assignments/:id/edit" : "editAssignment_course",
 
     //document resources
-    "course/:id/resources":"courseResources",
-    "course/:id/resources/new":"newResource",
-    "course/:course_id/resources/:id/edit":"editResource",
+    "course/:id/resources":"courseResources_course",
+    "course/:id/resources/new":"newResource_course",
+    "course/:course_id/resources/:id/edit":"editResource_course",
 
     //grades
     "course/:id/grades/student-search" : "gradeSearch_course",
-    "course/:course_id/grades/user/:user_id" : "gradesAdminShow",
-    "course/:id/grades/my-grades": "gradesStudentShow",
+    "course/:course_id/grades/user/:user_id" : "gradesAdminShow_course",
+    "course/:id/grades/my-grades": "gradesStudentShow_course",
 
     //users
-    "student-profile/:id": "showUser",
-    "edit-user": "editUser",
-    "change-password": "changePassword"
+    "student-profile/:id": "showUser_home",
+    "edit-user": "editUser_home",
+    "change-password": "changePassword_home"
     //misc
 
     //":wildcard": "does not exist" --self explanatory
@@ -103,7 +103,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
 
   //course resources
-	enrollcourses: function () {
+	enrollcourses_home: function () {
     var allcourses = new MerlinsBoard.Collections.Courses([],{owner: this.currentUser});
 
     this.currentUser.fetch()
@@ -112,25 +112,25 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(enrollView);
   },
 
-	newcourse: function () {
+	newcourse_home: function () {
     var newcourse = new MerlinsBoard.Models.Course();
     var courseform = new MerlinsBoard.Views.CourseForm({model: newcourse});
     this.swapView(courseform);
   },
 
-	editcourse: function (id) {
+	editcourse_home: function (id) {
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var courseform = new MerlinsBoard.Views.CourseForm({model: course});
     this.swapView(courseform);
   },
 
-	showcourse: function (id) { //examines enrollments here
+	showcourse_home: function (id) { //examines enrollments here
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var showCourse = new MerlinsBoard.Views.CoursesShow({model: course});
     this.swapView(showCourse);
   },
 
-  taughtcourses: function () {
+  taughtcourses_home: function () {
     var taughtCourses = this.currentUser.taughtcourses();
     var taughtCourseView = new MerlinsBoard.Views.CoursesTaught({collection: taughtCourses});
     this.swapView(taughtCourseView);
@@ -164,13 +164,13 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     MerlinsBoard.Vent.trigger("courseRender",{courseModel: this._currentCourse});
   },
 
-  newAnnouncement: function (id) {
+  newAnnouncement_course: function (id) {
     var newAnnouncement = new MerlinsBoard.Models.Announcement();
     var announcementForm = new MerlinsBoard.Views.announcementForm({model: newAnnouncement, course_id: id});
     this.swapView(announcementForm);
   },
 
-  editAnnouncement: function (course_id,id) {
+  editAnnouncement_course: function (course_id,id) {
     var announcement = new MerlinsBoard.Models.Announcement({id: id})
     announcement.fetch()
 
@@ -180,7 +180,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   //assignments
 
-  showAssignments: function (id) {
+  showAssignments_course: function (id) {
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var assignments = course.assignments();
 
@@ -188,13 +188,13 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(courseAssignments);
   },
 
-  newAssignment: function (id) {
+  newAssignment_course: function (id) {
     var newAssignment = new MerlinsBoard.Models.Assignment();
     var assignmentForm = new MerlinsBoard.Views.assignmentForm({model: newAssignment, course_id: id});
     this.swapView(assignmentForm);
   },
 
-  editAssignment: function (course_id,id) {
+  editAssignment_course: function (course_id,id) {
     var assignment = new MerlinsBoard.Models.Assignment({id: id});
     assignment.fetch();
 
@@ -204,7 +204,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   //course resources
 
-  courseResources: function (id) {
+  courseResources_course: function (id) {
     var course = MerlinsBoard.Courses.getOrFetch(id);
     var resources = course.resources();
 
@@ -212,13 +212,13 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(courseResources);
   },
 
-  newResource: function (id) {
+  newResource_course: function (id) {
     var resource = new MerlinsBoard.Models.Resource({course_id: id});
     var courseForm = new MerlinsBoard.Views.resourceForm({model: resource});
     this.swapView(courseForm);
   },
 
-  editResource: function (course_id, id) {
+  editResource_course: function (course_id, id) {
     var resource = new MerlinsBoard.Models.Resource({id: id})
     resource.fetch();
 
@@ -236,7 +236,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(user_search);
   },
 
-  gradesAdminShow: function (course_id, user_id) {
+  gradesAdminShow_course: function (course_id, user_id) {
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: user_id});
     grades.fetch({parse: true});
 
@@ -244,7 +244,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(grades_list);
   },
 
-  gradesStudentShow: function (course_id) {
+  gradesStudentShow_course: function (course_id) {
     var grades = new MerlinsBoard.Collections.Grades({course_id: course_id, user_id: this.currentUser.id});
     grades.fetch({parse: true});
 
@@ -254,7 +254,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   //users
 
-  showUser: function (id) {
+  showUser_course: function (id) {
     var user = new MerlinsBoard.Models.User({id: id})
     user.fetch();
 
@@ -262,14 +262,14 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(userShow);
   },
 
-  editUser: function () {
+  editUser_course: function () {
     this.currentUser.fetch();
 
     var user_form = new MerlinsBoard.Views.UserForm({profile: true, model: this.currentUser});
     this.swapView(user_form);
   },
 
-  changePassword: function () {
+  changePassword_course: function () {
     this.currentUser.fetch();
 
     var password_form = new MerlinsBoard.Views.UserForm({model: this.currentUser});
@@ -288,4 +288,5 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
     this.$rootEl.html(newView.render().$el);
   }
+  
 })

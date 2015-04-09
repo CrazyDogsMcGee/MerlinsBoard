@@ -3,7 +3,11 @@ class Course < ActiveRecord::Base
 
   include Scheduling
   include PgSearch
-  pg_search_scope :search_by_name_and_desc, against: [:name, :description]
+  pg_search_scope :search_by_name_and_desc,
+                  :against => [:name, :description],
+                  :using => {
+                    :tsearch => {:prefix => true}
+                  }
 
   validates :name, :location, :start_time, :end_time, :day, :description, presence: true
   validates :name, uniqueness: true

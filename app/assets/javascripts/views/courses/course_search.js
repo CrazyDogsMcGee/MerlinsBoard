@@ -32,7 +32,6 @@ MerlinsBoard.Views.CoursesSearch = Backbone.View.extend({
 		this.searchCollection().fetch({data: $.param({query: queryCourse})});
 
 		var searchList = new MerlinsBoard.Views.CoursesList({collection: this.searchCollection()});
-		//want to call remove on search results
 		$('section.course-results').html(searchList.render().$el);
 	}
 

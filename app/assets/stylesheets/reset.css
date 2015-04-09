@@ -21,6 +21,7 @@ time, mark, audio, video {
   background: transparent;
   font-family: inherit;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 /* util */

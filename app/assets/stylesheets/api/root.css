@@ -1,11 +1,34 @@
 .subsumed-header-nav {
-  background: white;
+  background: #FFF;
+}
+
+.header-nav {
+  float: left;
+}
+
+.form-signout {
+  float: right;
 }
 
 .side-nav {
-  background: white;
+  background: #EEE;
+  width: 20%;
+  float: left;
+  position: relative;
+  height: 100%;
+  b
 }
 
 #content {
-  background: white;
+  background: #DDD;
+  width: 80%;
+  float: left;
+  padding: 15px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.app {
+  height: 100%;
+  position: relative;
 }

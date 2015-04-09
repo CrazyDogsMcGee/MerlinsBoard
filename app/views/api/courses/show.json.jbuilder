@@ -13,15 +13,15 @@ json.enrollments @course.courses_students do |enrollment|
   json.course_id enrollment.course_id
 end
 
+json.students @course.students do |student|
+  json.id student.id
+  json.fname student.fname
+  json.lname student.lname
+end
+
 access = course_access_view(current_user)
 
 if (access == :student) || (access == :instructor)
-  json.students @course.students do |student|
-    json.id student.id
-    json.fname student.fname
-    json.lname student.lname
-  end
-
   json.announcements @course.announcements do |announcement|
     json.id announcement.id
     json.title announcement.title

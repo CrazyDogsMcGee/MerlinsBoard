@@ -1,0 +1,16 @@
+.side-nav a {
+  background: #AC5DC6;
+  color: white;
+  padding: 5px;
+  margin: auto;
+  border: 1px solid black;
+  display: block;
+  font-family: "Franklin Gothic Medium";
+  width: 50%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-course {
+  position: relative;
+}

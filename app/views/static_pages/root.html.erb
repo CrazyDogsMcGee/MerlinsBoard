@@ -1,22 +1,21 @@
-<!-- This will be yieded to the application.html -->
-
 <h1 class="app-header">MerlinsBoard</h1>
 
-<nav class="subsumed-header-nav">
-<nav class="header-nav">Class tabs go here
+<nav class="subsumed-header-nav group">
+  <nav class="header-nav">Class tabs go here</nav>
+
+  <form class="form-signout" action="/session" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Sign out!">
+  </form>
 </nav>
 
-<form class="form-signout" action="/session" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <input type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Sign out!">
-</form>
-</nav>
-
+<section class="app group">
 <nav class="side-nav">in-class nav goes here</nav>
 
 <main id="content">
 </main>
+</section>
 
 <script> 
     window.currentUserID = <%=current_user.id%>

@@ -9,6 +9,8 @@ Bundler.require(*Rails.groups)
 module MerlinsBoard
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/lib)
+    #config.time_zone = 'Eastern Time (US & Canada)'
+    #config.active_record.default_timezone = 'Eastern Time (US & Canada)'
     
     config.paperclip_defaults = {
       :storage => :s3,
