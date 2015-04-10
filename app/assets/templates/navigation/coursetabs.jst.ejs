@@ -1,6 +1,3 @@
-<% courses.each(function (course) { %>
-  <a href="#" data-id="<%= course.id %>" class="course-tab"><%= course.escape("name") %></a>
-<% }) %>
-
-<!-- Which would be more costly, doing something like this or instantiating a new view object for each link? -->
-<!-- Theoretically, a seperate view for each is more organized, but I don't think its worth the effort now  -->
+<%courses.each(function (course) {%>
+<a href="#" data-id="<%= course.id %>" class="course-tab"><%=course.escape("name")%></a>
+<%})%>

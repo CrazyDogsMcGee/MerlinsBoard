@@ -16,7 +16,6 @@
   float: left;
   position: relative;
   height: 100%;
-  b
 }
 
 #content {
@@ -29,6 +28,8 @@
 }
 
 .app {
+  b
   height: 100%;
-  position: relative;
+  width: 100%;
+  position: absolute;
 }
