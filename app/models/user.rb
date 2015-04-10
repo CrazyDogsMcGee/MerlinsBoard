@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
                   }
 
   #paperclip
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "50x50#" }, :default_url => "https://s3.amazonaws.com/merlinsboardapp/tumblr_n7i34p1rfX1qzdeo7o1_1280.png"
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "50x50#" }, :default_url => "https://s3.amazonaws.com/merlinsboardapp/no_image.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   #Validators
