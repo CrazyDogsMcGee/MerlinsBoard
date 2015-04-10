@@ -39,3 +39,11 @@ nav.app-landing a{
 section.app-landing-form input{
   display: block;
 }
+
+.google-sign-in img {
+  display: block;
+  position: absolute;
+  height: 10%;
+  width: 10%;
+  margin-top: -10px;
+}
