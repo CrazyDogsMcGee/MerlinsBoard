@@ -1,5 +1,4 @@
 .subsumed-header-nav {
-  background: #FFF;
 }
 
 .header-nav {
@@ -16,6 +15,7 @@
   float: left;
   position: relative;
   height: 100%;
+  border-right: 5px double #615F62;
 }
 
 #content {
@@ -25,10 +25,11 @@
   padding: 15px;
   box-sizing: border-box;
   height: 100%;
+  overflow: auto;
 }
 
 .app {
-  b
+  border-top: 5px double #615F62;
   height: 100%;
   width: 100%;
   position: absolute;

@@ -254,7 +254,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
 
   //users
 
-  showUser_course: function (id) {
+  showUser_home: function (id) {
     var user = new MerlinsBoard.Models.User({id: id})
     user.fetch();
 
@@ -262,14 +262,14 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     this.swapView(userShow);
   },
 
-  editUser_course: function () {
+  editUser_home: function () {
     this.currentUser.fetch();
 
     var user_form = new MerlinsBoard.Views.UserForm({profile: true, model: this.currentUser});
     this.swapView(user_form);
   },
 
-  changePassword_course: function () {
+  changePassword_home: function () {
     this.currentUser.fetch();
 
     var password_form = new MerlinsBoard.Views.UserForm({model: this.currentUser});

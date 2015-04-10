@@ -21,7 +21,6 @@ MerlinsBoard.Views.UserShow = Backbone.View.extend({
   },
     
   showForm: function () {
-    console.log("fuck")
     Backbone.history.navigate("edit-user",{trigger: true});
   },
 

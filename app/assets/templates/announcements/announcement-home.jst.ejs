@@ -1,11 +1,10 @@
-<h1>Your Course Announcements</h1>
+<h1 class="announcements-home">Your Course Announcements</h1>
 
 <% announcements.each(function (announcement) { %>
+<section class="announcement-container group">
 <h3 class="announcement-title"><%= announcement.escape("title") %></h3>
 <p class="announcement-body"><%= announcement.escape("body") %></p>
-<ul>
-  <li>Posted by <%=announcement.escape("author_name") %></li>
-  <li>Posted in <%=announcement.escape("course_name") %></li>
-  <li>Posted at <%=announcement.escape("posted_at") %></li>
-</ul>
+<p class="announcement-author">Posted by <%=announcement.escape("author_name") %> in <%=announcement.escape("course_name") %></p>
+<p class="announcement-date">Posted at <%=announcement.escape("posted_at") %></p>
+</section>
 <% }) %>

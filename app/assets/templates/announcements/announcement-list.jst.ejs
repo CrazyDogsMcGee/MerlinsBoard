@@ -1,7 +1,7 @@
-<h1>Announcements for <%= courseName %></h1>
+<h1 class="announcements-home">Announcements for <%= courseName %></h1>
 
 <% announcements.each(function (announcement) { %>
-<section class="announcement-show">
+<section class="announcement-container">
 <h3 class="announcement-title"><%= announcement.escape("title") %></h3>
 <p class="announcement-body"><%= announcement.escape("body") %></p>
 <% if (isInstructor) {%>
@@ -13,9 +13,10 @@
 </button>
 <% } %>
 </section>
-<br>
 <% }) %>
-<br>
+
+
+
 <% if (isInstructor) {%>
 <button type="button" class="announcement-new-button">
   New Announcement
