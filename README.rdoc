@@ -1,9 +1,16 @@
-Test User:
+About MerlinsBoard:
 
-test@gmail.com
-testing
+MerlinsBoard is a course management system. Users can sign-in with their Google account or by providing basic information. Users can start using the site by enrolling in a course or creating one of their own through the 
 
-jwl326@nyu.edu
-sandshrew
+Current Features:
+Google OAuth Sign-in
+File and user image upload
+Course and user search
+Secures access to course resources from unauthorized users
 
-https://www.pivotaltracker.com/n/projects/1265674
+Planned features:
+Downloadable PDF of course grades (prawn pdf)
+Bootstrap usage
+User account authentication through email
+Backbone router handling of 404 and 403 errors
+Using twilio for course announcements

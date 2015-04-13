@@ -6,6 +6,11 @@ MerlinsBoard.Views.CoursesEnroll = Backbone.View.extend({
 	},
 
   template: JST['courses/enroll'],
+  
+  events: {
+    "click .course-new":"newCourse"
+  }
+  
 
 	render: function () {
 		this.$el.html(this.template());
@@ -15,6 +20,11 @@ MerlinsBoard.Views.CoursesEnroll = Backbone.View.extend({
     this.$("section.course-search").html(this.coursesearchView.render().$el);
 
     return this
-	}
+	},
+  
+  newCourse: function () {
+    Backbone.history.navigate("course/new",{trigger: true})
+  }
+}
 
 });
