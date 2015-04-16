@@ -41,6 +41,7 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
 		event.preventDefault();
     
     var enrollment = this.model.enrollments().findWhere({user_id: this.user_id, course_id: this.course_id});
+    
     enrollment.destroy({
       success: function () {
         MerlinsBoard.CurrentUser.courses().remove(this.model);
@@ -48,14 +49,14 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
         this.render();
       }.bind(this)
     });
-
 	},
 
 	cancelcourse: function (event) {
-    
 		event.preventDefault();
+  
 		this.model.destroy({
       success: function () {
+        //may need to explicitly remove on that page to make changes more expedient
         Backbone.history.navigate("course/search", {trigger: true});
       },
       error: function (errors) {

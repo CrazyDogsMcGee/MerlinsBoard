@@ -16,25 +16,25 @@ class Course < ActiveRecord::Base
   #validate :start_before_end
 
   has_many(
-  :courses_students,
-  class_name:  "CoursesStudents",
-  dependent: :destroy,
-  inverse_of: :course
+    :courses_students,
+    class_name:  "CoursesStudents",
+    dependent: :destroy,
+    inverse_of: :course
   )
 
   has_many(
-  :courses_instructors,
-  class_name: "CoursesInstructors",
-  dependent: :destroy,
-  inverse_of: :course
+    :courses_instructors,
+    class_name: "CoursesInstructors",
+    dependent: :destroy,
+    inverse_of: :course
   )
 
   has_many :announcements, dependent: :destroy
   has_many :resources, dependent: :destroy
   has_many :assignments, dependent: :destroy
+  has_many :grades, through: :assignments, source: :grades, dependent: :destroy
 
   has_many :students, through: :courses_students, source: :student
-  has_many :grades, through: :assignments, source: :grades, dependent: :destroy
   has_many :instructors, through: :courses_instructors, source: :instructor
 
   def conflicts_with_any_course

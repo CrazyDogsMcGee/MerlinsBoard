@@ -1,3 +1,6 @@
 <%courses.each(function (course) {%>
 <a href="#" data-id="<%= course.id %>" class="course-tab"><%=course.escape("name")%></a>
 <%})%>
+
+<img src="<%= current_user.get('avatar_picture') %>">
+<!-- This is not working because the regular attributes are set AFTER the sync. The view only renders on the collection sync -->

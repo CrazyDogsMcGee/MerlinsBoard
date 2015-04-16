@@ -35,8 +35,8 @@ class Api::CoursesController < Api::ApiController
 
 	def destroy
 		@course = Course.find(params[:id])
-		@course.destroy
-		render json: {}
+		@course.destroy!
+		render json: {}, status: 200
 	end
 
   def course_search

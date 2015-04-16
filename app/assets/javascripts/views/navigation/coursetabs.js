@@ -1,10 +1,11 @@
  MerlinsBoard.Views.CourseTabs = Backbone.View.extend({
   initialize: function () {
     this.listenTo(this.collection, "change add remove", this.render);
+    this.current_user = this.collection.owner;
   },
    
   render: function () {
-    var renderedContent = this.template({courses: this.collection});
+    var renderedContent = this.template({courses: this.collection, current_user: this.current_user});
     this.$el.html(renderedContent);
     return this
   },

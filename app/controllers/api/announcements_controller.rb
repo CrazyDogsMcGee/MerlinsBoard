@@ -6,7 +6,7 @@ class Api::AnnouncementsController < Api::ApiController
     render json: @announcements
   end
 
-  def create #form AJAX
+  def create 
     @announcement = Announcement.new(announcement_params)
     if @announcement.save
       render json: @announcement
@@ -15,8 +15,8 @@ class Api::AnnouncementsController < Api::ApiController
     end
   end
   
-  def update #form AJAX
-    @announcement = Announcement.find(params[:id]) #how do params get set here if the url is a partial, or does that not matter because of the # sign?
+  def update 
+    @announcement = Announcement.find(params[:id])
     
     if @announcement.update(announcement_params)
       render json: {}
@@ -25,13 +25,13 @@ class Api::AnnouncementsController < Api::ApiController
     end
   end
   
-  def destroy #form AJAX
+  def destroy
     @announcement = Announcement.find(params[:id])
     @announcement.destroy
-    render json: {} #should have a conditional here
+    render json: {} 
   end
   
-  def show #unnested id
+  def show 
     @announcement = Announcement.find(params[:id])
     render json: @announcement
   end

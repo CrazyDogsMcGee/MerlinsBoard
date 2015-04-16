@@ -1,5 +1,5 @@
 MerlinsBoard.Collections.Courses = Backbone.Collection.extend({
-  initialize: function (options) {
+  initialize: function (collection, options) {
     this.owner = options["owner"];
   },
   

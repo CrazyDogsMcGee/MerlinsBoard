@@ -4,8 +4,7 @@ class Announcement < ActiveRecord::Base
   belongs_to(
     :author,
     class_name: "User",
-    foreign_key: :user_id,
-    dependent: :destroy
+    foreign_key: :user_id
   )
   
   belongs_to :course

@@ -92,8 +92,11 @@ MerlinsBoard.Views.GradeShow = MerlinsBoard.Views.CompositeView.extend({
   },
 
   submitFileSuccess: function () {
-    this.model.fetch();
-    console.log('success')
+    this.model.fetch({success: function () {
+      console.log("mofongo")
+      //I'll have to do something else here, maybe one of those dreaded modals.
+    }
+    });
   },
 
   showErrors: function (errorArray) {

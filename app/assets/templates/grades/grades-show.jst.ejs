@@ -5,9 +5,11 @@ Grade: <strong class="grade-number" data-id="<%= grade.id %>"><%= grade.get('sco
 <a class="grade-submission-link" href="<%=grade.get('url')%>" download>Download submission</a>
 <% } %>
 <% if (grade.get('allow_submission')) { %>
+<section class="grade-form">
 <form enctype="multipart/form-data" class="grade-submission">
   <label for="submission">Submit File</label>
   <input type="file" name="submission" class="grade-submission-fileinput">
   <input type="submit" value="Submit file">
 </form>
+</section>
 <% } %>

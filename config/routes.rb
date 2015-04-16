@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
     resources :users, only: [:show, :index, :update] do
       get "users_search", on: :collection
+      put "change_password", on: :member
       resources :grades, only: [:index]
     end
   end

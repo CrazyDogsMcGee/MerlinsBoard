@@ -16,7 +16,7 @@ class Api::AssignmentsController < Api::ApiController
     end
   end
 
-  def update #form AJAX
+  def update
     @assignment = Assignment.find(params[:id])
 
     if @assignment.update(assignment_params)
@@ -26,13 +26,13 @@ class Api::AssignmentsController < Api::ApiController
     end
   end
 
-  def destroy #form AJAX
+  def destroy
     @assignment = Assignment.find(params[:id])
     @assignment.destroy
     render json: {}
   end
 
-  def show #flat ID
+  def show 
     @assignment = Assignment.find(params[:id])
     render json: @assignment
   end
@@ -47,7 +47,7 @@ class Api::AssignmentsController < Api::ApiController
     course = Course.find(assignment_params["course_id"])
     students = course.students
 
-    students.each do |student| #is there any non- O(n) way of doing this?
+    students.each do |student| #Grades are automatically created for this assignment for all students in the class
       Grade.create(user_id: student.id, assignment_id: assignment.id, score: 0, allow_submission: !!params["allow_submission"])
     end
   end

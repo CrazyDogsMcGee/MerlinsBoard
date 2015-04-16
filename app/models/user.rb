@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
 
   #Active Record Relations
-  has_many( #should have been singular...Should have picked a singular name
+  has_many( 
   :courses_instructors,
   class_name: "CoursesInstructors",
   dependent: :destroy,

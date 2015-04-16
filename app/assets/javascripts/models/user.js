@@ -46,7 +46,7 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
     
     if (resp.taughtcourses) {
       this.taughtcourses().set(resp.taughtcourses);
-      delete resp.courses;
+      delete resp.taughtcourses;
     }
     
     if (resp.announcements) {
@@ -58,7 +58,7 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
       this.assignments().set(resp.assignments)
       delete resp.assignments
     }
-    
+    debugger
     return resp
   }
 });

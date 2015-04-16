@@ -26,6 +26,21 @@ class Api::UsersController < Api::ApiController
       render json: @user.errors.full_messages
     end
   end
+  
+  def change_password 
+    @user = User.find(params[:id])
+    
+    unless @user.is_password?(params["supplied_password"])
+      render :json => {:errors => ["Incorrect password"]}, :status => 403
+      return
+    end
+    
+    if @user.update(user_params)
+      render :show
+    else
+      render json: @user.errors.full_messages, status: 422
+    end
+  end
 
 	def users_search
     @users = User.search_by_full_name(params["query"])

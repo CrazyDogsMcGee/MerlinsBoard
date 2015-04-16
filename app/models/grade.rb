@@ -8,8 +8,9 @@ class Grade < ActiveRecord::Base
   has_one :course, through: :assignment, source: :course
 
   #paperclip
-  has_attached_file :submission
-  #, :path => ":attachment/:id/:style/:basename.:extension", :storage => :s3, 
+  has_attached_file :submission,
+    :url => ":class/:attachment/:id/:student_name_and_assignment_id.:extension",
+    :path => ":class/:attachment/:id/:student_name_and_assignment_id.:extension"
   
   validates_attachment_content_type :submission, :content_type => [
     "application/pdf",
@@ -18,4 +19,14 @@ class Grade < ActiveRecord::Base
     "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "text/plain"]
+  
+  private
+  #https://github.com/thoughtbot/paperclip/wiki/interpolations
+  Paperclip.interpolates :student_name_and_assignment_id do |attachment, style|
+    lname = attachment.instance.user.fname
+    fname = attachment.instance.user.lname
+    assignment_name = attachment.instance.assignment.title
+    
+    return "#{lname}_#{fname}_#{assignment_name}"
+  end
 end

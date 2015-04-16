@@ -17,6 +17,7 @@
 
 *.DS_Store
 *qs
+#.txt
 
 # Ignore application configuration
 /config/application.yml
