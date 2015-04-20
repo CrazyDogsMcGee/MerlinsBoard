@@ -23,7 +23,6 @@ MerlinsBoard.Views.UserForm = Backbone.View.extend({
   },
   
   submitForm: function (event) {
-    debugger
     event.preventDefault();
     var attrs = $(event.target).serializeJSON();
     

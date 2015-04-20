@@ -7,6 +7,15 @@
 
 .form-signout {
   float: right;
+  transform: translateY(30px);
+}
+
+.form-signout input[type=submit]{
+/*     background: url(http://lrroberts0122.github.com/DWS/lab6/level-2/images/button.png);
+    border: 0;
+    display: block;
+    height: _the_image_height;
+    width: _the_image_width; */
 }
 
 .side-nav {
@@ -33,4 +42,18 @@
   height: 100%;
   width: 100%;
   position: absolute;
+}
+
+.app-header{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  position: relative;
+}
+
+.app-header img {
+  height: 81px;
+  width: auto;
+  float: left;
 }

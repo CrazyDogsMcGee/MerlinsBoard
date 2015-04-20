@@ -1,3 +1,7 @@
+<% if (students.length == 0) { %>
+<p class="grades-none">No students to list!</p>
+<% } else { %>
 <% students.each(function (student) { %>
 <a href="<%= gradeUrl.concat(student.id) %>"><%= "Grades for: ".concat(student.escape("fname")," ",student.escape("lname"))%></a>
 <% }) %>
+<% } >

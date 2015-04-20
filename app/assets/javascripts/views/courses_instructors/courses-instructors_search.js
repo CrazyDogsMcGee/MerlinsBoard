@@ -16,8 +16,9 @@ MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.e
   render: function () {
     this.addUsers();
     this.$el.html(this.template());
-
     this.attachSubviews();
+    
+    
     return this
   },
 
@@ -25,11 +26,16 @@ MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.e
     this.clearSubviews(); //clears subviews attribute
 
     var user_search_view = this
-
-    this.collection.each(function (user) {
-      var user_view = new MerlinsBoard.Views.StudentInstructor({model: user, course: this.course});
-      user_search_view.addSubview("section.instructors-search-results",user_view.render())
-    });
+    
+    if (this.collection.length == 0) {
+      var $none_found = $('<p>').addClass("user-none").text("No users found")
+      user_search_view.addSubview("section.instructors-search-results", $none_found)
+    } else {
+      this.collection.each(function (user) {
+        var user_view = new MerlinsBoard.Views.StudentInstructor({model: user, course: this.course});
+        user_search_view.addSubview("section.instructors-search-results",user_view.render())
+      });
+    }
   }
 })
 

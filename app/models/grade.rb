@@ -20,6 +20,11 @@ class Grade < ActiveRecord::Base
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "text/plain"]
   
+  def submission_from_url(url)
+    self.submission = URI.parse(url)
+    self.save!
+  end
+  
   private
   #https://github.com/thoughtbot/paperclip/wiki/interpolations
   Paperclip.interpolates :student_name_and_assignment_id do |attachment, style|

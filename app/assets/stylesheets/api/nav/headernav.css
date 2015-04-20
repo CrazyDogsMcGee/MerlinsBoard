@@ -11,3 +11,7 @@
   border-top-right-radius: 2em;
   border-color: #615F62;
 }
+
+.user-tip {
+  float: right
+}

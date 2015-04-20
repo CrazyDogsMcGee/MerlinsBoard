@@ -14,6 +14,11 @@ class Resource < ActiveRecord::Base
 
   belongs_to :course
   
+  def document_from_url(url)
+    self.document = URI.parse(url)
+    self.save!
+  end
+  
   private
   
   Paperclip.interpolates :course_id do |attachment, style|

@@ -2,6 +2,7 @@
   initialize: function () {
     this.listenTo(this.collection, "change add remove", this.render);
     this.current_user = this.collection.owner;
+    this.listenTo(this.current_user, "sync", this.render)
   },
    
   render: function () {

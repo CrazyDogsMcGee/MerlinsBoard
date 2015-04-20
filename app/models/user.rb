@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
                   }
 
   #paperclip
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "50x50#" }, :default_url => "https://s3.amazonaws.com/merlinsboardapp/no_image.png"
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "50x50#" }, :default_url => "https://s3.amazonaws.com/merlinsboardapp/no_image_:style.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   #Validators
@@ -87,6 +87,11 @@ class User < ActiveRecord::Base
 
   def is_password?(password)
     BCrypt::Password.new(self.password_digest).is_password?(password)
+  end
+  
+  def avatar_from_url(url)
+    self.avatar = URI.parse(url)
+    self.save!
   end
 
   private

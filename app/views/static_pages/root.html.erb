@@ -1,13 +1,16 @@
-<h1 class="app-header">MerlinsBoard</h1>
-
-<nav class="subsumed-header-nav group">
-  <nav class="header-nav">Class tabs go here</nav>
+<div class="app-header group">
+  <div class="app-logo">
+      <img src="https://s3.amazonaws.com/merlinsboardapp/MerlinsBoard-logo.png">
+  </div>
 
   <form class="form-signout" action="/session" method="post">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
     <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" value="Sign out!">
+    <input type="submit">
   </form>
+</div>
+<nav class="subsumed-header-nav group">
+  <nav class="header-nav">Class tabs go here</nav>
 </nav>
 
 <section class="app group">

@@ -4,7 +4,6 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //if the router is split, all the below has to be called in the application initialize
     this.currentUser = MerlinsBoard.CurrentUser //and this...
     this.currentUser.fetch();
-    debugger
     this.$rootEl = options["rootEl"]; //need to abstract these
     this.$sideNav = options["sideNav"];
     this.$tabNav = options["tabNav"];

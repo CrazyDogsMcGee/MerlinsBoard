@@ -3,13 +3,12 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
   
   toJSON: function () { 
     var json = {user: _.clone(this.attributes)}; 
-    //is this bad practice to leave the extra params on here even if they'll be filtered?
     
     if (this._avatar) {
       json.user.avatar = this._avatar;
     }
     
-    json.supplied_password = this.get("supplied_password");
+    //json.supplied_password = this.get("supplied_password");
     
     return json;
   },
@@ -58,7 +57,7 @@ MerlinsBoard.Models.User = Backbone.Model.extend({
       this.assignments().set(resp.assignments)
       delete resp.assignments
     }
-    debugger
+    
     return resp
   }
 });

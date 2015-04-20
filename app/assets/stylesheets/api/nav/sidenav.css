@@ -6,10 +6,11 @@
   border: 1px solid black;
   display: block;
   font-family: "Franklin Gothic Medium";
-  width: 50%;
+  width: 60%;
   margin-top: 10px;
   margin-bottom: 10px;
   position: relative;
+  word-wrap: break-word;
 }
 
 .nav-course {

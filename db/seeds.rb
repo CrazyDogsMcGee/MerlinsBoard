@@ -9,8 +9,7 @@
 #should create master user that has most functionality available to it.
 
 User.create(fname:"Jonathan", lname: "Lee", email: "l33.jonathan@gmail.com", password: "testing")
-User.create(fname:"John", lname: "Doe", email: "johndoe@gmail.com",
-password: "testing")
+User.create(fname:"Pat", lname: "Doe", email: "User123@test.com", password: "Welcome")
 
 (1..100).each do |user_no|
   User.create(
@@ -23,7 +22,7 @@ end
 
 weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
 
-(1..5).each do |course_no|
+(0..10).each do |course_no|
   time_string = "12:0" + course_no.to_s
   end_time_string = "12:0" + (course_no+2).to_s
 
@@ -39,13 +38,17 @@ end
 
 
 #enrollment
-[1,3].each do |odd|
+[1,3,5].each do |odd|
   CoursesStudents.create(user_id: 1, course_id: odd)
+end
+
+[2,4,6].each do |odd|
+  CoursesStudents.create(user_id: 2, course_id: odd)
 end
 
 2.times{
   User.all.each do |user|
-    course_no = (rand(5)+1)
+    course_no = rand(1..10)
     student_no = user.id
 
     CoursesStudents.create( #to make this less haphazard, I could just iterate over the courses and users and match up it to avoid collisions.
@@ -55,21 +58,23 @@ end
   end
 }
 
-[2,4].each do |even|
+[2,4,6].each do |even|
   CoursesInstructors.create(user_id: 1, course_id: even)
 end
 
+[1,3,5].each do |odd|
+  CoursesInstructors.create(user_id: 2, course_id: odd)
+end
+
 (2..11).each do |teacher| #not getting hit enough times, need to rejigger to avoid conflicts or just increase number to increase chances of seeding database
-  course_no = (rand(5)+1)
-  instructor_no = (rand(100)+1)
+  course_no = rand(1..10)
+  instructor_no = rand(3..100)
 
   CoursesInstructors.create(
     user_id: instructor_no,
     course_id: course_no
   )
 end
-
-#for announcements and assignments, need to set up inverse relationship... maybe. Will need to think about it for a bit
 
 CoursesInstructors.all.each do |admin_link|
   course_no = admin_link.course_id
@@ -107,5 +112,18 @@ CoursesStudents.all.each do |student_link|
   end
 end
 
-#need to create resources
+
+[1,3,5].each do |odd|
+  r_odd = Resource.create(course_id: odd, name: "Gene expression", description: "How do developmental paradigms receive temporal signals?")
+  r_odd.document_from_url("https://s3.amazonaws.com/merlinsboardapp/Application/plbi-10-11-Gregorio-primer.pdf")
+  
+  Course.find(odd).grades.where(user_id: 1).first.submission_from_url("https://s3.amazonaws.com/merlinsboardapp/Application/Essay.docx")
+end
+
+[2,4,6].each do |even|
+  r_even = Resource.create(course_id: even, name: "Intro to MongoDB", description: "Learn about NoSQL databases!")
+  r_even.document_from_url("https://s3.amazonaws.com/merlinsboardapp/Application/MongoDB-CheatSheet-v1_0.pdf")
+  
+  Course.find(even).grades.where(user_id: 2).first.submission_from_url("https://s3.amazonaws.com/merlinsboardapp/Application/lorem.docx")
+end
 #accoutn for gmail signins...somehow. Will probably need live dummies for this one
