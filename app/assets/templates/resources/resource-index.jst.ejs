@@ -1,24 +1,27 @@
-<h1> Resource for <%= course.escape("name") %> </h1>
-
+<h1 class="resource-header"> Resources for <%= course.escape("name") %> </h1>
+<br>
 <% resources.each(function (resource) { %>
-<h3 class="resource-name"><%= resource.escape("name")%></h3>
-<p class="resource-description"><%= resource.escape("description") %></p>
+<section class="resource-container">
+<p class="resource-label">Name: <p class="resource-plain"><%= resource.escape("name")%></p></p>
+<br>
+<p class="resource-label">Description: <p class="resource-plain"><%= resource.escape("description") %></p></p>
+<br>
 <a href="<%= resource.get('url') %>" class="resource-link">Download resource</a>
 <br>
-  <% if (isInstructor) {%>
-<button type="button" class="resource-edit" data-id="<%= resource.id %>">
-  Edit Resource
-</button>
-<button type="button" class="resource-destroy" data-id="<%= resource.id %>">
-  Remove Resource
-</button>
+
+<% if (isInstructor) {%>
+  <button type="button" class="resource-button resource-edit" data-id="<%= resource.id %>">
+    Edit Resource
+  </button>
+  <button type="button" class="resource-button resource-destroy" data-id="<%= resource.id %>">
+    Remove Resource
+  </button> 
   <% } %>
+</section>
 <% }) %>
-
 <br>
-
 <% if (isInstructor) { %>
-<button type="button" class="resource-new">
+<button type="button" class="resource-button-new resource-new">
   New Resource
 </button>
 <% } %>

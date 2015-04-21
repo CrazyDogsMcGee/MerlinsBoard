@@ -9,7 +9,7 @@
 #should create master user that has most functionality available to it.
 
 User.create(fname:"Jonathan", lname: "Lee", email: "l33.jonathan@gmail.com", password: "testing")
-User.create(fname:"Pat", lname: "Doe", email: "User123@test.com", password: "Welcome")
+User.create(fname:"Pat", lname: "Doe", email: "user123@test.com", password: "Welcome")
 
 (1..100).each do |user_no|
   User.create(
@@ -126,4 +126,3 @@ end
   
   Course.find(even).grades.where(user_id: 2).first.submission_from_url("https://s3.amazonaws.com/merlinsboardapp/Application/lorem.docx")
 end
-#accoutn for gmail signins...somehow. Will probably need live dummies for this one

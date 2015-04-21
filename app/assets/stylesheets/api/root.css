@@ -3,6 +3,8 @@
 
 .header-nav {
   float: left;
+  width: 100%;
+  position: relative;
 }
 
 .form-signout {
@@ -11,11 +13,14 @@
 }
 
 .form-signout input[type=submit]{
-/*     background: url(http://lrroberts0122.github.com/DWS/lab6/level-2/images/button.png);
-    border: 0;
-    display: block;
-    height: _the_image_height;
-    width: _the_image_width; */
+  -webkit-appearance: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  color: white;
+  background: #FFB56A;
+  text-shadow: 1px 1px 2px black;
+  border-radius: 5px;
 }
 
 .side-nav {

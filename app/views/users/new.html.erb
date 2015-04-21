@@ -1,5 +1,3 @@
-<%= render 'layouts/errors' %>
-
 <section class="app-landing-form">
   <h1>Sign up</h1>
 
@@ -19,6 +17,8 @@
     <br>
     <input type="submit" value="Sign up" class="submit">
   </form>
+  
+  <%= render 'layouts/errors' %>
 </section>
 
 <!-- Namespacing all params is important, otherwise they cannot be captured by the controller. -->

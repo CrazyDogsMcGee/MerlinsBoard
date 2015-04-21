@@ -12,6 +12,8 @@ MerlinsBoard.Views.resourceList = Backbone.View.extend({
 
   template: JST['resources/resource-index'],
   
+  className: "resource-list",
+  
   render: function () {
     var isInstructor = this.course.isInstructor(MerlinsBoard.CurrentUser.id);
     var renderedContent = this.template({resources: this.collection, isInstructor: isInstructor});

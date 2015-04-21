@@ -1,0 +1,17 @@
+.resource-form label {
+  font-weight: bold;
+  font-family: Helvetica;
+}
+
+.resource-form input[type="submit"] {
+  -webkit-appearance: none;
+  background: #EEE;
+  color: black;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 2px;
+  font-size: 16px;
+  display: block;
+  margin: auto;
+}

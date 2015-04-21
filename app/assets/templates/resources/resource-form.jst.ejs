@@ -1,4 +1,4 @@
-<h1><%= resource.isNew() ? "Create New Resource":"Edit Resource"%></h1>
+<h1 class="resource-header"><%= resource.isNew() ? "Create New Resource":"Edit Resource"%></h1>
 
 <section class="form-errors">
 </section>
@@ -9,13 +9,14 @@
 </label>
 <br>
   
-<label> Resource Description
+<label for="description"> Resource Description </label>
+<br>
 <textarea name="description"><%= resource.escape("description")%></textarea>
-</label>
+
 <br>
   
 <% if (!resource.isNew()) { %>
-Current Resource: <a class="resource-path" href="<%= resource.escape('path') %>">Download</a>
+Current File: <a class="resource-path" href="<%= resource.escape('path') %>">Download</a>
 <br>
 <% } %>
   

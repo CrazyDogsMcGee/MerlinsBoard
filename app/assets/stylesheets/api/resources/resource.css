@@ -1,0 +1,49 @@
+p.resource-label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+p.resource-plain {
+  font-weight: normal;
+}
+
+.resource-button {
+  -webkit-appearance: none;
+  background: #EEE;
+  color: black;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.resource-header {
+  font-size: 24px;
+  font-family: Helvetica; 
+}
+
+.resource-list {
+  width: 100%;
+  position: relative
+}
+
+.resource-list p {
+  display: inline-block;
+}
+
+.resource-button-new {
+  -webkit-appearance: none;
+  background: #EEE;
+  color: black;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 2px;
+  font-size: 16px;
+  display: block;
+  margin: auto;
+}
+
+.resource-container {
+  margin: 20px 0px;
+}

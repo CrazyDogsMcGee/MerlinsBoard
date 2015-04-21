@@ -2,9 +2,8 @@
 <a href="#" data-id="<%= course.id %>" class="course-tab"><%=course.escape("name")%></a>
 <%})%>
 
-<div class="user-tip">
-  Logged in as <%=courses.owner.get("fname")%> 
-  <img src="courses.owner.get('avatar_picture_small')">
+<div class="user-tip group">
+  <p class="user-tip-content">Logged in as <%=courses.owner.get("fname")%>
+  <img src="<%= courses.owner.get('avatar_picture_small')%>">
+  </p>
 </div>
-
-<!-- http://www.suffix.be/blog/default-image-paperclip -->
