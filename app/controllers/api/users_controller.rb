@@ -14,11 +14,6 @@ class Api::UsersController < Api::ApiController
   
   def update
     @user = User.find(params[:id])
-
-#     unless @user.is_password?(params["supplied_password"])
-#       render :json => {:errors => ["Incorrect password"]}, :status => 403
-#       return
-#     end
     
     if @user.update(user_params)
       render :show
@@ -35,7 +30,7 @@ class Api::UsersController < Api::ApiController
       return
     end
     
-    if @user.update(user_params)
+    if @user.update(user_password)
       render :show
     else
       render json: @user.errors.full_messages, status: 422
@@ -51,6 +46,10 @@ class Api::UsersController < Api::ApiController
   
   def user_params
     params.require(:user).permit(:fname, :lname, :email, :avatar, :id)
+  end
+  
+  def user_password
+    params.require(:user).permit(:id, :password)
   end
   
   def is_current_user?

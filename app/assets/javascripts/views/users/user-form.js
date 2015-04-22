@@ -33,8 +33,6 @@ MerlinsBoard.Views.UserForm = Backbone.View.extend({
   },
 
   userSuccessCallback: function (model, response) {
-    console.log("User attrs saved");
-    console.log(response);
     Backbone.history.navigate("student-profile/"+this.model.id,{trigger: true});
   },
 
@@ -55,8 +53,6 @@ MerlinsBoard.Views.UserForm = Backbone.View.extend({
     var file = event.currentTarget.files[0];
     var reader = new FileReader();
     var formView = this
-    
-    console.log("fuckeyu")
     
     reader.onloadend = function () {
       formView.model._avatar = reader.result;

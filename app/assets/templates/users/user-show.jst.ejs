@@ -1,8 +1,8 @@
-<h3><%= user.escape('lname') + ", " + user.escape('fname')%></h3>
+<h3 class="user-name"><%= user.escape('lname') + ", " + user.escape('fname')%></h3>
 
 <img src="<%= user.get('avatar_picture')%>">
 
-<p><%= user.get('email') %></p>
+<p class="user-email"><%= user.get('email') %></p>
 
 <% if (user.id == MerlinsBoard.CurrentUser.id) { %>
 <button class="user-edit">Edit Information</button>

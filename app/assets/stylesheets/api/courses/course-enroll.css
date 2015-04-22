@@ -1,0 +1,41 @@
+.course-enroll-header {
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+.course-label {
+  margin-top: 20px;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+.course-table-label {
+  font-weight: bold;
+}
+
+.course-user-list {
+  font-size: 11px;
+  font-family: sans-serif;
+}
+
+.course-show input[type="submit"] {
+  -webkit-appearance: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  color: black;
+  background: #EEE;
+  border-radius: 5px;
+}
+
+.editcourse {
+  -webkit-appearance: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  color: black;
+  background: #EEE;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+

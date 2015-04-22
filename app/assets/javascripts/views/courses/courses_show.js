@@ -6,6 +6,8 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
 	},
 	
 	template: JST['courses/show'],
+  
+  className: "course-show",
 	
 	render: function () {
 		this.$el.html(this.template({course: this.model, userID: this.user_id}));
@@ -15,7 +17,8 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
 	events: {
 		"submit .dropcourse": "dropcourse",
     "submit .enrollcourse": "enrollcourse",
-    "submit .cancelcourse": "cancelcourse"
+    "submit .cancelcourse": "cancelcourse",
+    "click .editcourse": "editcourse"
 	},
 	
 //assume everything's fetched already...
@@ -64,5 +67,9 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
       }
     });
 		
-	}
+	},
+  
+  editcourse: function () {
+    Backbone.history.navigate('#course/' + this.course_id + '/edit',{trigger: true});
+  }
 });

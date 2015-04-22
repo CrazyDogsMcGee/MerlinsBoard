@@ -1,0 +1,20 @@
+.user-name {
+  font-family: Helvetica;
+  font-size: 24px;
+}
+
+.user-email {
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.user-show button {
+  -webkit-appearance: none;
+  background: #EEE;
+  color: black;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 2px;
+  font-size: 16px;
+}

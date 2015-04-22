@@ -1,24 +1,37 @@
-<h1><%= course.escape("name") %></h1>
+<h1 class="course-enroll-header"><%= course.escape("name") %></h1>
 
 <p>
-  <%= course.escape("description") %>
+<p class="course-label">Description:</p><%= course.escape("description") %>
 </p>
+<br>
+<table class="course-table">
+  <tr>
+    <td class="course-table-label">Start time</td>
+    <td><%= course.escape("start_time") %></td>
+  </tr>
+  
+  <tr>
+    <td class="course-table-label">End time</td>
+    <td><%= course.escape("end_time") %></td>
+  </tr>
+  
+  <tr>
+    <td class="course-table-label">Day</td>
+    <td><%= course.escape("day") %></td>
+  </tr>
+</table>
 
-<p class="course-time">Start time: <%= course.escape("start_time") %></p>
-<p class="course-time">End time:<%= course.escape("end_time") %></p>
-<p class="course-time"><%= course.escape("day") %></p>
-
-<h2>Instructors</h2>
+<h2 class="course-label">Instructors</h2>
 <ul>
   <% course.instructors().each( function (instructor) { %> 
-  <li><%= instructor.escape("lname") + ", " + instructor.escape("fname") %></li>
+  <li class="course-user-list"><%= instructor.escape("lname") + ", " + instructor.escape("fname") %></li>
   <% }) %>
 </ul>
 
-<h2>Students</h2>
+<h2 class="course-label">Students</h2>
 <ul>
   <% course.students().each( function (student) { %>
-  <li><%= student.escape("lname") + ", " + student.escape("fname") %></li>
+  <li class="course-user-list"><%= student.escape("lname") + ", " + student.escape("fname") %></li>
   <% }) %>
 </ul>
 
@@ -26,10 +39,13 @@
 </section>
 
 <% if (!!course.instructors().findWhere({id: userID})) { %>
+  <button class="editcourse">
+  Edit Course  
+  </button>
+
   <form class="cancelcourse">
     <input type="submit" value="Cancel Class">
   </form>
-  <a href="<%='#course/' + course.id + '/edit'%>">Edit Course</a>
 <% } else { %>
   <% if (!!course.students().findWhere({id: userID})) {%>
     <form class="dropcourse">

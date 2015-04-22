@@ -1,15 +1,12 @@
-<h1>Courses Taught</h1>
+<h1 class="course-enroll-header">Courses Taught</h1>
 
 <% if (courses.length != 0) {%>
 <section class="course-list">
   <% courses.each( function (course) { %>
-	<li><a href="<%= '#course/'+course.id+'/announcements' %>" data-id="<%=course.id%>"><%= course.escape("name") %></a></li>
-  <button data-id="<%=course.id%>">Edit Course</button>
+	<li><a href="<%= '#course/'+course.id+'/announcements' %>" data-id="<%=course.id%>"><%= course.escape("name") %></a><button data-id="<%=course.id%>">Edit Course</button></li>
   <% })%>
 </section>
 
-<section class="course-edit">
-</section>
 <% } else { %>
 <p class="course-none">No courses to list!</p>
 <% } %>
