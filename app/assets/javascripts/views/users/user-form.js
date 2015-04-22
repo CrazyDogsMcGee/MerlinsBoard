@@ -66,6 +66,6 @@ MerlinsBoard.Views.UserForm = Backbone.View.extend({
       formView.$(".user-imgpreview").src = "";
     }
   }
-  })
+})
   
   

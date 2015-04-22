@@ -1,4 +1,5 @@
 # MerlinsBoard
+http://merlinsboard.jvvlee.com
 
 MerlinsBoard is a course management system. Users can sign-in with their Google account or by providing basic information. Users can start using the site by enrolling in a course or creating one of their own through the 
 
@@ -14,3 +15,13 @@ MerlinsBoard is a course management system. Users can sign-in with their Google 
 * User account authentication through email
 * Backbone router handling of 404 and 403 errors
 * Using twilio for course announcements
+
+##Frameworks Used
+* Ruby on Rails
+* Backbone JS
+
+##Additional APIs
+* Google OAuth
+
+##Design Discussion
+

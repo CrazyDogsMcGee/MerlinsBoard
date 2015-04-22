@@ -18,7 +18,8 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
 		"submit .dropcourse": "dropcourse",
     "submit .enrollcourse": "enrollcourse",
     "submit .cancelcourse": "cancelcourse",
-    "click .editcourse": "editcourse"
+    "click .editcourse": "editcourse",
+    "click .addInstructors": "addInstructors"
 	},
 	
 //assume everything's fetched already...
@@ -71,5 +72,9 @@ MerlinsBoard.Views.CoursesShow = Backbone.View.extend({
   
   editcourse: function () {
     Backbone.history.navigate('#course/' + this.course_id + '/edit',{trigger: true});
+  },
+  
+  addInstructors: function () {
+    Backbone.history.navigate('#course/' + this.course_id + '/add-instructors', {trigger: true})
   }
 });

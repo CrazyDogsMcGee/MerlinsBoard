@@ -18,7 +18,6 @@ MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.e
     this.$el.html(this.template());
     this.attachSubviews();
     
-    
     return this
   },
 
@@ -28,12 +27,12 @@ MerlinsBoard.Views.SearchStudentInstructors = MerlinsBoard.Views.CompositeView.e
     var user_search_view = this
     
     if (this.collection.length == 0) {
-      var $none_found = $('<p>').addClass("user-none").text("No users found")
-      user_search_view.addSubview("section.instructors-search-results", $none_found)
+      var none_found = new MerlinsBoard.Views.NoUsers();
+      user_search_view.addSubview("section.instructors-search-results", none_found.render());
     } else {
       this.collection.each(function (user) {
         var user_view = new MerlinsBoard.Views.StudentInstructor({model: user, course: this.course});
-        user_search_view.addSubview("section.instructors-search-results",user_view.render())
+        user_search_view.addSubview("section.instructors-search-results",user_view.render());
       });
     }
   }

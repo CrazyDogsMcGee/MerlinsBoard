@@ -42,10 +42,14 @@
   <button class="editcourse">
   Edit Course  
   </button>
+  <button class="addInstructors">
+  Add instructors 
+  </button>
 
   <form class="cancelcourse">
     <input type="submit" value="Cancel Class">
   </form>
+
 <% } else { %>
   <% if (!!course.students().findWhere({id: userID})) {%>
     <form class="dropcourse">

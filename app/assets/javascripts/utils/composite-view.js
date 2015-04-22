@@ -12,7 +12,10 @@ MerlinsBoard.Views.CompositeView = Backbone.View.extend({
   
   attachSubview: function (selector, subview) {
     this.$(selector).append(subview.$el); //looks or selector in view's native $el
-    subview.delegateEvents();
+    
+    if (subview.delegateEvents) {
+      subview.delegateEvents();
+    }
     
     if (subview.attachSubviews) {
       subview.attachSubviews(); //for subviews that are composite views
@@ -27,7 +30,7 @@ MerlinsBoard.Views.CompositeView = Backbone.View.extend({
     var view = this;
     _(this.subviews()).each(function (subviews, selector) { //javascript does (value, key) instead of (key,value) like in ruby
       view.$(selector).empty();
-
+      
       _(subviews).each(function (subview) { //subviews array value
         view.attachSubview(selector, subview);
       });

@@ -28,7 +28,7 @@
   border-radius: 5px;
 }
 
-.editcourse {
+.course-show button{
   -webkit-appearance: none;
   font-family: sans-serif;
   font-weight: bold;

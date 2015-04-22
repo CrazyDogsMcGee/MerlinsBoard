@@ -22,7 +22,6 @@ MerlinsBoard.Views.UsersSearch = MerlinsBoard.Views.CompositeView.extend({
 
 		this.collection.fetch({data: $.param({query: queryUser})});
 		var searchList = new this.searchCollectionView({collection:this.collection, course: this.course});
-    //refactor this to be just a rerender with a new collection..
 		$('section.student-results').html(searchList.render().$el);
   }
 

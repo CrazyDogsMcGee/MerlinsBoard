@@ -8,7 +8,6 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
   tagName: "section",
 
   render: function () {
-    debugger
     var rendered_content = this.template({user: this.model, course: this.course});
     this.$el.html(rendered_content);
 

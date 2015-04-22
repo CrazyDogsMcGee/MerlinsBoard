@@ -17,11 +17,11 @@ MerlinsBoard.Views.CourseDetails = Backbone.View.extend({
 
   renderDetail: function (options) {
     if (options["courseModel"]) {
-      this.course = options["courseModel"]; //unsure if this would bite me in the ass anytime..so long as I always pass the reference to the course itself. I plan to do this 
+      this.course = options["courseModel"];
     }
     
     var courseID = course.id
-    var renderedContent = this.templateDetail({courseID: course.id});
+    var renderedContent = this.templateDetail({course: course, current_user: MerlinsBoard.CurrentUser});
     this.$el.html(renderedContent);
     return this
   },
