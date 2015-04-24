@@ -1,9 +1,10 @@
 module Scheduling
+  
   def conflicts_with_link
     new_enroll = self.course
     user = User.includes(:courses,:taughtcourses).find(self.user_id) #only fishing for only the one users courses, this is wasteful. Only include when avoiding n+1 queries
 
-    case self #case uses ===
+    case self
     when CoursesStudents
       double_enrolled?(self.course_id, user.taughtcourses)
     when CoursesInstructors
@@ -60,3 +61,25 @@ module Scheduling
   end
 
 end
+
+# SELECT
+# courses.*
+# FROM
+# (SELECT DISTINCT
+#   courses.*
+# FROM
+#   courses
+# JOIN
+#   courses_instructors
+# ON
+#   courses.id = courses_instructors.course_id
+# JOIN
+#   courses_students
+# ON
+#   courses.id = courses_students.course_id
+# WHERE
+#   courses_instructors.user_id = ? OR courses_students.user_id = ?)
+# WHERE
+# courses.day = ? AND courses.location = ? AND ? <= courses.end_time AND ? >= courses.start_time
+# 
+#  user_id, user_id, day, location, start time, end time

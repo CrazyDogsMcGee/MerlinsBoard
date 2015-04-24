@@ -33,21 +33,18 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
       return !(arg === null)
     })
 
-    if (this.routeRegex(actionName) == "course") { //should probably extract this somewhere else
-      this._currentCourse = MerlinsBoard.Courses.getOrFetch(noNull[0]);
+    if (this.routeRegex(actionName) == "course") {
+      this._currentCourse = MerlinsBoard.Courses.getOrFetch(noNull[0]); //course fetch occurs here. This is accessible throughout the router
       MerlinsBoard.Vent.trigger("courseRender",{courseModel: this._currentCourse});
-      this._currentCourse.fetch({success: function () {console.log(this._currentCourse)}.bind(this)});
     } else {
       MerlinsBoard.Vent.trigger("homeRender");
     }
 
-    if (callback) callback.apply(this, noNull);
+    if (callback) callback.apply(this, noNull); //calls route function after execute functions are complete.
   },
 
   getActionName: function(callback) {
-    if (!this.routes) {
-        return;
-    }
+    if (!this.routes) {return}
 
     var actionName;
     var matched;
@@ -274,10 +271,15 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     var password_form = new MerlinsBoard.Views.UserForm({model: this.currentUser});
     this.swapView(password_form);
   },
+  
+  help_home: function () {
+    var help = new MerlinsBoard.Views.Help();
+    this.swapView()
+  }
 
   //utils
 
-  swapView: function (newView, navView) {
+  swapView: function (newView, navView) { //The actual rendering of the content to the page and the removal of old event listeners is delegated to this
     if (!this._currentView) {
       this._currentView = newView;
     } else {

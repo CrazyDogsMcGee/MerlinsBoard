@@ -17,8 +17,6 @@
   
 	className: "nav-coursetabs",
   
-  // To make things consistent, I should consider removing the below properties and hardcoding the links directly into the tabs, and moving the Vent triggers to the router
-   
 	events: {
 		"click .course-tab":"showcourse"
 	},
