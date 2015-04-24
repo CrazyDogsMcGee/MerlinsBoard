@@ -275,7 +275,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   help_home: function () {
     var help = new MerlinsBoard.Views.Help();
     this.swapView()
-  }
+  },
 
   //utils
 
