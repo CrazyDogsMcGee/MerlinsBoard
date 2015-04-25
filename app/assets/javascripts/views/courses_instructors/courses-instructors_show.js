@@ -50,7 +50,6 @@ MerlinsBoard.Views.StudentInstructor = Backbone.View.extend({
       success: function () {
         user_view.course.instructors().remove(user_view.model);
         user_view.render();
-        console.log("removed");
       }
     })
     

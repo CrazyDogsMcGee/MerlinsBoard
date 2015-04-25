@@ -91,9 +91,9 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
     //users
     "student-profile/:id": "showUser_home",
     "edit-user": "editUser_home",
-    "change-password": "changePassword_home"
+    "change-password": "changePassword_home",
     //misc
-
+    "help": "help_home"
     //":wildcard": "does not exist" --self explanatory
 	},
 
@@ -274,7 +274,7 @@ MerlinsBoard.Routers.Router = Backbone.Router.extend({
   
   help_home: function () {
     var help = new MerlinsBoard.Views.Help();
-    this.swapView()
+    this.swapView(help);
   },
 
   //utils

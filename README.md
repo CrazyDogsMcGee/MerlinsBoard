@@ -15,6 +15,7 @@ MerlinsBoard is a course management system. Users can sign-in with their Google 
 * User account authentication through email
 * Backbone router handling of 404 and 403 errors
 * Using twilio for course announcements
+* Notifications for upcoming due dates on assignments + lock-out past due date.
 
 * Allow taught courses to appeat in navigation bar
 * Paginate search results in the case of large query returns
