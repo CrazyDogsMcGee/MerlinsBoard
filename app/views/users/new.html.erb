@@ -1,3 +1,9 @@
+<nav class="app-landing group">
+  <%= link_to image_tag("https://s3.amazonaws.com/merlinsboardapp/Red-signin_Google_base_44dp.png"), user_omniauth_authorize_path(:google_oauth2), class: "google-sign-in"%>
+  <a href="/session/new" class="app-landing-link">Sign in</a>
+  <a href="/users/new" class="app-landing-link">Sign up</a>
+</nav>
+
 <section class="app-landing-form">
   <h1>Sign up</h1>
 

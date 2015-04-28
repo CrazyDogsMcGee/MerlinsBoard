@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
 
   include Scheduling
   include PgSearch
+  
   pg_search_scope :search_by_name_and_desc,
                   :against => [:name, :description],
                   :using => {
@@ -12,8 +13,7 @@ class Course < ActiveRecord::Base
   validates :name, :location, :start_time, :end_time, :day, :description, presence: true
   validates :name, uniqueness: true
   validates :day, inclusion: {in: WEEKDAYS}
-  validate :conflicts_with_any_course, on: :create
-  #validate :start_before_end
+  validate :conflicts_with_any_course, on: :create #part of Scheduling module
 
   has_many(
     :courses_students,

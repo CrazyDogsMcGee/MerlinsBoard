@@ -22,11 +22,12 @@ section.app-landing-form > h1 {
 
 nav.app-landing {
   background: whitesmoke;
-  opacity: 0.4;
   font-family: sans-serif;
+  max-height: 75px;
+  position: relative;
 }
 
-nav.app-landing a{
+nav.app-landing a.app-landing-link{
   text-decoration: none;
   color: #000;
   font-size: 24px;
@@ -34,16 +35,41 @@ nav.app-landing a{
   opacity: 1.0;
   float: right;
   padding: 15px;
+  vertical-align: middle;
+    display: table-cell;
 }
+
+.google-sign-in img {
+  opacity: 1.0;
+  float: left;
+  position: absolute;
+  height: 100%;
+} 
 
 section.app-landing-form input{
   display: block;
 }
 
-.google-sign-in img {
-  display: block;
-  width: 10%;
-  height: 10%;
-  position: relative;
-  /*margin-top: -3.5%;*/
+.app-landing-form input[type="submit"] {
+  -webkit-appearance: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  color: white;
+  background: #FFB56A;
+  text-shadow: 1px 1px 2px black;
+  border-radius: 5px;
+}
+
+.app-guest input[type="submit"] {
+  -webkit-appearance: none;
+  margin: auto;
+  background: #33CC33;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 20px;
+  margin-top: 10px;
+  font-family: sans-serif;
+  padding: 10px;
 }

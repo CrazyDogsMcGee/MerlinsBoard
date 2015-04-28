@@ -2,6 +2,8 @@ module Scheduling
   
   def conflicts_with_link
     new_enroll = self.course
+    
+    #SQL can replace all of this
     user = User.includes(:courses,:taughtcourses).find(self.user_id) #only fishing for only the one users courses, this is wasteful. Only include when avoiding n+1 queries
 
     case self
@@ -62,24 +64,28 @@ module Scheduling
 
 end
 
-# SELECT
-# courses.*
-# FROM
-# (SELECT DISTINCT
+#This would return all courses belonging to the user that possess these criteria, including itself.
+#
+# Course.find_by_sql([<<-SQL, {user_id: current_user.id, day: self.day, location: self.location,start_time: self.start_time,end_time:self.end_time}])  
+#   SELECT
 #   courses.*
-# FROM
-#   courses
-# JOIN
-#   courses_instructors
-# ON
-#   courses.id = courses_instructors.course_id
-# JOIN
-#   courses_students
-# ON
-#   courses.id = courses_students.course_id
-# WHERE
-#   courses_instructors.user_id = ? OR courses_students.user_id = ?)
-# WHERE
-# courses.day = ? AND courses.location = ? AND ? <= courses.end_time AND ? >= courses.start_time
-# 
-#  user_id, user_id, day, location, start time, end time
+#   FROM
+#     (SELECT DISTINCT
+#       courses.*
+#     FROM
+#       courses
+#     JOIN
+#       courses_instructors
+#     ON
+#       courses.id = courses_instructors.course_id
+#     JOIN
+#       courses_students
+#     ON
+#       courses.id = courses_students.course_id
+#     WHERE
+#       courses_instructors.user_id = :user_id OR courses_students.user_id = :user_id)
+#   WHERE
+#     courses.day = :day AND courses.location = :location AND :start_time <= courses.end_time AND :end_time >= courses.start_time
+# SQL
+
+#would replace entirety of course_conflicts and overlapping_time
