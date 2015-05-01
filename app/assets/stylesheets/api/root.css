@@ -34,10 +34,12 @@
 
 #content {
   background: #DDD;
-  width: 80%;
+     width: -moz-calc(80% - 30px);
+    width: -webkit-calc(80% - 30px);
+    width: calc(80% - 30px);
   float: left;
   padding: 15px;
-  box-sizing: border-box;
+/*   box-sizing: border-box; */
   height: 100%;
   overflow: auto;
 }
